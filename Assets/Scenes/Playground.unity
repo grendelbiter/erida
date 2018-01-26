@@ -299,7 +299,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &74446583 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 400000, guid: 80f77187aeb804849b8221d578238977, type: 3}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 74446582}
 --- !u!1 &76333950
 GameObject:
@@ -3728,6 +3728,7 @@ GameObject:
   - component: {fileID: 704666399}
   - component: {fileID: 704666398}
   - component: {fileID: 704666404}
+  - component: {fileID: 704666405}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -3827,6 +3828,18 @@ MonoBehaviour:
   lineMaterial: {fileID: 2100000, guid: 982b0c6dd4bcd894b9576f123b17edd3, type: 2}
   lColor: {r: 0.11724138, g: 1, b: 0, a: 1}
   colors: []
+--- !u!114 &704666405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 704666397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 99347d157434e234abae9f083b57fd22, type: 2}
 --- !u!1 &710680796
 GameObject:
   m_ObjectHideFlags: 0
@@ -6275,7 +6288,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &1216575786 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 400000, guid: 6263ba622a0bab7479222e34a1b2b0ba, type: 3}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 1216575785}
 --- !u!1001 &1245144198
 Prefab:
@@ -6985,7 +6998,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &1310707292 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 400000, guid: 0e5b7b7192eb81542abcfacb0983da41, type: 3}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 1310707291}
 --- !u!1 &1329717446
 GameObject:
@@ -8272,7 +8285,7 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!4 &1584016713 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 400000, guid: cb84ac47af15d1d49925df0711d87996, type: 3}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 1584016712}
 --- !u!1 &1588047402
 GameObject:
