@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
+  m_Name: PhotonServerSettings
+  m_EditorClassIdentifier: 
+  AppID: fc2b94f0-f3d2-4201-a4e6-1ea56ba4c129
+  VoiceAppID: 
+  ChatAppID: 4a7c44eb-1382-4cf8-a111-fb417442183a
+  HostType: 1
+  PreferredRegion: 1
+  EnabledRegions: -1
+  Protocol: 0
+  ServerAddress: 18.218.55.176
+  ServerPort: 5055
+  VoiceServerPort: 5055
+  JoinLobby: 0
+  EnableLobbyStatistics: 0
+  PunLogging: 0
+  NetworkLogging: 2
+  RunInBackground: 1
+  RpcList:
+  - Chat
+  - ColorRpc
+  - DestroyRpc
+  - DoJump
+  - Flash
+  - InstantiateRpc
+  - Marco
+  - PickupItemInit
+  - Polo
+  - PunPickup
+  - PunPickupSimple
+  - PunRespawn
+  - RequestForPickupItems
+  - RequestForPickupTimes
+  - TaggedPlayer
+  - SpawnPulseShell
+  - UpdateHealth
+  - Reset
+  - SetPosAndRotation
+  - SetHealthFromClient
+  - TakeDamage
+  - SetShooting
+  - RequestPickUpCargo
+  - SetPickedUpCargo
+  - RequestDropCargo
+  - SetContent
+  - playParticles
+  - MapSetup
+  - DroppedCargo
+  - GetCargo
+  - PickedUp
+  - DeployedCargo
+  - RequestDeployCargo
+  - LosePower
+  - RecievePower
+  - KickPlayer
+  - SpawnEffectRpc
+  - SetSelectedVehicle
+  - SetTeam
+  DisableAutoOpenWizard: 1

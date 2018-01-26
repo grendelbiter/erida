@@ -1,0 +1,1071 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &176246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 22476246}
+  - component: {fileID: 22276246}
+  - component: {fileID: 11476244}
+  - component: {fileID: 11476242}
+  - component: {fileID: 11476246}
+  m_Layer: 5
+  m_Name: Chat Channel Message
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &11476242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1741964061, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
+--- !u!114 &11476244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 41e10d05891d3cd4db61424be5574356, type: 3}
+    m_FontSize: 9
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 7
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: My message text
+--- !u!114 &11476246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dfa3bcf3104a4bb7aca37d237b13272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Emoticons:
+  - Tag: ':Emoji_0:'
+    Sprite: {fileID: 21300000, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_1:'
+    Sprite: {fileID: 21300002, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_2:'
+    Sprite: {fileID: 21300004, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_3:'
+    Sprite: {fileID: 21300006, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_4:'
+    Sprite: {fileID: 21300008, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_5:'
+    Sprite: {fileID: 21300010, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_6:'
+    Sprite: {fileID: 21300012, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_7:'
+    Sprite: {fileID: 21300014, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_8:'
+    Sprite: {fileID: 21300016, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_9:'
+    Sprite: {fileID: 21300018, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_10:'
+    Sprite: {fileID: 21300020, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_11:'
+    Sprite: {fileID: 21300022, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_12:'
+    Sprite: {fileID: 21300024, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_13:'
+    Sprite: {fileID: 21300026, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_14:'
+    Sprite: {fileID: 21300028, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_15:'
+    Sprite: {fileID: 21300030, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_16:'
+    Sprite: {fileID: 21300032, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_17:'
+    Sprite: {fileID: 21300034, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_18:'
+    Sprite: {fileID: 21300036, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_19:'
+    Sprite: {fileID: 21300038, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_20:'
+    Sprite: {fileID: 21300040, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_21:'
+    Sprite: {fileID: 21300042, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_22:'
+    Sprite: {fileID: 21300044, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_23:'
+    Sprite: {fileID: 21300046, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_24:'
+    Sprite: {fileID: 21300048, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_25:'
+    Sprite: {fileID: 21300050, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_26:'
+    Sprite: {fileID: 21300052, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_27:'
+    Sprite: {fileID: 21300054, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_28:'
+    Sprite: {fileID: 21300056, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_29:'
+    Sprite: {fileID: 21300058, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_30:'
+    Sprite: {fileID: 21300060, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_31:'
+    Sprite: {fileID: 21300062, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_32:'
+    Sprite: {fileID: 21300064, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_33:'
+    Sprite: {fileID: 21300066, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_34:'
+    Sprite: {fileID: 21300068, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_35:'
+    Sprite: {fileID: 21300070, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_36:'
+    Sprite: {fileID: 21300072, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_37:'
+    Sprite: {fileID: 21300074, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_38:'
+    Sprite: {fileID: 21300076, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_39:'
+    Sprite: {fileID: 21300078, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_40:'
+    Sprite: {fileID: 21300080, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_41:'
+    Sprite: {fileID: 21300082, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_42:'
+    Sprite: {fileID: 21300084, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_43:'
+    Sprite: {fileID: 21300086, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_44:'
+    Sprite: {fileID: 21300088, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_45:'
+    Sprite: {fileID: 21300090, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_46:'
+    Sprite: {fileID: 21300092, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_47:'
+    Sprite: {fileID: 21300094, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_48:'
+    Sprite: {fileID: 21300096, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_49:'
+    Sprite: {fileID: 21300098, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_50:'
+    Sprite: {fileID: 21300100, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_51:'
+    Sprite: {fileID: 21300102, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_52:'
+    Sprite: {fileID: 21300104, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_53:'
+    Sprite: {fileID: 21300106, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_54:'
+    Sprite: {fileID: 21300108, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_55:'
+    Sprite: {fileID: 21300110, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_56:'
+    Sprite: {fileID: 21300112, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_57:'
+    Sprite: {fileID: 21300114, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_58:'
+    Sprite: {fileID: 21300116, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_59:'
+    Sprite: {fileID: 21300118, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_60:'
+    Sprite: {fileID: 21300120, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_61:'
+    Sprite: {fileID: 21300122, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_62:'
+    Sprite: {fileID: 21300124, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_63:'
+    Sprite: {fileID: 21300126, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_64:'
+    Sprite: {fileID: 21300128, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_65:'
+    Sprite: {fileID: 21300130, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_66:'
+    Sprite: {fileID: 21300132, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_67:'
+    Sprite: {fileID: 21300134, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_68:'
+    Sprite: {fileID: 21300136, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_69:'
+    Sprite: {fileID: 21300138, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_70:'
+    Sprite: {fileID: 21300140, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_71:'
+    Sprite: {fileID: 21300142, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_72:'
+    Sprite: {fileID: 21300144, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_73:'
+    Sprite: {fileID: 21300146, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_74:'
+    Sprite: {fileID: 21300148, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_75:'
+    Sprite: {fileID: 21300150, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_76:'
+    Sprite: {fileID: 21300152, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  - Tag: ':Emoji_77:'
+    Sprite: {fileID: 21300154, guid: a8fa701e895f12f4fabe9d0bacf643f9, type: 3}
+    CharWidth: 5
+  Text: {fileID: 11476244}
+  MessageFormat: '{0}: {1}'
+  ClientSenderColor: {r: 1, g: 1, b: 1, a: 1}
+  SenderColor: {r: 1, g: 1, b: 1, a: 1}
+  MessageColor: {r: 1, g: 1, b: 1, a: 1}
+  OpenPrivateChatWithSenderAfterClick: 1
+--- !u!222 &22276246
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176246}
+--- !u!224 &22476246
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176246}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.size
+      value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[0].Tag
+      value: ' '
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[0].Sprite
+      value: 
+      objectReference: {fileID: 21300004, guid: a8fa701e895f12f4fabe9d0bacf643f9,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[0].CharWidth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[0].ReplacePattern
+      value: "\_\_\_\_\_"
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[1].Tag
+      value: :(
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[1].Sprite
+      value: 
+      objectReference: {fileID: 21300082, guid: a8fa701e895f12f4fabe9d0bacf643f9,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[2].Tag
+      value: ;(
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[2].Sprite
+      value: 
+      objectReference: {fileID: 21300060, guid: a8fa701e895f12f4fabe9d0bacf643f9,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[3].Tag
+      value: :D
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[3].Sprite
+      value: 
+      objectReference: {fileID: 21300040, guid: a8fa701e895f12f4fabe9d0bacf643f9,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[4].Sprite
+      value: 
+      objectReference: {fileID: 21300008, guid: a8fa701e895f12f4fabe9d0bacf643f9,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[4].Tag
+      value: ;)
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[5].Sprite
+      value: 
+      objectReference: {fileID: 21300058, guid: a8fa701e895f12f4fabe9d0bacf643f9,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[5].Tag
+      value: :o
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[6].Tag
+      value: ':ufo:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[6].Sprite
+      value: 
+      objectReference: {fileID: 21300106, guid: a8fa701e895f12f4fabe9d0bacf643f9,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[7].Tag
+      value: ':ufo:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[7].Sprite
+      value: 
+      objectReference: {fileID: 21300106, guid: a8fa701e895f12f4fabe9d0bacf643f9,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[8].Sprite
+      value: 
+      objectReference: {fileID: 21300150, guid: a8fa701e895f12f4fabe9d0bacf643f9,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[8].Tag
+      value: ':cat:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[9].Sprite
+      value: 
+      objectReference: {fileID: 21300054, guid: a8fa701e895f12f4fabe9d0bacf643f9,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[9].Tag
+      value: ':angry:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[1].CharWidth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[2].CharWidth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[3].CharWidth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[4].CharWidth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[5].CharWidth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[6].CharWidth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[7].CharWidth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[8].CharWidth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: emoticons.Array.data[9].CharWidth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[0].Tag
+      value: :)
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[0].Sprite
+      value: 
+      objectReference: {fileID: 21301072, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[0].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SenderColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SenderColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SenderColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SenderColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MessageColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MessageColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MessageColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MessageColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[1].Sprite
+      value: 
+      objectReference: {fileID: 21302246, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[2].Sprite
+      value: 
+      objectReference: {fileID: 21301070, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[3].Sprite
+      value: 
+      objectReference: {fileID: 21301142, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[4].Sprite
+      value: 
+      objectReference: {fileID: 21302240, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[1].Tag
+      value: :p
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[2].Tag
+      value: :D
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[3].Tag
+      value: ^.^
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[4].Tag
+      value: :*
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[5].Sprite
+      value: 
+      objectReference: {fileID: 21301790, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[5].Tag
+      value: :3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[6].Sprite
+      value: 
+      objectReference: {fileID: 21301000, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[6].Tag
+      value: :(
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 4783f9beba15a6341a546ccf3fe40d8d,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[6].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[5].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[4].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[3].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[2].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[1].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[7].Sprite
+      value: 
+      objectReference: {fileID: 21302260, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[7].Tag
+      value: ;(
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[8].Sprite
+      value: 
+      objectReference: {fileID: 21302234, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[8].Tag
+      value: :/
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[9].Sprite
+      value: 
+      objectReference: {fileID: 21300208, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[9].Tag
+      value: :|
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[10].Sprite
+      value: 
+      objectReference: {fileID: 21302268, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[10].Tag
+      value: :o
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[12].Sprite
+      value: 
+      objectReference: {fileID: 21301862, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[12].Tag
+      value: B)
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[11].Tag
+      value: :DD
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[11].Sprite
+      value: 
+      objectReference: {fileID: 21300926, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[13].Sprite
+      value: 
+      objectReference: {fileID: 21300064, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[13].Tag
+      value: ':zzz:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[14].Tag
+      value: ':baby:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[14].Sprite
+      value: 
+      objectReference: {fileID: 21300554, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[15].Tag
+      value: ':alien:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[15].Sprite
+      value: 
+      objectReference: {fileID: 21301058, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[16].Sprite
+      value: 
+      objectReference: {fileID: 21300986, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[16].Tag
+      value: ':angel:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[17].Sprite
+      value: 
+      objectReference: {fileID: 21301558, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[17].Tag
+      value: ':dog:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[18].Sprite
+      value: 
+      objectReference: {fileID: 21301486, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[18].Tag
+      value: ':monkey:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[19].Sprite
+      value: 
+      objectReference: {fileID: 21301126, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[19].Tag
+      value: ':rabbit:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[20].Tag
+      value: ':tiger:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[21].Sprite
+      value: 
+      objectReference: {fileID: 21300910, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[21].Tag
+      value: ':mouse:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[20].Sprite
+      value: 
+      objectReference: {fileID: 21301054, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[22].Sprite
+      value: 
+      objectReference: {fileID: 21300982, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[22].Tag
+      value: ':cow:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[23].Sprite
+      value: 
+      objectReference: {fileID: 21300352, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[23].Tag
+      value: ':cat:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[24].Tag
+      value: ':panda:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[24].Sprite
+      value: 
+      objectReference: {fileID: 21301664, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[25].Sprite
+      value: 
+      objectReference: {fileID: 21300118, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[25].Tag
+      value: ':turtle:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[26].Sprite
+      value: 
+      objectReference: {fileID: 21300548, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[26].Tag
+      value: ':wflag:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[27].Sprite
+      value: 
+      objectReference: {fileID: 21300354, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[27].Tag
+      value: ':block:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[7].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[8].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[9].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[10].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[11].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[12].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[13].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[14].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[15].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[16].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[17].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[18].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[19].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[20].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[21].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[22].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[23].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[24].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[25].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[26].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[27].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[28].Sprite
+      value: 
+      objectReference: {fileID: 21300082, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[28].Tag
+      value: ':ok:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[29].Sprite
+      value: 
+      objectReference: {fileID: 21300070, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[29].Tag
+      value: ':five:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[30].Sprite
+      value: 
+      objectReference: {fileID: 21302136, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[30].Tag
+      value: ':ok:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[31].Sprite
+      value: 
+      objectReference: {fileID: 21300124, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[31].Tag
+      value: ':bomb:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[32].Sprite
+      value: 
+      objectReference: {fileID: 21300130, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[32].Tag
+      value: ':time:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[33].Sprite
+      value: 
+      objectReference: {fileID: 21300154, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[33].Tag
+      value: ':sos:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[34].Sprite
+      value: 
+      objectReference: {fileID: 21300200, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[34].Tag
+      value: ':key:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[35].Sprite
+      value: 
+      objectReference: {fileID: 21301454, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[35].Tag
+      value: ':pad:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[36].Sprite
+      value: 
+      objectReference: {fileID: 21301470, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[36].Tag
+      value: ':music:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[37].Tag
+      value: ':chat:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[37].Sprite
+      value: 
+      objectReference: {fileID: 21300772, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[38].Sprite
+      value: 
+      objectReference: {fileID: 21300836, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[38].Tag
+      value: ':sell:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[39].Sprite
+      value: 
+      objectReference: {fileID: 21300150, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[39].Tag
+      value: (c)
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[40].Sprite
+      value: 
+      objectReference: {fileID: 21300216, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[40].Tag
+      value: (r)
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[41].Sprite
+      value: 
+      objectReference: {fileID: 21301828, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[41].Tag
+      value: <3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[42].Sprite
+      value: 
+      objectReference: {fileID: 21301826, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[42].Tag
+      value: <33
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[43].Sprite
+      value: 
+      objectReference: {fileID: 21301830, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[43].Tag
+      value: <333
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[44].Sprite
+      value: 
+      objectReference: {fileID: 21301844, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[44].Tag
+      value: ':tag:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[45].Tag
+      value: <333
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[45].Sprite
+      value: 
+      objectReference: {fileID: 21301830, guid: 09603aff2b9ad1a48a0ff6ce39040ffa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[45].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Emoticons.Array.data[44].CharWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: MessageFormat
+      value: '{0}: {1}'
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 176246}
+  m_IsPrefabParent: 1
