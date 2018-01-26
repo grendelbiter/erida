@@ -19,7 +19,7 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
             player = new WulframPlayer();
             //player.Username = GetUsername();
 
-            Debug.Log("UserController constructor:" + player.userName);
+            Logger.Log("UserController constructor:" + player.userName);
             SetupSocketConnection();
             var tmp = Loom.Current;
             var gen = new UnitModuleGenerator();
