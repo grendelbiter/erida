@@ -20,7 +20,7 @@ public class Logger
 {
     private static bool consoleLog = true;
 
-    private static bool analyticsLog = true;
+    private static bool analyticsLog = false;
 
     public static void ActivateConsoleLog(bool isOn)
     {
