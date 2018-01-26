@@ -1044,7 +1044,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22440696, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0.00000011920929
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22440686, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -1052,7 +1052,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22440686, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00014402167
+      value: 0.00017655075
       objectReference: {fileID: 0}
     - target: {fileID: 11440700, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 2}
       propertyPath: m_Value
@@ -1261,7 +1261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
