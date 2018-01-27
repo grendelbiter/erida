@@ -130,11 +130,6 @@ namespace Com.Wulfram3
                     availableUnits.Add(0);
                     availableUnits.Add(1);
                 }
-                if (PhotonNetwork.player.name.Contains("[DEV]"))
-                {
-                    availableUnits.Add(4);
-                }
-
 
                 Debug.Log("Assigned to " + o[1] + " team. Awaiting first spawn.");
                 unitSelector.SetAvailableModels(availableUnits);
