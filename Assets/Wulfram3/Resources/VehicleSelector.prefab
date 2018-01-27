@@ -139,6 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4018077032140300}
   - component: {fileID: 20149677850468258}
+  - component: {fileID: 114702479554900320}
   m_Layer: 5
   m_Name: Camera
   m_TagString: Untagged
@@ -360,7 +361,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1357059596956642}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1157.5468, y: 756.201, z: -1573.1837}
+  m_LocalPosition: {x: -65.220665, y: 518.9375, z: -532.6237}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4018077032140300}
@@ -522,7 +523,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 58e224e9b157bd64b97d6916a2167557, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -945,3 +946,15 @@ MonoBehaviour:
   available: 
   current: 0
   myCamera: {fileID: 20149677850468258}
+--- !u!114 &114702479554900320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1524051061435842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: a82e8f60ae2402841a567020d514a12e, type: 2}

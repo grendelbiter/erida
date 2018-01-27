@@ -97,6 +97,7 @@ namespace Com.Wulfram3
         [HideInInspector]
         public Transform onRepairPad;
 
+        private int meshIndex = 0;
         public Transform[] meshList;
 
         private PunTeams.Team initialTeam;
@@ -136,7 +137,7 @@ namespace Com.Wulfram3
             PrepareForRespawn();
         }
 
-        private void SetMesh(int i)
+        public void SetMesh(int i)
         {
             for (int n = 0; n < meshList.Length; n++)
             {
@@ -148,6 +149,7 @@ namespace Com.Wulfram3
                 myMapIcon.SetTextureIcon(myIconTextures[1]);
             else
                 Debug.Log("TODO: Set other team map icons.");
+            meshIndex = i;
             meshList[i].gameObject.SetActive(true);
             myMesh = meshList[i];
             gunEnd = gunPositions[i];
@@ -207,6 +209,11 @@ namespace Com.Wulfram3
             // #Critical
             // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
             DontDestroyOnLoad(this.gameObject);
+        }
+
+        public int GetMeshIndex()
+        {
+            return meshIndex;
         }
 
         public bool GetIsGrounded()

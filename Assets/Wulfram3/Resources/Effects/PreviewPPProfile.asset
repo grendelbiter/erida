@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a3bdb2cd68f901469e7cc149151eb49, type: 3}
-  m_Name: TankViewPPProfile
+  m_Name: PreviewPPProfile
   m_EditorClassIdentifier: 
   debugViews:
     m_Enabled: 1
@@ -25,24 +25,24 @@ MonoBehaviour:
         motionVectorsResolution: 24
         motionVectorsAmplitude: 64
   fog:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
-      excludeSkybox: 0
+      excludeSkybox: 1
   antialiasing:
     m_Enabled: 1
     m_Settings:
       method: 0
       fxaaSettings:
-        preset: 1
+        preset: 2
       taaSettings:
-        jitterSpread: 0.28
-        sharpen: 0.32
-        stationaryBlending: 0.767
-        motionBlending: 0.263
+        jitterSpread: 0.75
+        sharpen: 0.3
+        stationaryBlending: 0.95
+        motionBlending: 0.85
   ambientOcclusion:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
-      intensity: 0.9
+      intensity: 1
       radius: 0.3
       sampleCount: 10
       downsampling: 1
@@ -71,40 +71,40 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 1
     m_Settings:
-      focusDistance: 20
-      aperture: 0.125
-      focalLength: 5
+      focusDistance: 1
+      aperture: 3
+      focalLength: 44
       useCameraFov: 0
       kernelSize: 1
   motionBlur:
-    m_Enabled: 1
-    m_Settings:
-      shutterAngle: 270
-      sampleCount: 10
-      frameBlending: 0.1
-  eyeAdaptation:
     m_Enabled: 0
     m_Settings:
-      lowPercent: 45
-      highPercent: 95
-      minLuminance: -5
-      maxLuminance: 1
+      shutterAngle: 183
+      sampleCount: 25
+      frameBlending: 1
+  eyeAdaptation:
+    m_Enabled: 1
+    m_Settings:
+      lowPercent: 19.876148
+      highPercent: 66.48103
+      minLuminance: -1
+      maxLuminance: 5
       keyValue: 0.25
       dynamicKeyValue: 1
       adaptationType: 0
       speedUp: 2
       speedDown: 1
       logMin: -8
-      logMax: 4
+      logMax: 6
   bloom:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.5
-        threshold: 1.1
-        softKnee: 0.5
-        radius: 4
-        antiFlicker: 0
+        intensity: 0.2
+        threshold: 1
+        softKnee: 0.305
+        radius: 3.52
+        antiFlicker: 1
       lensDirt:
         texture: {fileID: 0}
         intensity: 3
@@ -113,19 +113,19 @@ MonoBehaviour:
     m_Settings:
       tonemapping:
         tonemapper: 2
-        neutralBlackIn: 0.02
-        neutralWhiteIn: 10
-        neutralBlackOut: 0
-        neutralWhiteOut: 10
-        neutralWhiteLevel: 5.3
-        neutralWhiteClip: 10
+        neutralBlackIn: -0.0284
+        neutralWhiteIn: 3.23
+        neutralBlackOut: -0.0766
+        neutralWhiteOut: 16.57
+        neutralWhiteLevel: 1.58
+        neutralWhiteClip: 8.01
       basic:
-        postExposure: 0
+        postExposure: 1
         temperature: 0
         tint: 0
         hueShift: 0
-        saturation: 1
-        contrast: 1
+        saturation: 1.306
+        contrast: 1.246
       channelMixer:
         red: {x: 1, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
@@ -278,29 +278,29 @@ MonoBehaviour:
   userLut:
     m_Enabled: 0
     m_Settings:
-      lut: {fileID: 0}
-      contribution: 1
+      lut: {fileID: 2800000, guid: 318cbcd94840f1d48aca4d86234dc2e7, type: 3}
+      contribution: 0.066
   chromaticAberration:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       spectralTexture: {fileID: 0}
-      intensity: 0.1
+      intensity: 1
   grain:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
-      colored: 1
-      intensity: 0.5
+      colored: 0
+      intensity: 0.2
       size: 1
-      luminanceContribution: 0.8
+      luminanceContribution: 0.5
   vignette:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}
-      center: {x: 0.5, y: 0.5}
-      intensity: 0.45
-      smoothness: 0.2
-      roundness: 1
+      center: {x: 0.5, y: 0.4}
+      intensity: 0.955
+      smoothness: 0.376
+      roundness: 0.376
       mask: {fileID: 0}
       opacity: 1
       rounded: 0

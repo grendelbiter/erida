@@ -131,6 +131,12 @@ namespace Com.Wulfram3
                     availableUnits.Add(1);
                 }
 
+
+                foreach (PlayerMovementManager p in FindObjectsOfType<PlayerMovementManager>())
+                {
+                    p.SetMesh(p.GetMeshIndex());
+                }
+
                 Debug.Log("Assigned to " + o[1] + " team. Awaiting first spawn.");
                 unitSelector.SetAvailableModels(availableUnits);
                 player = PhotonNetwork.Instantiate("Unit_Prefabs/Player/Player", new Vector3(0, -100, 0), Quaternion.identity, 0, o);

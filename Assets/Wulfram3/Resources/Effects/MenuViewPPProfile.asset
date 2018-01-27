@@ -31,7 +31,7 @@ MonoBehaviour:
   antialiasing:
     m_Enabled: 1
     m_Settings:
-      method: 1
+      method: 0
       fxaaSettings:
         preset: 2
       taaSettings:
@@ -40,7 +40,7 @@ MonoBehaviour:
         stationaryBlending: 0.99
         motionBlending: 0.99
   ambientOcclusion:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       intensity: 1
       radius: 0.3
@@ -71,10 +71,10 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 1
     m_Settings:
-      focusDistance: 3
-      aperture: 4.1
-      focalLength: 50
-      useCameraFov: 0
+      focusDistance: 15
+      aperture: 1
+      focalLength: 46
+      useCameraFov: 1
       kernelSize: 1
   motionBlur:
     m_Enabled: 0
@@ -94,16 +94,16 @@ MonoBehaviour:
       adaptationType: 0
       speedUp: 2
       speedDown: 1
-      logMin: -8
-      logMax: 4
+      logMin: -11
+      logMax: 10
   bloom:
     m_Enabled: 1
     m_Settings:
       bloom:
         intensity: 0.5
-        threshold: 1.1
-        softKnee: 0.65
-        radius: 2.95
+        threshold: 1.125
+        softKnee: 1
+        radius: 2.58
         antiFlicker: 0
       lensDirt:
         texture: {fileID: 0}
@@ -124,8 +124,8 @@ MonoBehaviour:
         temperature: 0
         tint: 0
         hueShift: 0
-        saturation: 1.249
-        contrast: 1.12
+        saturation: 1.242
+        contrast: 0.965
       channelMixer:
         red: {x: 1, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
             serializedVersion: 2
             m_Curve:
             - serializedVersion: 2
-              time: 0
+              time: 0.0021505377
               value: 0
               inSlope: 1
               outSlope: 1
@@ -281,10 +281,10 @@ MonoBehaviour:
       lut: {fileID: 0}
       contribution: 1
   chromaticAberration:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       spectralTexture: {fileID: 0}
-      intensity: 0.1
+      intensity: 0
   grain:
     m_Enabled: 0
     m_Settings:
@@ -305,7 +305,7 @@ MonoBehaviour:
       opacity: 1
       rounded: 0
   dithering:
-    m_Enabled: 1
+    m_Enabled: 0
   monitors:
     currentMonitorID: 0
     refreshOnPlay: 0
