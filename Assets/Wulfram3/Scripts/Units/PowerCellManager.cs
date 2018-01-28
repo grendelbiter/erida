@@ -16,6 +16,8 @@ namespace Com.Wulfram3 {
 
         private Unit myUnit;
 
+        private bool started = false;
+
         void Awake()
         {
             if (PhotonNetwork.isMasterClient)
@@ -24,6 +26,10 @@ namespace Com.Wulfram3 {
             }
         }
 
+        private void Start()
+        {
+            started = true;
+        }
         // Update is called once per frame
         void Update()
         {
@@ -77,7 +83,7 @@ namespace Com.Wulfram3 {
 
         private void OnTriggerEnter(Collider other)
         {
-            if (PhotonNetwork.isMasterClient)
+            if (PhotonNetwork.isMasterClient && started)
             {
                 Unit u = other.transform.GetComponent<Unit>();
                 if (u != null && u.needsPower && u.unitTeam == myUnit.unitTeam && !powerableObjects.Contains(other.transform))
@@ -87,10 +93,9 @@ namespace Com.Wulfram3 {
             }
         }
 
-        /*
         private void OnTriggerStay(Collider other)
         {
-            if (PhotonNetwork.isMasterClient)
+            if (PhotonNetwork.isMasterClient && started)
             {
                 Unit u = other.transform.GetComponent<Unit>();
                 if (u != null && u.needsPower && u.unitTeam == myUnit.unitTeam && !powerableObjects.Contains(other.transform))
@@ -98,6 +103,6 @@ namespace Com.Wulfram3 {
                     powerableObjects.Add(other.transform);
                 }
             }
-        }*/
+        }
     }
 }
