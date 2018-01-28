@@ -39,7 +39,7 @@ namespace Com.Wulfram3
 
         private float maxVelocityX = 8f;
         private float maxVelocityZ = 12f;
-        private float boostMultiplier = 2.15f;
+        private float boostMultiplier = 1.85f;
         private int minPropulsionFuel = 40;
 
         private float currentHeight = 1.2f;  // tank current (and starting) level above ground
@@ -88,8 +88,7 @@ namespace Com.Wulfram3
         private bool isLanded = false; // User controlled, request to land
         private bool isGrounded = false; // Script controlled, positive ground contact
         private bool requestJump = false;
-        private bool boosting = false;
-        private float boost = 1.0f;
+        private float boost = 1f;
         private Quaternion originalRotation;
         private Rigidbody myRigidbody;
         private HitPointsManager hitpointsManager;
@@ -355,9 +354,9 @@ namespace Com.Wulfram3
 
         private void CheckPropulsionControls()
         {
-            InputExX = InputEx.GetAxis("Strafe");
-            InputExZ = InputEx.GetAxis("Drive");
-            boosting = InputEx.GetKeyDown(KeyCode.LeftShift);
+            inputX = InputEx.GetAxis("Strafe");
+            inputZ = InputEx.GetAxis("Drive");
+            boost = Mathf.Clamp(InputEx.GetAxisRaw("Boost") * boostMultiplier, 1f, boostMultiplier);
             if (Time.time >= thrustStamp)
             {
                 if (InputEx.GetAxisRaw("ChangeThrust") > 0)
@@ -455,7 +454,7 @@ namespace Com.Wulfram3
 
         private void CheckJumpjets()
         {
-            if (myUnit.unitType != UnitType.Scout && Time.time >= jumptimestamp && (InputEx.GetAxisRaw("Jump") != 0 || InputEx.GetKeyDown(KeyCode.Keypad0)))
+            if (myUnit.unitType != UnitType.Scout && Time.time >= jumptimestamp && InputEx.GetAxisRaw("Jump") != 0)
             {
                 if (fuelManager.TakeFuel(fuelPerJump))
                 {
@@ -612,20 +611,17 @@ namespace Com.Wulfram3
             // Propulsion
             if (isLanded && (inputX != 0f || inputZ != 0f))
                 TakeOff();
-            boost = 1f;
-            if (boosting)
-                boost = boostMultiplier;
             float localXVelocity = Mathf.Abs(transform.InverseTransformDirection(myRigidbody.velocity).x);
             float localZVelocity = Mathf.Abs(transform.InverseTransformDirection(myRigidbody.velocity).z);
-            float localXLimit = maxVelocityX * boost * thrustMultiplier;
-            float localZLimit = maxVelocityZ * boost * thrustMultiplier;
+            float localXLimit = maxVelocityX * thrustMultiplier;
+            float localZLimit = maxVelocityZ * thrustMultiplier;
             Vector3 relativeFwd = Vector3.Cross(Vector3.up, transform.right);
             if (localXVelocity > localXLimit)
                 inputX = 0;
             if (localZVelocity > localZLimit)
                 inputZ = 0;
-            Vector3 totalSidewaysForce = transform.right * inputX * (strafeThrust * boost) * myRigidbody.mass * boost;
-            Vector3 totalForwardForce = relativeFwd * inputZ * (baseThrust * boost) * myRigidbody.mass * boost;
+            Vector3 totalSidewaysForce = transform.right * inputX * strafeThrust * myRigidbody.mass * boost;
+            Vector3 totalForwardForce = relativeFwd * inputZ * baseThrust * myRigidbody.mass * boost;
             myRigidbody.AddForce(-totalForwardForce);
             myRigidbody.AddForce(totalSidewaysForce);
             //myRigidbody.AddRelativeForce(new Vector3((x * strafeThrust * myRigidbody.mass) * thrustMultiplier, 0, (z * baseThrust * myRigidbody.mass) * thrustMultiplier));

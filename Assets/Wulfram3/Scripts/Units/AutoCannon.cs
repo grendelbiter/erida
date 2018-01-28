@@ -143,7 +143,7 @@ namespace Com.Wulfram3 {
                     float distanceFromCenter = Vector3.Distance(screenCenter, cPos);
                     Rect r = Object2dRect(objectHit.transform.gameObject);
                     //Gizmos.DrawCube(r.center, new Vector3(1, 1, 1));
-                    deviationConeRadius = Mathf.Clamp(distanceFromCenter / r.size.x / 2), 0, 1);
+                    deviationConeRadius = Mathf.Clamp(distanceFromCenter / (r.size.x / 2), 0, 1);
                     float damageMultiplier = 1.5f - deviationConeRadius;
 
                     objectHit.transform.GetComponent<HitPointsManager>().TellServerTakeDamage((int) Mathf.Ceil(bulletDamageinHitpoints * damageMultiplier));
