@@ -8,7 +8,7 @@ namespace Com.Wulfram3 {
         public AudioClip shootSound;
         public AudioClip hitSound;
         public AudioClip missSound;
-		public AudioSource audio;
+		public AudioSource audioSource;
         public int bulletDamageinHitpoints = 1;
         public float bulletsPerSecond = 10;
         private float range = 60;
@@ -103,7 +103,7 @@ namespace Com.Wulfram3 {
 
 
         private void CheckAndFire() {
-            if ((Input.GetMouseButton(0) || Input.GetAxisRaw("Fire1") != 0) && (GetComponent<Unit>().unitType == UnitType.Scout || !GetComponent<CargoManager>().isDeploying)) {
+            if ((InputEx.GetMouseButton(0) || InputEx.GetAxisRaw("Fire1") != 0) && (GetComponent<Unit>().unitType == UnitType.Scout || !GetComponent<CargoManager>().isDeploying)) {
                 deviationConeRadius = 1f;
                 float currentTime = Time.time;
                 if (lastFireTime + timeBetweenShots > currentTime ) {
@@ -141,7 +141,9 @@ namespace Com.Wulfram3 {
                     Vector3 tPos = Camera.main.WorldToScreenPoint(objectHit.transform.GetComponent<Collider>().bounds.center);
                     Vector3 cPos = new Vector3(tPos.x, tPos.y, 0.0f);
                     float distanceFromCenter = Vector3.Distance(screenCenter, cPos);
-                    deviationConeRadius = Mathf.Clamp(distanceFromCenter / (Object2dRect(objectHit.transform.gameObject).size.x / 2), 0, 1);
+                    Rect r = Object2dRect(objectHit.transform.gameObject);
+                    //Gizmos.DrawCube(r.center, new Vector3(1, 1, 1));
+                    deviationConeRadius = Mathf.Clamp(distanceFromCenter / r.size.x / 2), 0, 1);
                     float damageMultiplier = 1.5f - deviationConeRadius;
 
                     objectHit.transform.GetComponent<HitPointsManager>().TellServerTakeDamage((int) Mathf.Ceil(bulletDamageinHitpoints * damageMultiplier));
@@ -219,7 +221,7 @@ namespace Com.Wulfram3 {
                 {
                     //play sound
 
-                    audio.PlayOneShot(shootSound, 1);
+                    audioSource.PlayOneShot(shootSound, 1);
                 }
             }    
         }

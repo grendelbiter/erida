@@ -316,8 +316,8 @@ namespace Com.Wulfram3
 
         private void CheckMouseMotion()
         {
-            float mx = Input.GetAxis("Mouse X");
-            float my = Input.GetAxis("Mouse Y");
+            float mx = InputEx.GetAxis("Mouse X");
+            float my = InputEx.GetAxis("Mouse Y");
             if ((isGrounded || isLanded) && mx + my > 0)
             {
                 TakeOff();
@@ -355,62 +355,62 @@ namespace Com.Wulfram3
 
         private void CheckPropulsionControls()
         {
-            inputX = Input.GetAxis("Strafe");
-            inputZ = Input.GetAxis("Drive");
-            boosting = Input.GetKeyDown(KeyCode.LeftShift);
+            InputExX = InputEx.GetAxis("Strafe");
+            InputExZ = InputEx.GetAxis("Drive");
+            boosting = InputEx.GetKeyDown(KeyCode.LeftShift);
             if (Time.time >= thrustStamp)
             {
-                if (Input.GetAxisRaw("ChangeThrust") > 0)
+                if (InputEx.GetAxisRaw("ChangeThrust") > 0)
                 {
                     thrustStamp = Time.time + 0.3f;
                     thrustMultiplier = Mathf.Clamp(thrustMultiplier + 0.01f, 0.1f, 1f);
                 }
-                else if (Input.GetAxisRaw("ChangeThrust") < 0)
+                else if (InputEx.GetAxisRaw("ChangeThrust") < 0)
                 {
                     thrustStamp = Time.time + 0.3f;
                     thrustMultiplier = Mathf.Clamp(thrustMultiplier - 0.01f, 0.1f, 1f);
                 }
-                else if (Input.GetAxisRaw("SetSpeed1") != 0)
+                else if (InputEx.GetAxisRaw("SetSpeed1") != 0)
                 {
                     thrustStamp = Time.time + 0.3f;
                     thrustMultiplier = 0.1f;
                 }
-                else if (Input.GetAxisRaw("SetSpeed2") != 0)
+                else if (InputEx.GetAxisRaw("SetSpeed2") != 0)
                 {
                     thrustStamp = Time.time + 0.3f;
                     thrustMultiplier = 0.2f;
                 }
-                else if (Input.GetAxisRaw("SetSpeed3") != 0)
+                else if (InputEx.GetAxisRaw("SetSpeed3") != 0)
                 {
                     thrustStamp = Time.time + 0.3f;
                     thrustMultiplier = 0.3f;
                 }
-                else if (Input.GetAxisRaw("SetSpeed4") != 0)
+                else if (InputEx.GetAxisRaw("SetSpeed4") != 0)
                 {
                     thrustStamp = Time.time + 0.3f;
                     thrustMultiplier = 0.4f;
                 }
-                else if (Input.GetAxisRaw("SetSpeed5") != 0)
+                else if (InputEx.GetAxisRaw("SetSpeed5") != 0)
                 {
                     thrustStamp = Time.time + 0.3f;
                     thrustMultiplier = 0.5f;
                 }
-                else if (Input.GetAxisRaw("SetSpeed6") != 0)
+                else if (InputEx.GetAxisRaw("SetSpeed6") != 0)
                 {
                     thrustStamp = Time.time + 0.3f;
                     thrustMultiplier = 0.6f;
                 }
-                else if (Input.GetAxisRaw("SetSpeed7") != 0)
+                else if (InputEx.GetAxisRaw("SetSpeed7") != 0)
                 {
                     thrustStamp = Time.time + 0.3f;
                     thrustMultiplier = 0.7f;
                 }
-                else if (Input.GetAxisRaw("SetSpeed8") != 0)
+                else if (InputEx.GetAxisRaw("SetSpeed8") != 0)
                 {
                     thrustStamp = Time.time + 0.3f;
                     thrustMultiplier = 0.8f;
                 }
-                else if (Input.GetAxisRaw("SetSpeed9") != 0)
+                else if (InputEx.GetAxisRaw("SetSpeed9") != 0)
                 {
                     thrustStamp = Time.time + 0.3f;
                     thrustMultiplier = 0.9f;
@@ -420,22 +420,26 @@ namespace Com.Wulfram3
 
         private void CheckFireSecondary()
         {
-            if (myUnit.unitType == UnitType.Tank && Time.time >= pulseStamp && Input.GetAxisRaw("Fire2") != 0 && fuelManager.TakeFuel(fuelPerPulse))
+            if (InputEx.GetAxisRaw("Fire2") != 0)
             {
-                CmdFirePulseShell();
-            } else if (myUnit.unitType == UnitType.Scout && Input.GetAxisRaw("Fire2") != 0)
-            {
-                //Debug.Log("PlayerMovementManager.cs (Line: 309) Scout Secondary Firing Detected.");
+                if (myUnit.unitType == UnitType.Tank && Time.time >= pulseStamp && fuelManager.TakeFuel(fuelPerPulse))
+                {
+                    CmdFirePulseShell();
+                }
+                else if (myUnit.unitType == UnitType.Scout)
+                {
+                    Debug.Log("PlayerMovementManager.cs (Line: 309) Scout Secondary Firing Detected.");
+                }
             }
         }
 
         private void CheckAltitudeControls()
         {
-            if (Input.GetAxisRaw("ChangeAltitude") > 0)
+            if (InputEx.GetAxisRaw("ChangeAltitude") > 0)
             {
                 currentHeight = Mathf.Min(currentHeight + riseSpeed, maximumHeight);
             }
-            else if (Input.GetAxisRaw("ChangeAltitude") < 0 && !isLanded && !isGrounded)
+            else if (InputEx.GetAxisRaw("ChangeAltitude") < 0 && !isLanded && !isGrounded)
             {
                 currentHeight = Mathf.Max(currentHeight - lowerSpeed, 0.2f);
             }
@@ -451,7 +455,7 @@ namespace Com.Wulfram3
 
         private void CheckJumpjets()
         {
-            if (myUnit.unitType != UnitType.Scout && Time.time >= jumptimestamp && (Input.GetAxisRaw("Jump") != 0 || Input.GetKeyDown(KeyCode.Keypad0)))
+            if (myUnit.unitType != UnitType.Scout && Time.time >= jumptimestamp && (InputEx.GetAxisRaw("Jump") != 0 || InputEx.GetKeyDown(KeyCode.Keypad0)))
             {
                 if (fuelManager.TakeFuel(fuelPerJump))
                 {
