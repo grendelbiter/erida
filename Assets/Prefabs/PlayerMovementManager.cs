@@ -53,8 +53,8 @@ namespace Com.Wulfram3
 
         public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
         public RotationAxes axes = RotationAxes.MouseXAndY;
-        public float sensitivityX = 0.525f;
-        public float sensitivityY = 0.5f;
+        private float sensitivityX = 0.2f;
+        private float sensitivityY = 0.22f;
         private float minimumX = -360F;
         private float maximumX = 360F;
         public float minimumY = -56F;
@@ -111,10 +111,8 @@ namespace Com.Wulfram3
         public List<Transform> firstPersonCameraPositions;
         public List<Transform> thirdPersonCameraPositions;
 
-
         void Start()
         {
-
             myUnit = GetComponent<Unit>();
             if (myUnit != null)
             {
@@ -152,10 +150,9 @@ namespace Com.Wulfram3
             meshList[i].gameObject.SetActive(true);
             myMesh = meshList[i];
             gunEnd = gunPositions[i];
+            GetComponent<AutoCannon>().gunEnd = gunPositions[i];
             if (!photonView.isMine)
                 return;
-
-
             mySettings = VehicleSettingFactory.GetVehicleSetting(myUnit.unitType);
             GetComponent<MeshCollider>().sharedMesh = availableColliders[i];
             CameraManager cm = GetComponent<CameraManager>();
@@ -170,11 +167,6 @@ namespace Com.Wulfram3
                 dropPosition = cargoDropPositions[1];
                 placePosition = unitPlacePositions[1];
 
-            }
-            else if (i == 4)
-            {
-                dropPosition = cargoDropPositions[2];
-                placePosition = unitPlacePositions[2];
             }
             baseThrust = mySettings.BaseThrust;
             strafePercent = mySettings.StrafePercent;

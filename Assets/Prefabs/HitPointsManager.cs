@@ -28,16 +28,6 @@ namespace Com.Wulfram3 {
         // Update is called once per frame
         void Update()
         {
-            /*
-             * TODO: Implement onDemand Update
-            if (PhotonNetwork.isMasterClient && health != lastUpdateHealth)
-            {
-                lastUpdateHealth = health;
-                object[] o = new object[1];
-                o[0] = health;
-                photonView.RPC("UpdateHealth", PhotonTargets.All, o);
-            }
-            */
         }
 
         [PunRPC]

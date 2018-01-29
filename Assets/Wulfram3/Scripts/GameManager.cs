@@ -99,6 +99,8 @@ namespace Com.Wulfram3
 
                 GameObject g = Instantiate(Resources.Load("VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
                 unitSelector = g.GetComponent<VehicleSelector>();
+
+                //GameObject map = Instantiate(Resources.Load("Terrains/TronNoGrass"), new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                 // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
 
 
@@ -129,12 +131,6 @@ namespace Com.Wulfram3
                     o[1] = PunTeams.Team.Blue;
                     availableUnits.Add(0);
                     availableUnits.Add(1);
-                }
-
-
-                foreach (PlayerMovementManager p in FindObjectsOfType<PlayerMovementManager>())
-                {
-                    p.SetMesh(p.GetMeshIndex());
                 }
 
                 Debug.Log("Assigned to " + o[1] + " team. Awaiting first spawn.");
