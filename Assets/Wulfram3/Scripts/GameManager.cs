@@ -49,11 +49,12 @@ namespace Com.Wulfram3
         public override void OnPhotonPlayerConnected(PhotonPlayer other)
         {
             Debug.Log("OnPhotonPlayerConnected() " + other.NickName); // not seen if you're the player connecting
-
+            /*
             PlayerMovementManager pmm = PlayerMovementManager.LocalPlayerInstance.GetComponent<PlayerMovementManager>();
             object[] o = new object[1];
             o[0] = pmm.GetMeshIndex();
             pmm.photonView.RPC("SendMeshToNewPlayer", other, o);
+            */
             if (PhotonNetwork.isMasterClient)
             {
                 Debug.Log("OnPhotonPlayerConnected isMasterClient " + PhotonNetwork.isMasterClient); // called before OnPhotonPlayerDisconnected

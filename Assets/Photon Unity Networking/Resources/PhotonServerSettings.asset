@@ -66,4 +66,5 @@ MonoBehaviour:
   - SpawnEffectRpc
   - SetSelectedVehicle
   - SetTeam
+  - SendMeshToNewPlayer
   DisableAutoOpenWizard: 1

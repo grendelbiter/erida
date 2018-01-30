@@ -134,12 +134,13 @@ namespace Com.Wulfram3
             PrepareForRespawn();
         }
 
+        /*
         [PunRPC]
         public void SendMeshToNewPlayer(object[] o)
         {
             int index = (int)o[0];
             SetMesh(index);
-        }
+        } */
 
 
         public void SetMesh(int i)

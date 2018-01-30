@@ -360,6 +360,7 @@ GameObject:
   - component: {fileID: 114417885958363012}
   - component: {fileID: 114057020177330754}
   - component: {fileID: 114942238762981832}
+  - component: {fileID: 114375267857261616}
   - component: {fileID: 82437317021626908}
   - component: {fileID: 114551696819143410}
   - component: {fileID: 114756826154515088}
@@ -1652,7 +1653,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 1067de5d52033e54a9d7cce98d43d9ee, type: 3}
   hitSound: {fileID: 8300000, guid: fc75678ffa299bd459de39cf68dba559, type: 3}
   missSound: {fileID: 8300000, guid: a65af280932892c4aac52df676dd925c, type: 3}
-  audio: {fileID: 82437317021626908}
+  audioSource: {fileID: 0}
   bulletDamageinHitpoints: 4
   bulletsPerSecond: 8
   deviationConeRadius: 1
@@ -1707,6 +1708,20 @@ MonoBehaviour:
   initialHealth: 500
   maxHealth: 500
   health: 0
+--- !u!114 &114375267857261616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1841311625191074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d28f7097fa3afb743b174790baa396e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovementManager: {fileID: 114568581638254742}
+  hitPointsManager: {fileID: 114362950197262688}
+  unitData: {fileID: 114609421694380428}
 --- !u!114 &114417885958363012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1729,6 +1744,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114057020177330754}
   - {fileID: 114942238762981832}
+  - {fileID: 114375267857261616}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -1866,7 +1882,7 @@ MonoBehaviour:
   shootSound: {fileID: 0}
   hitSound: {fileID: 0}
   missSound: {fileID: 0}
-  audio: {fileID: 0}
+  audioSource: {fileID: 0}
   bulletDamageinHitpoints: 10
   bulletsPerSecond: 10
   deviationConeRadius: 1
@@ -1899,8 +1915,6 @@ MonoBehaviour:
   dropPosition: {fileID: 0}
   destroyDelayWhenDead: 3
   axes: 0
-  sensitivityX: 0.525
-  sensitivityY: 0.5
   minimumY: -56
   maximumY: 56
   isDead: 0
