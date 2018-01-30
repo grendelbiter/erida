@@ -136,8 +136,8 @@ namespace Com.Wulfram3
 
         public void SetMesh(int i)
         {
-            if (meshIndex == i)
-                return;
+            //if (meshIndex == i)
+            //    return;
             for (int n = 0; n < meshList.Length; n++)
             {
                 meshList[n].gameObject.SetActive(false);
