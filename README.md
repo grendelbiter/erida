@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/knight1219/erida.svg?branch=master)](https://travis-ci.org/knight1219/erida)
+
 Welcome to the GitHub for the open source Erida project.
 
 The goal of this project is to create a gaming experience reminiscent of the cult classic, Wulfram 2, with a modern twist. The title is a tribute to the former maintainer of the original game.
