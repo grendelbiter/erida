@@ -60,6 +60,7 @@ namespace Com.Wulfram3 {
             {
                 laserLine.material = teamColorMaterials[2];
             }
+            audioSource = GetComponent<AudioSource>();
         }
 
         private GameManager GetGameManager() {
