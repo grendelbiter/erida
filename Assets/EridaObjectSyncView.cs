@@ -16,10 +16,6 @@ namespace Com.Wulfram3
         private PunTeams.Team teamLast;
         private int meshLast;
 
-        private bool healthNeedsUpdate = false;
-        private bool teamNeedsUpdate = false;
-        private bool meshNeedsUpdate = false;
-
         void Start() {
             healthLast = hitPointsManager.health;
             teamLast = unitData.unitTeam;
@@ -29,48 +25,22 @@ namespace Com.Wulfram3
 
         // Update is called once per frame
         void Update() {
-            if (hitPointsManager.health != healthLast)
-            {
-                healthNeedsUpdate = true;
-                healthLast = hitPointsManager.health;
-            }
-            if (unitData.unitTeam != teamLast)
-            {
-                teamNeedsUpdate = true;
-                teamLast = unitData.unitTeam;
-            }
-            if (playerMovementManager != null && playerMovementManager.GetMeshIndex() != meshLast)
-            {
-                meshNeedsUpdate = true;
-                meshLast = playerMovementManager.GetMeshIndex();
-            }
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             if (stream.isWriting)
             {
-                if (healthNeedsUpdate)
-                {
-                    stream.SendNext((int)hitPointsManager.health);
-                    healthNeedsUpdate = false;
-                }
-                if (teamNeedsUpdate)
-                {
-                    stream.SendNext((PunTeams.Team)unitData.unitTeam);
-                    teamNeedsUpdate = false;
-                }
-                if (playerMovementManager != null && meshNeedsUpdate)
+                stream.SendNext((int)hitPointsManager.health);
+                stream.SendNext((PunTeams.Team)unitData.unitTeam);
+                if (playerMovementManager != null)
                 {
                     stream.SendNext((int)playerMovementManager.GetMeshIndex());
-                    meshNeedsUpdate = false;
                 }
-
             } else
             {
                 int syncHealth = (int)stream.ReceiveNext();
                 hitPointsManager.health = Mathf.Clamp(syncHealth, 0, hitPointsManager.maxHealth);
-
                 PunTeams.Team syncTeam = (PunTeams.Team)stream.ReceiveNext();
                 unitData.unitTeam = syncTeam;
 

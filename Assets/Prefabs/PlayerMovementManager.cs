@@ -136,6 +136,8 @@ namespace Com.Wulfram3
 
         public void SetMesh(int i)
         {
+            if (meshIndex == i)
+                return;
             for (int n = 0; n < meshList.Length; n++)
             {
                 meshList[n].gameObject.SetActive(false);
@@ -151,10 +153,10 @@ namespace Com.Wulfram3
             myMesh = meshList[i];
             gunEnd = gunPositions[i];
             GetComponent<AutoCannon>().gunEnd = gunPositions[i];
+            GetComponent<MeshCollider>().sharedMesh = availableColliders[i];
             if (!photonView.isMine)
                 return;
             mySettings = VehicleSettingFactory.GetVehicleSetting(myUnit.unitType);
-            GetComponent<MeshCollider>().sharedMesh = availableColliders[i];
             CameraManager cm = GetComponent<CameraManager>();
             cm.SetFirstPersonPosition(firstPersonCameraPositions[i]);
             cm.SetThirdPersonPosition(thirdPersonCameraPositions[i]);
