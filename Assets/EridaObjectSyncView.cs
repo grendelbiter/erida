@@ -17,10 +17,50 @@ namespace Com.Wulfram3
         private int meshLast;
 
         void Start() {
-            healthLast = hitPointsManager.health;
-            teamLast = unitData.unitTeam;
+            if (PhotonNetwork.isMasterClient)
+            {
+                healthLast = hitPointsManager.health;
+                teamLast = unitData.unitTeam;
+                if (playerMovementManager != null)
+                    meshLast = playerMovementManager.GetMeshIndex();
+            } else
+            {
+                this.photonView.RPC("GetDataFromMaster", PhotonTargets.MasterClient);
+            }
+        }
+
+        [PunRPC]
+        public void GetDataFromMaster(PhotonMessageInfo info)
+        {
+            if (PhotonNetwork.isMasterClient)
+            {
+                if (playerMovementManager == null)
+                {
+                    object[] o = new object[2];
+                    o[0] = hitPointsManager.health;
+                    o[1] = unitData.unitTeam;
+                    this.photonView.RPC("ReceiveDataFromMaster", info.sender, o);
+                }
+                else
+                {
+                    object[] o = new object[3];
+                    o[0] = hitPointsManager.health;
+                    o[1] = unitData.unitTeam;
+                    o[2] = playerMovementManager.GetMeshIndex();
+                    this.photonView.RPC("ReceiveDataFromMaster", info.sender, o);
+                }
+            }
+        }
+
+        [PunRPC]
+        public void ReceiveDataFromMaster(object[] o)
+        {
+            hitPointsManager.health = (int)o[0];
+            unitData.unitTeam = (PunTeams.Team)o[1];
             if (playerMovementManager != null)
-                meshLast = playerMovementManager.GetMeshIndex();
+            {
+                playerMovementManager.SetMesh((int)o[2]);
+            }
         }
 
         // Update is called once per frame
