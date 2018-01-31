@@ -1,5 +1,4 @@
 ﻿using Com.Wulfram3;
-using PhotonChatUI;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,228 +7,228 @@ using UnityEngine.UI;
 
 namespace Assets.Wulfram3.Scripts.HUD
 {
-    public class ChatChannelMessageUITeamDetect : ChatBehaviourUI, IPointerClickHandler
-    {
-        /// <summary>
-        /// Emoticon.
-        /// </summary>
-        [Serializable]
-        public class Emoticon
-        {
-            [Tooltip("Please note that tag isn't case sensitive.")] public string Tag = "";
+    //public class ChatChannelMessageUITeamDetect : ChatBehaviourUI, IPointerClickHandler
+    //{
+    //    /// <summary>
+    //    /// Emoticon.
+    //    /// </summary>
+    //    [Serializable]
+    //    public class Emoticon
+    //    {
+    //        [Tooltip("Please note that tag isn't case sensitive.")] public string Tag = "";
 
-            public Sprite Sprite;
+    //        public Sprite Sprite;
 
-            public int CharWidth;
-        }
+    //        public int CharWidth;
+    //    }
 
-        private class GeneratedEmoticon
-        {
-            public int Index;
+    //    private class GeneratedEmoticon
+    //    {
+    //        public int Index;
 
-            public int Length;
+    //        public int Length;
 
-            public Sprite Sprite;
+    //        public Sprite Sprite;
 
-            private GameObject _gameObject;
+    //        private GameObject _gameObject;
 
-            public GameObject GameObject
-            {
-                get { return _gameObject ?? (_gameObject = new GameObject("Emoticon")); }
-            }
+    //        public GameObject GameObject
+    //        {
+    //            get { return _gameObject ?? (_gameObject = new GameObject("Emoticon")); }
+    //        }
 
-            private RectTransform _rectTransform;
+    //        private RectTransform _rectTransform;
 
-            public RectTransform RectTransform
-            {
-                get
-                {
-                    return _rectTransform ??
-                           ((_rectTransform = GameObject.GetComponent<RectTransform>()) ??
-                            (_rectTransform = GameObject.AddComponent<RectTransform>()));
-                }
-            }
+    //        public RectTransform RectTransform
+    //        {
+    //            get
+    //            {
+    //                return _rectTransform ??
+    //                       ((_rectTransform = GameObject.GetComponent<RectTransform>()) ??
+    //                        (_rectTransform = GameObject.AddComponent<RectTransform>()));
+    //            }
+    //        }
 
-            private LayoutElement _layoutElement;
+    //        private LayoutElement _layoutElement;
 
-            public LayoutElement LayoutElement
-            {
-                get
-                {
-                    return _layoutElement ??
-                           ((_layoutElement = GameObject.GetComponent<LayoutElement>()) ??
-                            (_layoutElement = GameObject.AddComponent<LayoutElement>()));
-                }
-            }
+    //        public LayoutElement LayoutElement
+    //        {
+    //            get
+    //            {
+    //                return _layoutElement ??
+    //                       ((_layoutElement = GameObject.GetComponent<LayoutElement>()) ??
+    //                        (_layoutElement = GameObject.AddComponent<LayoutElement>()));
+    //            }
+    //        }
 
-            private Image _image;
+    //        private Image _image;
 
-            public Image Image
-            {
-                get
-                {
-                    return _image ??
-                           ((_image = GameObject.GetComponent<Image>()) ??
-                            (_image = GameObject.AddComponent<Image>()));
-                }
-            }
-        }
+    //        public Image Image
+    //        {
+    //            get
+    //            {
+    //                return _image ??
+    //                       ((_image = GameObject.GetComponent<Image>()) ??
+    //                        (_image = GameObject.AddComponent<Image>()));
+    //            }
+    //        }
+    //    }
 
-        public Emoticon[] Emoticons;
+    //    public Emoticon[] Emoticons;
 
-        public Text Text;
+    //    public Text Text;
 
-        public string MessageFormat = "{0}: {1}";
+    //    public string MessageFormat = "{0}: {1}";
 
-        public Color MessageColor = Color.white;
+    //    public Color MessageColor = Color.white;
 
-        public bool OpenPrivateChatWithSenderAfterClick = true;
+    //    public bool OpenPrivateChatWithSenderAfterClick = true;
 
-        public string Sender { get; private set; }
+    //    public string Sender { get; private set; }
 
-        public object Message { get; private set; }
+    //    public object Message { get; private set; }
 
-        private readonly List<GeneratedEmoticon> _generatedEmoticons = new List<GeneratedEmoticon>();
+    //    private readonly List<GeneratedEmoticon> _generatedEmoticons = new List<GeneratedEmoticon>();
 
-        private Vector2 _generatedSize;
+    //    private Vector2 _generatedSize;
 
-        private readonly string _whiteCharacter = Convert.ToChar(160).ToString();
+    //    private readonly string _whiteCharacter = Convert.ToChar(160).ToString();
 
-        private string ParseEmoticons(string str)
-        {
-            int i = 0;
-            while (i < str.Length)
-            {
-                int c = str.Length;
+    //    private string ParseEmoticons(string str)
+    //    {
+    //        int i = 0;
+    //        while (i < str.Length)
+    //        {
+    //            int c = str.Length;
 
-                Emoticon foundEmoticon = null;
+    //            Emoticon foundEmoticon = null;
 
-                foreach (var emoticon in Emoticons)
-                {
-                    int n = str.ToLower().IndexOf(emoticon.Tag.ToLower(), i, StringComparison.Ordinal);
+    //            foreach (var emoticon in Emoticons)
+    //            {
+    //                int n = str.ToLower().IndexOf(emoticon.Tag.ToLower(), i, StringComparison.Ordinal);
 
-                    if ((n < c || (n == c && foundEmoticon != null && foundEmoticon.Tag.Length < emoticon.Tag.Length)) &&
-                        n >= 0)
-                    {
-                        c = n;
-                        foundEmoticon = emoticon;
-                    }
-                }
+    //                if ((n < c || (n == c && foundEmoticon != null && foundEmoticon.Tag.Length < emoticon.Tag.Length)) &&
+    //                    n >= 0)
+    //                {
+    //                    c = n;
+    //                    foundEmoticon = emoticon;
+    //                }
+    //            }
 
-                if (foundEmoticon == null)
-                    break;
+    //            if (foundEmoticon == null)
+    //                break;
 
-                i = c;
+    //            i = c;
 
-                str = str.Remove(i, foundEmoticon.Tag.Length);
+    //            str = str.Remove(i, foundEmoticon.Tag.Length);
 
-                _generatedEmoticons.Add(new GeneratedEmoticon
-                {
-                    Index = i,
-                    Length = foundEmoticon.CharWidth,
-                    Sprite = foundEmoticon.Sprite
-                });
+    //            _generatedEmoticons.Add(new GeneratedEmoticon
+    //            {
+    //                Index = i,
+    //                Length = foundEmoticon.CharWidth,
+    //                Sprite = foundEmoticon.Sprite
+    //            });
 
-                for (int p = 0; p < foundEmoticon.CharWidth; p++)
-                {
-                    if (p == 0 || p == foundEmoticon.CharWidth - 1)
-                        str = str.Insert(i, _whiteCharacter);
-                    else
-                        str = str.Insert(i, " ");
-                    i++;
-                }
-            }
-            return str;
-        }
+    //            for (int p = 0; p < foundEmoticon.CharWidth; p++)
+    //            {
+    //                if (p == 0 || p == foundEmoticon.CharWidth - 1)
+    //                    str = str.Insert(i, _whiteCharacter);
+    //                else
+    //                    str = str.Insert(i, " ");
+    //                i++;
+    //            }
+    //        }
+    //        return str;
+    //    }
 
-        private void GenerateEmoticons()
-        {
-            var settings = Text.GetGenerationSettings(Text.rectTransform.rect.size);
+    //    private void GenerateEmoticons()
+    //    {
+    //        var settings = Text.GetGenerationSettings(Text.rectTransform.rect.size);
 
-            Text.cachedTextGeneratorForLayout.Populate(Text.text, settings);
+    //        Text.cachedTextGeneratorForLayout.Populate(Text.text, settings);
 
-            foreach (var emoticon in _generatedEmoticons)
-            {
-                emoticon.GameObject.transform.SetParent(Text.transform, false);
-                emoticon.LayoutElement.ignoreLayout = true;
-                emoticon.RectTransform.pivot = new Vector2(0.0f, 0.5f);
-                emoticon.RectTransform.anchorMax = new Vector2(0.0f, 0.0f);
-                emoticon.RectTransform.anchorMin = new Vector2(0.0f, 0.0f);
+    //        foreach (var emoticon in _generatedEmoticons)
+    //        {
+    //            emoticon.GameObject.transform.SetParent(Text.transform, false);
+    //            emoticon.LayoutElement.ignoreLayout = true;
+    //            emoticon.RectTransform.pivot = new Vector2(0.0f, 0.5f);
+    //            emoticon.RectTransform.anchorMax = new Vector2(0.0f, 0.0f);
+    //            emoticon.RectTransform.anchorMin = new Vector2(0.0f, 0.0f);
 
-                var min = (Text.cachedTextGeneratorForLayout.characters[emoticon.Index].cursorPos / Text.pixelsPerUnit);
+    //            var min = (Text.cachedTextGeneratorForLayout.characters[emoticon.Index].cursorPos / Text.pixelsPerUnit);
 
-                float w = 0.0f;
+    //            float w = 0.0f;
 
-                float y = Text.cachedTextGeneratorForLayout.rectExtents.height -
-                          (Text.cachedTextGeneratorForLayout.lines[0].height / 2.0f);
+    //            float y = Text.cachedTextGeneratorForLayout.rectExtents.height -
+    //                      (Text.cachedTextGeneratorForLayout.lines[0].height / 2.0f);
 
-                int l = 0;
+    //            int l = 0;
 
-                for (int i = 0; i < emoticon.Index + 1 && l + 1 < Text.cachedTextGeneratorForLayout.lines.Count; i++)
-                {
-                    if (Text.cachedTextGeneratorForLayout.lines[l + 1].startCharIdx <= i)
-                    {
-                        y -= Text.cachedTextGeneratorForLayout.lines[l + 1].height;
-                        l++;
-                    }
-                }
+    //            for (int i = 0; i < emoticon.Index + 1 && l + 1 < Text.cachedTextGeneratorForLayout.lines.Count; i++)
+    //            {
+    //                if (Text.cachedTextGeneratorForLayout.lines[l + 1].startCharIdx <= i)
+    //                {
+    //                    y -= Text.cachedTextGeneratorForLayout.lines[l + 1].height;
+    //                    l++;
+    //                }
+    //            }
 
-                y /= Text.pixelsPerUnit;
+    //            y /= Text.pixelsPerUnit;
 
-                for (int i = emoticon.Index; i < emoticon.Index + emoticon.Length; i++)
-                {
-                    w += Text.cachedTextGeneratorForLayout.characters[i].charWidth;
-                }
+    //            for (int i = emoticon.Index; i < emoticon.Index + emoticon.Length; i++)
+    //            {
+    //                w += Text.cachedTextGeneratorForLayout.characters[i].charWidth;
+    //            }
 
-                w /= Text.pixelsPerUnit;
+    //            w /= Text.pixelsPerUnit;
 
-                var pos = new Vector2(min.x, y);
+    //            var pos = new Vector2(min.x, y);
 
 
-                emoticon.RectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w);
-                emoticon.RectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, w);
+    //            emoticon.RectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w);
+    //            emoticon.RectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, w);
 
-                emoticon.RectTransform.anchoredPosition = pos;
+    //            emoticon.RectTransform.anchoredPosition = pos;
 
-                emoticon.Image.preserveAspect = true;
-                emoticon.Image.sprite = emoticon.Sprite;
-            }
-        }
+    //            emoticon.Image.preserveAspect = true;
+    //            emoticon.Image.sprite = emoticon.Sprite;
+    //        }
+    //    }
 
-        public virtual void SetData(string sender, object message, bool hideSender)
-        {
-            hideSender = false; // always show name
-            Sender = sender;
-            Message = message;
+    //    public virtual void SetData(string sender, object message, bool hideSender)
+    //    {
+    //        hideSender = false; // always show name
+    //        Sender = sender;
+    //        Message = message;
 
-            string messageColorHex = string.Format("#{0:X2}{1:X2}{2:X2}{3:X2}",
-                (int)(MessageColor.r * 255),
-                (int)(MessageColor.g * 255),
-                (int)(MessageColor.b * 255),
-                (int)(MessageColor.a * 255));
+    //        string messageColorHex = string.Format("#{0:X2}{1:X2}{2:X2}{3:X2}",
+    //            (int)(MessageColor.r * 255),
+    //            (int)(MessageColor.g * 255),
+    //            (int)(MessageColor.b * 255),
+    //            (int)(MessageColor.a * 255));
 
-            string messageText = "<color=" + messageColorHex + ">" + message + "</color>";
+    //        string messageText = "<color=" + messageColorHex + ">" + message + "</color>";
 
-            var senderName = FindObjectOfType<GameManager>().GetColoredPlayerName(sender,false, true, PunTeams.FindTeamForPlayer(sender));
+    //        var senderName = FindObjectOfType<GameManager>().GetColoredPlayerName(sender,false, true, PunTeams.FindTeamForPlayer(sender));
 
-            Text.text = ParseEmoticons(hideSender ? messageText : string.Format(MessageFormat, senderName, messageText));
-            Text.rectTransform.pivot = Vector2.zero;
-        }
+    //        Text.text = ParseEmoticons(hideSender ? messageText : string.Format(MessageFormat, senderName, messageText));
+    //        Text.rectTransform.pivot = Vector2.zero;
+    //    }
 
-        protected virtual void Update()
-        {
-            if (_generatedSize != Text.rectTransform.rect.size)
-            {
-                _generatedSize = Text.rectTransform.rect.size;
-                GenerateEmoticons();
-            }
-        }
+    //    protected virtual void Update()
+    //    {
+    //        if (_generatedSize != Text.rectTransform.rect.size)
+    //        {
+    //            _generatedSize = Text.rectTransform.rect.size;
+    //            GenerateEmoticons();
+    //        }
+    //    }
 
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            if (OpenPrivateChatWithSenderAfterClick)
-                ChatUI.Instance.CreatePrivateChannel(Sender);
-        }
-    }
+    //    public void OnPointerClick(PointerEventData eventData)
+    //    {
+    //        if (OpenPrivateChatWithSenderAfterClick)
+    //            ChatUI.Instance.CreatePrivateChannel(Sender);
+    //    }
+    //}
 }
 

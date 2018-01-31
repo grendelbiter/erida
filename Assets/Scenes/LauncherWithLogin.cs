@@ -8,7 +8,6 @@ using Assets.Wulfram3.Scripts.InternalApis;
 using Assets.Wulfram3.Scripts.InternalApis.Classes;
 using Assets.Wulfram3.Scripts.InternalApis.Interfaces;
 using Assets.Wulfram3.Scripts.InternalApis.Implementations;
-using PhotonChatUI;
 using UnityEngine.Experimental.UIElements;
 using System;
 
@@ -62,7 +61,6 @@ namespace Com.Wulfram3 {
 
 
         #region Private Variables
-        private ChatUI _chatUI;
 
         /// <summary>
         /// This client's version number. Users are separated from each other by gameversion (which allows you to make breaking changes).
@@ -126,10 +124,6 @@ namespace Com.Wulfram3 {
 
 
         #region Public Methods
-        public ChatUI chatUI
-        {
-            get { return _chatUI ?? (_chatUI = GetComponent<ChatUI>()); }
-        }
 
         /// <summary>
         /// Start the connection process. 

@@ -1,4 +1,4 @@
-﻿using PhotonChatUI;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,6 @@ namespace Assets.Wulfram3.Scripts.HUD
 
         public InputField messageBox;
         public GameObject chatPanel;
-        private ChatPanelUI chatPanelUI;
 
 
         void Start()
@@ -40,11 +39,11 @@ namespace Assets.Wulfram3.Scripts.HUD
             }
             else if(Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                chatPanel.GetComponent<ChatUI>().MainDock.ActivatePrevious();
+                //chatPanel.GetComponent<ChatUI>().MainDock.ActivatePrevious();
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                chatPanel.GetComponent<ChatUI>().MainDock.ActivateNext();
+                //chatPanel.GetComponent<ChatUI>().MainDock.ActivateNext();
             }
         }
     }
