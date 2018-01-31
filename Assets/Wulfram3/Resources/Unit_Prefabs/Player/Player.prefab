@@ -2226,20 +2226,20 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.45
+    widthMultiplier: 0.35
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0.55000114
+        value: 1
         inSlope: 0
-        outSlope: -0.40000474
+        outSlope: 0
         tangentMode: 65
       - serializedVersion: 2
         time: 1
-        value: 0.1499964
-        inSlope: -0.40000474
+        value: 1
+        inSlope: -0
         outSlope: 0
         tangentMode: 5
       m_PreInfinity: 2
@@ -2277,7 +2277,7 @@ LineRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
