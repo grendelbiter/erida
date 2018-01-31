@@ -16,14 +16,14 @@ namespace Com.Wulfram3
         private PunTeams.Team teamLast;
         private int meshLast;
 
-        void Start() {
+        void Awake() {
             if (PhotonNetwork.isMasterClient)
             {
                 healthLast = hitPointsManager.health;
                 teamLast = unitData.unitTeam;
                 if (playerMovementManager != null)
                     meshLast = playerMovementManager.GetMeshIndex();
-            } else
+            } else if (!photonView.isMine)
             {
                 this.photonView.RPC("GetDataFromMaster", PhotonTargets.MasterClient);
             }
@@ -55,11 +55,12 @@ namespace Com.Wulfram3
         [PunRPC]
         public void ReceiveDataFromMaster(object[] o)
         {
-            hitPointsManager.health = (int)o[0];
-            unitData.unitTeam = (PunTeams.Team)o[1];
-            if (playerMovementManager != null)
+            if (!photonView.isMine)
             {
-                playerMovementManager.SetMesh((int)o[2]);
+                hitPointsManager.health = (int)o[0];
+                unitData.unitTeam = (PunTeams.Team)o[1];
+                if (playerMovementManager != null)
+                    playerMovementManager.SetMesh((int)o[2]);
             }
         }
 

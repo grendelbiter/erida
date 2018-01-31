@@ -47,7 +47,7 @@ namespace Com.Wulfram3 {
 
         public void SetHealth(int newHealth) {
             if (PhotonNetwork.isMasterClient) {
-                photonView.RPC("UpdateHealth", PhotonTargets.AllBuffered, newHealth);
+                photonView.RPC("UpdateHealth", PhotonTargets.All, newHealth);
             }
         }
 
@@ -60,7 +60,7 @@ namespace Com.Wulfram3 {
 
         public void TellServerHealth(int newHealth)
         {
-            photonView.RPC("SetHealthFromClient", PhotonTargets.AllBuffered, newHealth);
+            photonView.RPC("SetHealthFromClient", PhotonTargets.All, newHealth);
         }
 
         public void TellServerTakeDamage(int amount) {
