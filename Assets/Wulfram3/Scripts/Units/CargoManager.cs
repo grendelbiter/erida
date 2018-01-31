@@ -136,7 +136,7 @@ namespace Com.Wulfram3
         private Vector3 GetBestPosition()
         {
             RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxPlaceDistance))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxPlaceDistance,~LayerMask.GetMask("Units")))
                 return new Vector3(hit.point.x, hit.point.y + (minPlaceDistance * 0.5f), hit.point.z);
             return new Vector3(placeObjectPoint.position.x, placeObjectPoint.position.y + (minPlaceDistance * 0.85f), placeObjectPoint.position.z);
         }
