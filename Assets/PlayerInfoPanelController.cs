@@ -22,27 +22,33 @@ namespace Com.Wulfram3 {
 
         // Update is called once per frame
         void LateUpdate() {
-            var isMeshVisable = target.GetComponentInChildren<MeshRenderer>().isVisible;
-            var isMapIconVisable = target.GetComponent<KGFMapIcon>().GetIsVisible();
+            if (target != null) // New (see note at second "if"
+            {
+                var isMeshVisable = target.GetComponentInChildren<MeshRenderer>().isVisible;
+                var isMapIconVisable = target.GetComponent<KGFMapIcon>().GetIsVisible();
 
 
 
-            if (target != null && isMeshVisable && isMapIconVisable) {
-                playerNameText.gameObject.SetActive(false);
-                pos = Camera.main.WorldToScreenPoint(target.transform.position);
-                pos.z = 0;
-                RectTransform rectTransform = GetComponent<RectTransform>();
-                pos.y += 50;
+                if (isMeshVisable && isMapIconVisable) // target != null was here
+                {
+                    playerNameText.gameObject.SetActive(false);
+                    pos = Camera.main.WorldToScreenPoint(target.transform.position);
+                    pos.z = 0;
+                    RectTransform rectTransform = GetComponent<RectTransform>();
+                    pos.y += 50;
 
-                string playerName = target.GetComponent<PhotonView>().owner.NickName;
-                string hitpoints = target.GetComponent<HitPointsManager>().health + "/" + target.GetComponent<HitPointsManager>().maxHealth;
+                    string playerName = target.GetComponent<PhotonView>().owner.NickName;
+                    string hitpoints = target.GetComponent<HitPointsManager>().health + "/" + target.GetComponent<HitPointsManager>().maxHealth;
 
-                var name = gameManager.GetColoredPlayerName(playerName, target.GetComponent<PhotonView>().owner.IsMasterClient, true, target.GetComponent<Unit>().unitTeam);
-                playerNameText.text = name;
+                    var name = gameManager.GetColoredPlayerName(playerName, target.GetComponent<PhotonView>().owner.IsMasterClient, true, target.GetComponent<Unit>().unitTeam);
+                    playerNameText.text = name;
 
-                rectTransform.SetPositionAndRotation(pos, rectTransform.rotation);
-            } else {
-                playerNameText.gameObject.SetActive(false);
+                    rectTransform.SetPositionAndRotation(pos, rectTransform.rotation);
+                }
+                else
+                {
+                    playerNameText.gameObject.SetActive(false);
+                }
             }
         }
 

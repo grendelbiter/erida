@@ -16,7 +16,7 @@ namespace Com.Wulfram3
         private PunTeams.Team teamLast;
         private int meshLast;
 
-        void Start() {
+        void Awake() {
             if (PhotonNetwork.isMasterClient)
             {
                 healthLast = hitPointsManager.health;

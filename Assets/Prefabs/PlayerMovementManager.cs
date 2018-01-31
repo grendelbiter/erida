@@ -151,12 +151,12 @@ namespace Com.Wulfram3
             {
                 meshList[n].gameObject.SetActive(false);
             }
-            if (myUnit.unitTeam == PunTeams.Team.Blue)
+            if (myUnit != null && myUnit.unitTeam == PunTeams.Team.Blue)
                 myMapIcon.SetTextureIcon(myIconTextures[0]);
-            else if (myUnit.unitTeam == PunTeams.Team.Red)
+            else if (myUnit != null && myUnit.unitTeam == PunTeams.Team.Red)
                 myMapIcon.SetTextureIcon(myIconTextures[1]);
             else
-                Debug.Log("TODO: Set other team map icons.");
+                Debug.Log("TODO: Set other team map icons. (Or Unit Script NULL)");
             meshIndex = i;
             meshList[i].gameObject.SetActive(true);
             myMesh = meshList[i];
