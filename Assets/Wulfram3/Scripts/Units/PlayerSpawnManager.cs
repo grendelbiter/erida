@@ -48,6 +48,12 @@ namespace Assets.Wulfram3.Scripts.Units
             HitPointsManager hitpointsManager = player.GetComponent<HitPointsManager>();
             hitpointsManager.TellServerHealth(hitpointsManager.maxHealth);
 
+            CargoManager cargoManager = player.GetComponent<CargoManager>();
+            cargoManager.hasCargo = false;
+            cargoManager.isDeploying = false;
+            cargoManager.cargoType = UnitType.None;
+            cargoManager.cargoTeam = player.GetComponent<Unit>().unitTeam;
+
             player.GetComponent<FuelManager>().ResetFuel();
             PlayerSpawnManager.status = SpawnStatus.IsAlive;
             //icon.SetVisibility(true);
