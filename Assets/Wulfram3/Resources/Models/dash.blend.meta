@@ -1,0 +1,165 @@
+fileFormatVersion: 2
+guid: fcbc4fc54dbde484aac4227c40df40e7
+timeCreated: 1517372050
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: chatScreen
+    100002: //RootNode
+    100004: Dashboard
+    100006: Dashboard_001
+    100008: FarMapScreen
+    100010: FarMapScreenBase
+    100012: GlimpseTimerScreen
+    100014: KillCountScreen
+    100016: LocalMapBase
+    100018: LocalMapBaseTop
+    100020: LocalMapScreen
+    100022: PingScreen
+    100024: SectorScreen
+    100026: TMLight
+    100028: TmodeBulbBase
+    400000: chatScreen
+    400002: //RootNode
+    400004: Dashboard
+    400006: Dashboard_001
+    400008: FarMapScreen
+    400010: FarMapScreenBase
+    400012: GlimpseTimerScreen
+    400014: KillCountScreen
+    400016: LocalMapBase
+    400018: LocalMapBaseTop
+    400020: LocalMapScreen
+    400022: PingScreen
+    400024: SectorScreen
+    400026: TMLight
+    400028: TmodeBulbBase
+    2100000: None__metalT2_bmp_png
+    2100002: None__2404522-wulfram_1_jpg
+    2100004: Material__light_png
+    2100006: None__metal_bmp_png
+    2300000: chatScreen
+    2300002: Dashboard
+    2300004: Dashboard_001
+    2300006: FarMapScreen
+    2300008: FarMapScreenBase
+    2300010: GlimpseTimerScreen
+    2300012: KillCountScreen
+    2300014: LocalMapBase
+    2300016: LocalMapBaseTop
+    2300018: LocalMapScreen
+    2300020: PingScreen
+    2300022: SectorScreen
+    2300024: TMLight
+    2300026: TmodeBulbBase
+    3300000: chatScreen
+    3300002: Dashboard
+    3300004: Dashboard_001
+    3300006: FarMapScreen
+    3300008: FarMapScreenBase
+    3300010: GlimpseTimerScreen
+    3300012: KillCountScreen
+    3300014: LocalMapBase
+    3300016: LocalMapBaseTop
+    3300018: LocalMapScreen
+    3300020: PingScreen
+    3300022: SectorScreen
+    3300024: TMLight
+    3300026: TmodeBulbBase
+    4300000: Dashboard_001
+    4300002: LocalMapBase
+    4300004: LocalMapBaseTop
+    4300006: chatScreen
+    4300008: TMLight
+    4300010: LocalMapScreen
+    4300012: FarMapScreen
+    4300014: SectorScreen
+    4300016: GlimpseTimerScreen
+    4300018: KillCountScreen
+    4300020: TmodeBulbBase
+    4300022: PingScreen
+    4300024: Dashboard
+    4300026: FarMapScreenBase
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 28.45
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

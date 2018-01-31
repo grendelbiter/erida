@@ -101,7 +101,7 @@ namespace Com.Wulfram3
             if (PlayerMovementManager.LocalPlayerInstance == null) {
                 Debug.Log("We are Instantiating LocalPlayer from " + Application.loadedLevelName);
 
-                GameObject g = Instantiate(Resources.Load("VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
+                GameObject g = Instantiate(Resources.Load("Prefabs/SceneBase/VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
                 unitSelector = g.GetComponent<VehicleSelector>();
 
                 //GameObject map = Instantiate(Resources.Load("Terrains/TronNoGrass"), new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
