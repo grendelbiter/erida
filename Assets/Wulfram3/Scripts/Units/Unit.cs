@@ -52,7 +52,7 @@ namespace Com.Wulfram3
         public static string GetPrefabName(UnitType u, PunTeams.Team t)
         {
             string tf = PunTeamToTeamString(t);
-            string s = "Unit_Prefabs/" + tf + "/" + tf + "_";
+            string s = "Prefabs/" + tf + "/" + tf + "_";
             switch (u)
             {
                 case UnitType.Cargo: s += "Cargo"; break;

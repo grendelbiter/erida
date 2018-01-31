@@ -139,7 +139,7 @@ namespace Com.Wulfram3
 
                 Debug.Log("Assigned to " + o[1] + " team. Awaiting first spawn.");
                 unitSelector.SetAvailableModels(availableUnits);
-                player = PhotonNetwork.Instantiate("Unit_Prefabs/Player/Player", new Vector3(0, -100, 0), Quaternion.identity, 0, o);
+                player = PhotonNetwork.Instantiate("Prefabs/Player/Player", new Vector3(0, -100, 0), Quaternion.identity, 0, o);
                 PhotonNetwork.player.SetTeam((PunTeams.Team)o[1]);
             }
             else {
