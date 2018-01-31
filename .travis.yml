@@ -4,7 +4,7 @@
 language: objective-c
 osx_image: xcode9.2
 rvm:
-- 2.1.2
+- 2.2
 before_install:
 - chmod a+x ./BuildScripts/install.sh
 - chmod a+x ./BuildScripts/build.sh
@@ -12,3 +12,4 @@ install:
 - ./BuildScripts/install.sh
 script:
 - ./BuildScripts/build.sh
+sudo: true
