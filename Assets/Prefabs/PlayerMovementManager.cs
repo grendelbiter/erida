@@ -33,7 +33,7 @@ namespace Com.Wulfram3
         private int fuelPerJump = 200;
         private float timeBetweenJumps = 3.0f;
 
-        private int fuelPerPulse = 180;
+        private int fuelPerPulse = 135; // Reduced from 180 last
         private float timeBetweenPulse = 3f;
         private float pulseShellFiringImpulse = 8f;
 

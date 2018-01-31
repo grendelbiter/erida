@@ -13,8 +13,8 @@ namespace Com.Wulfram3 {
         public static int PulseVelocity = 30;
         public static int FlakVelocity = 60; // To intercept, flak must be faster than pulse
 
-        public static int PulseDirectDamage = 200;
-        public static int FlakDirectDamage = 70;
+        public static int PulseDirectDamage = 300;
+        public static int FlakDirectDamage = 75;
 
         public static int PulseSplashRadius = 12;
         public static int FlakSplashRadius = 7;

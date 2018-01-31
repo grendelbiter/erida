@@ -10,7 +10,7 @@ namespace Com.Wulfram3 {
         public AudioClip missSound;
 		public AudioSource audioSource;
         public int bulletDamageinHitpoints = 1;
-        public float bulletsPerSecond = 10;
+        public float bulletsPerSecond = 16; // Changed from 10 in Pre-Alpha Planning Iteration
         private float range = 60;
         public float deviationConeRadius = 1;
         public int fuelPerBullet = 1;
