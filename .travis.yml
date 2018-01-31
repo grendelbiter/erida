@@ -11,5 +11,5 @@ before_install:
 install:
 - ./BuildScripts/install.sh
 script:
-- ./BuildScripts/build.sh
+- travis_wait 30 ./BuildScripts/build.sh
 sudo: true
