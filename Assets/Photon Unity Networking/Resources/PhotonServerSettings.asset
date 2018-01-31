@@ -67,4 +67,6 @@ MonoBehaviour:
   - SetSelectedVehicle
   - SetTeam
   - SendMeshToNewPlayer
+  - GetDataFromMaster
+  - ReceiveDataFromMaster
   DisableAutoOpenWizard: 1
