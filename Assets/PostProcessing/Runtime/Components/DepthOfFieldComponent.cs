@@ -88,9 +88,7 @@ namespace UnityEngine.PostProcessing
             if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Metal)
                 cocFormat = SelectFormat(RenderTextureFormat.RHalf, RenderTextureFormat.Default);
 #endif
-            Debug.Log("Screen Height: " + Screen.height);
             k_FilmHeight = 0.024f * (Screen.height / 992f);
-            Debug.Log("Film Height: " + k_FilmHeight);
             // Material setup
             var f = CalculateFocalLength();
             var s1 = Mathf.Max(settings.focusDistance, f);
