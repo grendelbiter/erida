@@ -40,7 +40,7 @@ namespace UnityEngine.PostProcessing
         RenderTexture m_CoCHistory;
 
         // Height of the 35mm full-frame format (36mm x 24mm)
-        const float k_FilmHeight = 0.024f;
+        float k_FilmHeight = 0.024f;
 
         float CalculateFocalLength()
         {
@@ -84,11 +84,13 @@ namespace UnityEngine.PostProcessing
             var cocFormat = SelectFormat(RenderTextureFormat.R8, RenderTextureFormat.RHalf);
 
             // Avoid using R8 on OSX with Metal. #896121, https://goo.gl/MgKqu6
-            #if (UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX) && !UNITY_2017_1_OR_NEWER
+#if (UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX) && !UNITY_2017_1_OR_NEWER
             if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Metal)
                 cocFormat = SelectFormat(RenderTextureFormat.RHalf, RenderTextureFormat.Default);
-            #endif
-
+#endif
+            Debug.Log("Screen Height: " + Screen.height);
+            k_FilmHeight = 0.024f * (Screen.height / 992f);
+            Debug.Log("Film Height: " + k_FilmHeight);
             // Material setup
             var f = CalculateFocalLength();
             var s1 = Mathf.Max(settings.focusDistance, f);
