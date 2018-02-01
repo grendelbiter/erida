@@ -35,11 +35,14 @@ namespace Com.Wulfram3 {
         [HideInInspector]
         public PunTeams.Team team;
 
+        private Vector3 parentVelocity = Vector3.zero;
+
         // Use this for initialization
         void Start() {
             object[] instanceData = transform.GetComponent<PhotonView>().instantiationData;
             team = (PunTeams.Team) instanceData[0];
             UnitType firedBy = (UnitType) instanceData[1];
+
             if (firedBy == UnitType.FlakTurret)
             {
                 velocity = FlakVelocity;
@@ -54,6 +57,7 @@ namespace Com.Wulfram3 {
             }
             else
             {
+                parentVelocity = (Vector3)instanceData[2];
                 velocity = PulseVelocity;
                 directDamage = PulseDirectDamage;
                 splashRadius = PulseSplashRadius;
@@ -70,7 +74,7 @@ namespace Com.Wulfram3 {
                 }
             }
             Rigidbody rb = GetComponent<Rigidbody>();
-            rb.velocity = transform.forward * velocity;
+            rb.velocity = parentVelocity + (transform.forward * velocity);
             if (PhotonNetwork.isMasterClient)
             {
                 gameManager = FindObjectOfType<GameManager>();
@@ -94,7 +98,7 @@ namespace Com.Wulfram3 {
             if (PhotonNetwork.isMasterClient) // Force masterclient control of velocity base detonation
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
-                if (rb.velocity != transform.forward * velocity)
+                if (rb.velocity != parentVelocity + (transform.forward * velocity))
                 {
                     SplashDetonation();
                 }

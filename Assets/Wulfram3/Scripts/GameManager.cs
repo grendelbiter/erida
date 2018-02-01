@@ -177,14 +177,17 @@ namespace Com.Wulfram3
         }
 
         [PunRPC]
-        public void SpawnPulseShell(object[] args)
+        public void SpawnPulseShell(Vector3 pos, Quaternion rot, PunTeams.Team team, Vector3 vel, int senderID, PhotonMessageInfo info)
         {
             if (PhotonNetwork.isMasterClient)
             {
-                object[] instanceData = new object[2];
-                instanceData[0] = (PunTeams.Team) args[2];
+                object[] instanceData = new object[3];
+                instanceData[0] = team;
                 instanceData[1] = UnitType.Tank;
-                PhotonNetwork.InstantiateSceneObject("Unit_Prefabs/Weapons/PulseShell", (Vector3) args[0], (Quaternion) args[1], 0, instanceData);
+                instanceData[2] = vel;
+                PhotonView senderPV = PhotonView.Find(senderID);
+                senderPV.RPC("DestroyLocalShell", info.sender);
+                PhotonNetwork.InstantiateSceneObject("Prefabs/Weapons/PulseShell", pos, rot, 0, instanceData);
             }
         }
 
@@ -196,7 +199,7 @@ namespace Com.Wulfram3
                 instanceData[0] = team;
                 instanceData[1] = UnitType.FlakTurret;
                 instanceData[2] = fuse;
-                GameObject shell = PhotonNetwork.InstantiateSceneObject("Unit_Prefabs/Weapons/PulseShell", pos, rotation, 0, instanceData);
+                GameObject shell = PhotonNetwork.InstantiateSceneObject("Prefabs/Weapons/PulseShell", pos, rotation, 0, instanceData);
             }
         }
 

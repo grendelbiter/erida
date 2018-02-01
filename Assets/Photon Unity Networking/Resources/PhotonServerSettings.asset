@@ -69,4 +69,5 @@ MonoBehaviour:
   - SendMeshToNewPlayer
   - GetDataFromMaster
   - ReceiveDataFromMaster
+  - DestroyLocalShell
   DisableAutoOpenWizard: 1

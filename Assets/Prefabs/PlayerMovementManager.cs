@@ -111,6 +111,8 @@ namespace Com.Wulfram3
         public List<Transform> firstPersonCameraPositions;
         public List<Transform> thirdPersonCameraPositions;
 
+        private GameObject tempShell;
+
         void Start()
         {
             myUnit = GetComponent<Unit>();
@@ -556,16 +558,30 @@ namespace Com.Wulfram3
 
         void CmdFirePulseShell()
         {
-            object[] args = new object[3];
+            object[] args = new object[5];
             args[0] = gunEnd.position;
             args[1] = gunEnd.rotation;
             args[2] = transform.GetComponent<Unit>().unitTeam;
+            args[3] = myRigidbody.velocity;
+            args[4] = this.photonView.viewID;
+            tempShell = Instantiate(Resources.Load("Prefabs/Weapons/DummyPulse_" + myUnit.unitTeam), gunEnd.position, gunEnd.rotation) as GameObject;
+            tempShell.GetComponent<Rigidbody>().velocity = myRigidbody.velocity + (tempShell.transform.forward * SplashProjectileController.PulseVelocity);
             gameManager.photonView.RPC("SpawnPulseShell", PhotonTargets.MasterClient, args);
             if (!isGrounded)
             {
                 myRigidbody.AddForce(-transform.forward * pulseShellFiringImpulse, ForceMode.Impulse);
             }
             pulseStamp = Time.time + timeBetweenPulse;
+        }
+
+        [PunRPC]
+        public void DestroyLocalShell()
+        {
+            if (tempShell != null)
+            {
+                Destroy(tempShell);
+                tempShell = null;
+            }
         }
 
         public void FixedUpdate()
