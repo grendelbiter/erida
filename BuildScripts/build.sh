@@ -8,8 +8,6 @@ project="erida"
 
 echo "Attempting to build $project for Windows"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
-  -username 'knight1219@gmail.com' 
-  -password 'Fate1220'
   -batchmode \
   -nographics \
   -silent-crashes \
