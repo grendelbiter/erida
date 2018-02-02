@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Com.Wulfram3
 {
     [RequireComponent(typeof(Unit))]
-    [RequireComponent(typeof(HitPointsManager))]
     public class GunTurretController : Photon.PunBehaviour
     {
 
@@ -129,14 +128,10 @@ namespace Com.Wulfram3
 
                 RaycastHit objectHit;
                 targetOnSight = Physics.Raycast(pos, transform.forward, out objectHit, scanRadius) && ValidTarget(objectHit.collider.transform);
-                if (targetOnSight && objectHit.transform.GetComponent<Unit>().unitTeam != this.gameObject.GetComponent<Unit>().unitTeam)
+                Unit hitUnit = objectHit.transform.GetComponent<Unit>();
+                if (targetOnSight && hitUnit.unitTeam != this.gameObject.GetComponent<Unit>().unitTeam)
                 {
-                    HitPointsManager hitPointsManager = objectHit.transform.GetComponent<HitPointsManager>();
-                    if (hitPointsManager != null)
-                    {
-                        hitPointsManager.TellServerTakeDamage((int) Mathf.Ceil(bulletDamageinHitpoints * bulletsPerSecond));
-
-                    }
+                    hitUnit.TellServerTakeDamage((int) Mathf.Ceil(bulletDamageinHitpoints * bulletsPerSecond));
                 }
                 timeSinceLastDamage = 0;
             }
@@ -144,10 +139,10 @@ namespace Com.Wulfram3
 
         private bool ValidTarget(Transform t)
         {
-            if (t.GetComponent<HitPointsManager>())
+            if (t != null && t.GetComponent<Unit>())
             {
                 if (t.GetComponent<Unit>().unitTeam != GetComponent<Unit>().unitTeam)
-                return true;
+                    return true;
             }
             return false;
         }

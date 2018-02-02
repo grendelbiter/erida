@@ -6,11 +6,11 @@ using UnityEngine;
 public interface IVehicleSetting
 
 { 
+    int MaxHitPoints { get; }
+
     float BaseThrust { get; }
 
     float StrafePercent { get; }
-
-    float ThrustMultiplier { get; }
 
     float JumpForce { get; }
 

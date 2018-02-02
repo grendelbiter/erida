@@ -23,7 +23,6 @@ namespace Com.Wulfram3 {
 
         private float lastSimTime = 0;
 
-
 		//wait for second on laser
 		private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
 		//line render for gun shots
@@ -34,7 +33,7 @@ namespace Com.Wulfram3 {
         public bool debug = true;
 
         private float timeBetweenShots;
-        private float lastFireTime;
+        private float nextFireTime;
 
         private Vector3 screenCenter;
         private Transform targetPosition;
@@ -45,6 +44,7 @@ namespace Com.Wulfram3 {
         void Start() {
             laserLine = GetComponent<LineRenderer>();
             timeBetweenShots = 1f / bulletsPerSecond;
+            nextFireTime = Time.time;
             if (photonView.isMine)
             {
                 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0.0f);
@@ -80,9 +80,10 @@ namespace Com.Wulfram3 {
 		}
 
         [PunRPC]
-        public void SetShooting(bool newShootingValue) {
+        public void SetShooting(bool newShootingValue, float dcr) {
             if (!photonView.isMine) {
                 shooting = newShootingValue;
+                deviationConeRadius = dcr;
             }   
         }
 
@@ -104,51 +105,38 @@ namespace Com.Wulfram3 {
 
 
         private void CheckAndFire() {
-            if ((InputEx.GetMouseButton(0) || InputEx.GetAxisRaw("Fire1") != 0) && (GetComponent<Unit>().unitType == UnitType.Scout || (GetComponent<CargoManager>() != null && !GetComponent<CargoManager>().isDeploying))) {
-                deviationConeRadius = 1f;
-                float currentTime = Time.time;
-                if (lastFireTime + timeBetweenShots > currentTime ) {
-                    return;
-                }
-                if (Cursor.visible || GetComponent<PlayerMovementManager>().isDead) {
-                    SetAndSyncShooting(false);
-                    return;
-                }
-                if (!GetComponent<FuelManager>().TakeFuel(fuelPerBullet)) {
-                    SetAndSyncShooting(false);
-                    return;
-                }
-                SetAndSyncShooting(true);
+            if ((GetComponent<CargoManager>() != null && GetComponent<CargoManager>().isDeploying) || 
+                Cursor.visible || 
+                GetComponent<PlayerMovementManager>().isDead ||
+                !GetComponent<FuelManager>().CanTakeFuel(fuelPerBullet))
+            {
+                SetAndSyncShooting(false);
+                return;
+            }
 
-                lastFireTime = currentTime;
-                Vector3 rayOrigin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
-                Vector3 pos = gunEnd.position; //transform.position + (transform.forward * 1.0f + transform.up * 0.2f);
-                Quaternion rotation = gunEnd.rotation; // transform.rotation;
-
-                /*
-                Vector3 targetPoint = rotation * GetRandomPointInCircle();
-                targetPoint += pos + transform.forward * range;
-                if (debug) {
-                    Debug.DrawLine(pos, targetPoint, Color.white, 1, false);
+            if (InputEx.GetMouseButton(0) || InputEx.GetAxisRaw("Fire1") != 0) {
+                if (Time.time < nextFireTime)
+                    return;
+                nextFireTime = Time.time + timeBetweenShots;
+                TargetController targetInfo = GetComponent<TargetController>();
+                if (targetInfo != null && targetInfo.currentPlayerTarget != null)
+                {
+                    Vector3 targetDir = targetInfo.currentPlayerTarget.transform.position - Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+                    deviationConeRadius = Vector3.Angle(targetDir, transform.forward);
+                } else
+                {
+                    deviationConeRadius = 25f;
                 }
-                Vector3 targetDirection = (targetPoint - pos).normalized;
-                */
+                deviationConeRadius = Mathf.Clamp(deviationConeRadius, 0f, 25f);
+                Vector3 shotPoint = (gunEnd.rotation * GetRandomPointInCircle()) + (gunEnd.position + transform.forward * range);
                 RaycastHit objectHit;
-                bool targetFound = Physics.Raycast(rayOrigin, transform.forward, out objectHit, range);// && objectHit.transform.GetComponent<Unit>() != null;
-                //check if user is on same team
-                //CHANGED HERE
+                Vector3 rayOrigin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+                bool targetFound = Physics.Linecast(rayOrigin, shotPoint, out objectHit);
                 if (targetFound && ValidTarget(objectHit.transform))
                 {
-                    Vector3 tPos = Camera.main.WorldToScreenPoint(objectHit.transform.GetComponent<Collider>().bounds.center);
-                    Vector3 cPos = new Vector3(tPos.x, tPos.y, 0.0f);
-                    float distanceFromCenter = Vector3.Distance(screenCenter, cPos);
-                    Rect r = Object2dRect(objectHit.transform.gameObject);
-                    //Gizmos.DrawCube(r.center, new Vector3(1, 1, 1));
-                    deviationConeRadius = Mathf.Clamp(distanceFromCenter / (r.size.x / 2), 0, 1);
-                    float damageMultiplier = 1.5f - deviationConeRadius;
-
-                    objectHit.transform.GetComponent<HitPointsManager>().TellServerTakeDamage((int) Mathf.Ceil(bulletDamageinHitpoints * damageMultiplier));
-                } 
+                    objectHit.transform.GetComponent<Unit>().TellServerTakeDamage((int) Mathf.Ceil(bulletDamageinHitpoints));
+                }
+                SetAndSyncShooting(true);
                 AudioSource.PlayClipAtPoint(shootSound, gunEnd.position, 0.1f);
             }
             else {
@@ -156,23 +144,10 @@ namespace Com.Wulfram3 {
             }
         }
 
-        public static Rect Object2dRect(GameObject go)
-        {
-            Bounds b = go.GetComponent<Collider>().bounds;
-            return new Rect(b.min.x, b.min.y, b.max.x - b.min.x, b.max.y - b.min.y);
-        }
-
         private bool ValidTarget(Transform t)
         {
-            HitPointsManager hpm = t.GetComponent<HitPointsManager>();
-            if (hpm != null)
-            {
-                Unit u = t.GetComponent<Unit>();
-                if (u != null && u.unitTeam != this.gameObject.GetComponent<Unit>().unitTeam)
-                {
-                    return true;
-                }
-            }
+            if (t.GetComponent<Unit>() != null && t.GetComponent<Unit>().unitTeam != this.gameObject.GetComponent<Unit>().unitTeam)
+                return true;
             return false;
         }
 
@@ -184,25 +159,14 @@ namespace Com.Wulfram3 {
                 StartCoroutine(ShotEffect());
                 Vector3 rayOrigin;
                 RaycastHit hit;
-                if (photonView.isMine)
-                {
+                rayOrigin = gunEnd.position; // Cast from per-unit gun position
+                if (photonView.isMine) // To the local player the collision point appears in a more natural position when our ray is cast from the apparent crosshair position
                     rayOrigin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
-                }
-                else
-                {
-                    rayOrigin = gunEnd.position;
-                }
 
-                laserLine.SetPosition(0, gunEnd.position);
-
-                Vector3 pos = gunEnd.position; // transform.position + (transform.forward * 1.0f + transform.up * 0.2f);
-                Quaternion rotation = gunEnd.rotation; // transform.rotation;
                 Vector3 bulletHitPoint;
-                Vector3 targetPoint = rotation * GetRandomPointInCircle();
-                targetPoint += pos + transform.forward * range;
                 RaycastHit objectHit;
-                Vector3 targetDirection = (targetPoint - pos).normalized;
-                if (Physics.Raycast(rayOrigin, targetDirection, out hit, range)) {
+                Vector3 targetPoint = (gunEnd.rotation * GetRandomPointInCircle()) + (gunEnd.position + transform.forward * range);
+                if (Physics.Linecast(rayOrigin, targetPoint, out hit)) {
                     bulletHitPoint = hit.point;
                     if (hit.transform && ValidTarget(hit.transform))
                     {
@@ -216,19 +180,16 @@ namespace Com.Wulfram3 {
                     bulletHitPoint = targetPoint;
                     AudioSource.PlayClipAtPoint(missSound, targetPoint);
                 }
+
+                laserLine.SetPosition(0, gunEnd.position);
                 laserLine.SetPosition(1, bulletHitPoint);
-
                 if (!photonView.isMine)
-                {
-                    //play sound
-
                     audioSource.PlayOneShot(shootSound, 1);
-                }
             }    
         }
 
         private void SyncShooting() {
-            photonView.RPC("SetShooting", PhotonTargets.All, shooting);
+            photonView.RPC("SetShooting", PhotonTargets.All, shooting, deviationConeRadius);
         }
 
         private Vector3 GetRandomPointInCircle() {

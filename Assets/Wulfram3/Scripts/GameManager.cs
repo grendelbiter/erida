@@ -221,7 +221,7 @@ namespace Com.Wulfram3
 
 		}*/
 
-
+            /*
         public void UnitsHealthUpdated(HitPointsManager hitpointsManager)
         {
             if (hitpointsManager.tag.Equals("Player") && hitpointsManager.photonView.isMine)
@@ -233,7 +233,7 @@ namespace Com.Wulfram3
                 PhotonNetwork.Destroy(hitpointsManager.gameObject);
                 SpawnExplosion(hitpointsManager.transform.position);
             }
-        }
+        }*/
 
         public void SetHullBar(float level)
         {

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class OtherVehicleSetting : IVehicleSetting
 {
+    public int MaxHitPoints { get { return 500; } }
+
     public float BaseThrust
     {
         get
@@ -17,14 +19,6 @@ public class OtherVehicleSetting : IVehicleSetting
         get
         {
             return 0.9f;
-        }
-    }
-
-    public float ThrustMultiplier
-    {
-        get
-        {
-            return 0.5f;
         }
     }
 

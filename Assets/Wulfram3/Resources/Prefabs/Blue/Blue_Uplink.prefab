@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 54447719832846844}
   - component: {fileID: 64279875757773274}
   - component: {fileID: 114256720687398764}
-  - component: {fileID: 114541821859160298}
   - component: {fileID: 114840650094176320}
   - component: {fileID: 114981636774434904}
   - component: {fileID: 114620777567333180}
@@ -208,23 +207,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitTeam: 2
   unitType: 12
+  maxHealth: 500000
+  hitpointRegenPerSecond: 0.3
   needsPower: 0
-  hasPower: 0
-  hitPointRegenerationSpeed: 1
---- !u!114 &114541821859160298
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1625525076033040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 701f6dc32adcbc3449beb5e727c24394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialHealth: 50000
-  maxHealth: 50000
+  playerLandedBoost: 2.65
+  repairPadBoost: 75
   health: 0
+  hasPower: 0
 --- !u!114 &114620777567333180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -260,6 +249,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114981636774434904}
   - {fileID: 114620777567333180}
+  - {fileID: 114256720687398764}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

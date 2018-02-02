@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class TankVehicleSetting : IVehicleSetting
 {
+
+    public int MaxHitPoints
+    {
+        get
+        {
+            return 500;
+        }
+    }
+
+
     public float BaseThrust
     {
         get
@@ -17,14 +27,6 @@ public class TankVehicleSetting : IVehicleSetting
         get
         {
             return 0.6f;
-        }
-    }
-
-    public float ThrustMultiplier
-    {
-        get
-        {
-            return 0.5f;
         }
     }
 

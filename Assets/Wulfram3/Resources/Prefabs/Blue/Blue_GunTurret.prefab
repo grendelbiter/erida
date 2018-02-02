@@ -37,7 +37,6 @@ GameObject:
   - component: {fileID: 54675809195099098}
   - component: {fileID: 64052113563644772}
   - component: {fileID: 114658991993169106}
-  - component: {fileID: 114533394801738906}
   - component: {fileID: 114599991614735198}
   - component: {fileID: 114584471783176170}
   - component: {fileID: 114351908406730262}
@@ -292,20 +291,6 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &114533394801738906
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1407334942872630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 701f6dc32adcbc3449beb5e727c24394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialHealth: 400
-  maxHealth: 400
-  health: 0
 --- !u!114 &114584471783176170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,6 +313,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114351908406730262}
   - {fileID: 114021010973212486}
+  - {fileID: 114658991993169106}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -364,9 +350,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitTeam: 2
   unitType: 8
-  needsPower: 0
+  maxHealth: 520
+  hitpointRegenPerSecond: 0.3
+  needsPower: 1
+  playerLandedBoost: 2.65
+  repairPadBoost: 75
+  health: 0
   hasPower: 0
-  hitPointRegenerationSpeed: 1
 --- !u!114 &114849153664911234
 MonoBehaviour:
   m_ObjectHideFlags: 1

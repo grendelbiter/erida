@@ -86,7 +86,6 @@ GameObject:
   - component: {fileID: 54073410595974952}
   - component: {fileID: 64048313664575592}
   - component: {fileID: 114852217085707534}
-  - component: {fileID: 114110401534146080}
   - component: {fileID: 114567320675373540}
   - component: {fileID: 114374103355984590}
   - component: {fileID: 114216677511394228}
@@ -474,20 +473,6 @@ MonoBehaviour:
   targets: []
   target: {fileID: 0}
   image: {fileID: 0}
---- !u!114 &114110401534146080
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1445420152391988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 701f6dc32adcbc3449beb5e727c24394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialHealth: 500
-  maxHealth: 500
-  health: 0
 --- !u!114 &114136048183407686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -608,6 +593,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114216677511394228}
   - {fileID: 114713693055111370}
+  - {fileID: 114852217085707534}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -636,8 +622,6 @@ MonoBehaviour:
   dropPosition: {fileID: 0}
   destroyDelayWhenDead: 3
   axes: 0
-  sensitivityX: 1.5
-  sensitivityY: 1.5
   minimumY: -60
   maximumY: 60
   isDead: 0
@@ -721,7 +705,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 1067de5d52033e54a9d7cce98d43d9ee, type: 3}
   hitSound: {fileID: 8300000, guid: fc75678ffa299bd459de39cf68dba559, type: 3}
   missSound: {fileID: 8300000, guid: a65af280932892c4aac52df676dd925c, type: 3}
-  audio: {fileID: 82002387779107642}
+  audioSource: {fileID: 0}
   bulletDamageinHitpoints: 4
   bulletsPerSecond: 8
   deviationConeRadius: 1
@@ -744,9 +728,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitTeam: 1
   unitType: 1
+  maxHealth: 500
+  hitpointRegenPerSecond: 0.3
   needsPower: 0
+  playerLandedBoost: 2.65
+  repairPadBoost: 75
+  health: 0
   hasPower: 0
-  hitPointRegenerationSpeed: 1
 --- !u!114 &114907303354304310
 MonoBehaviour:
   m_ObjectHideFlags: 1

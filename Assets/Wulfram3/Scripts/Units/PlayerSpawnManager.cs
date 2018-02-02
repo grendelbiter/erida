@@ -37,27 +37,18 @@ namespace Assets.Wulfram3.Scripts.Units
             GameManager gm = FindObjectOfType<GameManager>();
             player.photonView.RPC("SetSelectedVehicle", PhotonTargets.All, gm.unitSelector.SelectedIndex());
             gm.unitSelector.gameObject.SetActive(false);
-            //KGFMapIcon icon = PlayerMovementManager.LocalPlayerInstance.GetComponent<KGFMapIcon>();
-            //if (player.isDead)
-            //{
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
 
-            player.photonView.RPC("SetPosAndRotation", PhotonTargets.All, spawnPoint + new Vector3(0, 50, 0), Quaternion.identity);
+            float rXp = UnityEngine.Random.Range(-6f, 6f);
+            float rZp = UnityEngine.Random.Range(-9f, 9f);
 
-            HitPointsManager hitpointsManager = player.GetComponent<HitPointsManager>();
-            hitpointsManager.TellServerHealth(hitpointsManager.maxHealth);
+            player.photonView.RPC("SetPosAndRotation", PhotonTargets.All, spawnPoint + new Vector3(rXp, 50, rZp), Quaternion.identity);
 
-            CargoManager cargoManager = player.GetComponent<CargoManager>();
-            cargoManager.hasCargo = false;
-            cargoManager.isDeploying = false;
-            cargoManager.cargoType = UnitType.None;
-            cargoManager.cargoTeam = player.GetComponent<Unit>().unitTeam;
-
+            player.GetComponent<Unit>().SetMaxHealth();
+            player.GetComponent<CargoManager>().Reset();
             player.GetComponent<FuelManager>().ResetFuel();
             PlayerSpawnManager.status = SpawnStatus.IsAlive;
-            //icon.SetVisibility(true);
-            //}
         }
 
 
@@ -65,8 +56,6 @@ namespace Assets.Wulfram3.Scripts.Units
         {
             if(status == SpawnStatus.IsSpawning)
             {
-                //KGFMapIcon icon = PlayerMovementManager.LocalPlayerInstance.GetComponent<KGFMapIcon>();
-                //icon.SetVisibility(false);
                 currentSpawnTime -= Time.deltaTime;
                 if (currentSpawnTime < 0)
                 {

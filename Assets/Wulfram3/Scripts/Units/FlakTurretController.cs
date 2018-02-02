@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Com.Wulfram3 {
     [RequireComponent(typeof(Unit))]
-    [RequireComponent(typeof(HitPointsManager))]
     public class FlakTurretController : Photon.PunBehaviour {
 
         // Settings

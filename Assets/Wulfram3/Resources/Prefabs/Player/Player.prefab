@@ -355,12 +355,10 @@ GameObject:
   - component: {fileID: 54645964018351224}
   - component: {fileID: 64193437631271024}
   - component: {fileID: 114609421694380428}
-  - component: {fileID: 114362950197262688}
   - component: {fileID: 114568581638254742}
   - component: {fileID: 114417885958363012}
   - component: {fileID: 114057020177330754}
   - component: {fileID: 114942238762981832}
-  - component: {fileID: 114375267857261616}
   - component: {fileID: 82437317021626908}
   - component: {fileID: 114551696819143410}
   - component: {fileID: 114756826154515088}
@@ -1694,34 +1692,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseOverColor: {r: 0.14117648, g: 0.45882353, b: 0.42745098, a: 1}
---- !u!114 &114362950197262688
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841311625191074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 701f6dc32adcbc3449beb5e727c24394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialHealth: 500
-  maxHealth: 500
-  health: 0
---- !u!114 &114375267857261616
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841311625191074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d28f7097fa3afb743b174790baa396e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMovementManager: {fileID: 114568581638254742}
-  hitPointsManager: {fileID: 114362950197262688}
-  unitData: {fileID: 114609421694380428}
 --- !u!114 &114417885958363012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1744,7 +1714,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114057020177330754}
   - {fileID: 114942238762981832}
-  - {fileID: 114375267857261616}
+  - {fileID: 114609421694380428}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -1968,9 +1938,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitTeam: 0
   unitType: 0
+  maxHealth: 500
+  hitpointRegenPerSecond: 0.3
   needsPower: 0
+  playerLandedBoost: 2.65
+  repairPadBoost: 75
+  health: 0
   hasPower: 0
-  hitPointRegenerationSpeed: 0
 --- !u!114 &114621915073000352
 MonoBehaviour:
   m_ObjectHideFlags: 1

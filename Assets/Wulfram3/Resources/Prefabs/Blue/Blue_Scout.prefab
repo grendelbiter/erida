@@ -81,7 +81,6 @@ GameObject:
   - component: {fileID: 54168497479600412}
   - component: {fileID: 64869700531874374}
   - component: {fileID: 114710465909206520}
-  - component: {fileID: 114320146590871206}
   - component: {fileID: 114490792115730510}
   - component: {fileID: 114542421208158750}
   - component: {fileID: 114194184209732734}
@@ -509,7 +508,7 @@ MonoBehaviour:
   shootSound: {fileID: 0}
   hitSound: {fileID: 0}
   missSound: {fileID: 0}
-  audio: {fileID: 82259958644520162}
+  audioSource: {fileID: 0}
   bulletDamageinHitpoints: 3
   bulletsPerSecond: 6
   deviationConeRadius: 1
@@ -518,6 +517,7 @@ MonoBehaviour:
   simDelayInSeconds: 0.1
   laserLine: {fileID: 120009877810057228}
   debug: 1
+  teamColorMaterials: []
 --- !u!114 &114052250726570464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -633,20 +633,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionTime: 1
---- !u!114 &114320146590871206
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1652132941029144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 701f6dc32adcbc3449beb5e727c24394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialHealth: 330
-  maxHealth: 330
-  health: 0
 --- !u!114 &114333228303748524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -661,7 +647,7 @@ MonoBehaviour:
   shootSound: {fileID: 0}
   hitSound: {fileID: 0}
   missSound: {fileID: 0}
-  audio: {fileID: 82259958644520162}
+  audioSource: {fileID: 0}
   bulletDamageinHitpoints: 10
   bulletsPerSecond: 10
   deviationConeRadius: 1
@@ -670,6 +656,7 @@ MonoBehaviour:
   simDelayInSeconds: 0.1
   laserLine: {fileID: 120510102000796016}
   debug: 1
+  teamColorMaterials: []
 --- !u!114 &114357646662675358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -754,32 +741,29 @@ MonoBehaviour:
   jumpSource: {fileID: 8300000, guid: 820211a4788f1fd40855df02517e52f6, type: 3}
   landSource: {fileID: 8300000, guid: 35682798191d9a94ca9ec4c46954a84c, type: 3}
   takeoffSource: {fileID: 8300000, guid: 12a3f660b4dadc54bad69f0b1d3293bb, type: 3}
+  myUnit: {fileID: 0}
   myMesh: {fileID: 4506877027605806}
   gunEnd: {fileID: 4194931982462756}
-  strafePercent: 0.6
-  thrustMultiplier: 0.5
-  jumpForce: 0
-  fuelPerJump: 0
-  timeBetweenJumps: 60
-  fuelPerPulse: 0
-  timeBetweenPulse: 3
-  pulseShellFiringImpulse: 0
-  currentHeight: 1
-  defaultHeight: 1.2
-  maximumHeight: 4.4
-  riseSpeed: 0.065
-  lowerSpeed: 0.035
+  firstPersonCamPos: {fileID: 0}
+  thirdPersonCamPos: {fileID: 0}
+  placePosition: {fileID: 0}
+  dropPosition: {fileID: 0}
   destroyDelayWhenDead: 3
   axes: 0
-  sensitivityX: 1.5
-  sensitivityY: 1.5
-  minimumX: -360
-  maximumX: 360
   minimumY: -60
   maximumY: 60
   isDead: 0
   isSpawning: 0
   onRepairPad: {fileID: 0}
+  meshList: []
+  myMapIcon: {fileID: 0}
+  availableColliders: []
+  myIconTextures: []
+  cargoDropPositions: []
+  unitPlacePositions: []
+  gunPositions: []
+  firstPersonCameraPositions: []
+  thirdPersonCameraPositions: []
 --- !u!114 &114533530315884322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -819,6 +803,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114194184209732734}
   - {fileID: 114385368814008110}
+  - {fileID: 114710465909206520}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -928,9 +913,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitTeam: 2
   unitType: 2
+  maxHealth: 330
+  hitpointRegenPerSecond: 0.3
   needsPower: 0
+  playerLandedBoost: 2.65
+  repairPadBoost: 75
+  health: 0
   hasPower: 0
-  hitPointRegenerationSpeed: 1
 --- !u!114 &114731711858064040
 MonoBehaviour:
   m_ObjectHideFlags: 1

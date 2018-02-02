@@ -16,7 +16,8 @@ namespace Com.Wulfram3 {
         public Text team;
         public Text user;
 
-        private GameObject target;
+        [HideInInspector]
+        public GameObject target;
         private Vector3 pos;
 
         private OffScreenIndicator offScreenIndicator; //0 red, 1 blue
@@ -46,39 +47,38 @@ namespace Com.Wulfram3 {
                 rectTransform.SetPositionAndRotation(pos, rectTransform.rotation);
 
                 PlayerMovementManager player = PlayerMovementManager.LocalPlayerInstance.GetComponent<PlayerMovementManager>();
-                var dist = Math.Round(Vector3.Distance(target.transform.position, player.transform.position), 0);
+                float dist = (float) Math.Round(Vector3.Distance(target.transform.position, player.transform.position), 0);
 
-                var hpm = target.GetComponent<HitPointsManager>();
-                var unit = target.GetComponent<Unit>();
-
-                if(hpm == null)
+                /*
+                 * This will turn the info panel off when it goes off the screen... but for some reason it never comes back on until re-targetting
+                float angle = Vector3.Angle(target.transform.position - player.transform.position, player.transform.forward);
+                if (angle > 90f)
                 {
-                    Debug.LogException(new Exception("GAME OBJECT IS MISSING HIT POINT MANAGER"));
-                }
+                    targetInfoPanel.SetActive(false);
+                } */
+
+
+                Unit unit = target.GetComponent<Unit>();
 
                 if (unit == null)
                 {
                     Debug.LogException(new Exception("GAME OBJECT IS MISSING UNIT"));
-                }
-
-                if(hpm == null || unit ==null)
-                {
                     TargetChanged(null);
                     return;
                 }
                 // Check if targetd unit is now dead, if so, clear
-                if(target.GetComponent<HitPointsManager>().health == 0)
+                if(unit.health == 0)
                 {
                     TargetChanged(null);
                     return;
                 }
 
-                hitpoints.text = dist + "M " + target.GetComponent<HitPointsManager>().health + "HP";
-                name.text = target.GetComponent<Unit>().unitType.ToString();
-                team.text = target.GetComponent<Unit>().unitTeam.ToString();
+                hitpoints.text = dist + "M " + unit.health + "HP";
+                name.text = unit.unitType.ToString();
+                team.text = unit.unitTeam.ToString();
 
                 var panel = targetInfoPanel.GetComponent<Image>();
-                switch (target.GetComponent<Unit>().unitTeam)
+                switch (unit.unitTeam)
                 {
                     case PunTeams.Team.none:
                         name.color = FindObjectOfType<GameManager>().graycolor.color;
@@ -94,7 +94,7 @@ namespace Com.Wulfram3 {
                         break;
                 }
 
-                if(target.GetComponent<Unit>().unitType == UnitType.Tank || target.GetComponent<Unit>().unitType == UnitType.Scout)
+                if(unit.unitType == UnitType.Tank || unit.unitType == UnitType.Scout)
                 {
                     user.text = FindObjectOfType<GameManager>().GetColoredPlayerName(target.GetComponent<PhotonView>().owner.NickName, target.GetComponent<PhotonView>().owner.IsMasterClient);
                 }
@@ -114,7 +114,12 @@ namespace Com.Wulfram3 {
 
             if (t == null) {
                 targetInfoPanel.SetActive(false);
-            } else {
+                foreach (var item in offScreenIndicator.targetList)
+                {
+                    offScreenIndicator.RemoveIndicator(item.target);
+                }
+            }
+            else {
                 foreach (var item in offScreenIndicator.targetList.ToArray())
                 {
                     offScreenIndicator.RemoveIndicator(item.target);
