@@ -116,10 +116,9 @@ namespace Com.Wulfram3 {
         {
             // We should not get here unless we are masterclient (See OnCollisionEnter())
             Unit unit = target.GetComponent<Unit>();
-            HitPointsManager hpm = target.GetComponent<HitPointsManager>();
-            if (unit != null && hpm != null && unit.unitTeam != team)
+            if (unit != null && unit.unitTeam != team)
             {
-                hpm.TellServerTakeDamage(amount);
+                unit.TellServerTakeDamage(amount);
             }
         }
 

@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 54604173711653900}
   - component: {fileID: 64746379841593564}
   - component: {fileID: 114086667432421486}
-  - component: {fileID: 114024377597529954}
   - component: {fileID: 114855329788069096}
   - component: {fileID: 114639518035287892}
   - component: {fileID: 114425631680865360}
@@ -153,20 +152,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300018, guid: 11b7ea09bf2e9fb48b5fd6692a543727, type: 3}
---- !u!114 &114024377597529954
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1586356575027912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 701f6dc32adcbc3449beb5e727c24394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialHealth: 50000
-  maxHealth: 50000
-  health: 0
 --- !u!114 &114086667432421486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -180,9 +165,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitTeam: 1
   unitType: 12
+  maxHealth: 500000
+  hitpointRegenPerSecond: 0.3
   needsPower: 0
+  playerLandedBoost: 2.65
+  repairPadBoost: 75
+  health: 0
   hasPower: 0
-  hitPointRegenerationSpeed: 1
 --- !u!114 &114389028465179372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -335,6 +324,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114639518035287892}
   - {fileID: 114425631680865360}
+  - {fileID: 114086667432421486}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

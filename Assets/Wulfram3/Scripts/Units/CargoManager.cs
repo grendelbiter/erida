@@ -69,6 +69,15 @@ namespace Com.Wulfram3
 
         }
 
+        public void Reset()
+        {
+            hasCargo = false;
+            isDeploying = false;
+            cargoTeam = myTeam;
+            cargoType = UnitType.None;
+            currentPlaceableObject = null;
+        }
+
         private void ToggleDeployMode()
         {
             if (currentPlaceableObject == null)

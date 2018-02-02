@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class ScoutVehicleSettings : IVehicleSetting
 {
+
+    public int MaxHitPoints
+    {
+        get
+        {
+            return 330;
+        }
+    }
+
     public float BaseThrust
     {
         get
@@ -17,14 +26,6 @@ public class ScoutVehicleSettings : IVehicleSetting
         get
         {
             return 0.8f;
-        }
-    }
-
-    public float ThrustMultiplier
-    {
-        get
-        {
-            return 0.7f;
         }
     }
 
