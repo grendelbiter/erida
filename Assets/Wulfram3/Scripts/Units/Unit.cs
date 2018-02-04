@@ -99,7 +99,7 @@ namespace Com.Wulfram3
                     stream.SendNext((int)playerManager.GetMeshIndex());
                 }
             }
-            else if (!PhotonNetwork.isMasterClient)
+            else if (stream.isReading && !PhotonNetwork.isMasterClient)
             {
                 int syncHealth = (int)stream.ReceiveNext();
                 health = Mathf.Clamp(syncHealth, 0, maxHealth);
