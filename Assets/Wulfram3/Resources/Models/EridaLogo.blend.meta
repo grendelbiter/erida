@@ -6,11 +6,26 @@ ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: EL_InnerEdge
+    100004: EL_InnerLetterFace
+    100006: EL_OuterParts
     400000: //RootNode
+    400002: EL_InnerEdge
+    400004: EL_InnerLetterFace
+    400006: EL_OuterParts
     2100000: Material__EridaLogoTexture
     2300000: //RootNode
+    2300002: EL_InnerEdge
+    2300004: EL_InnerLetterFace
+    2300006: EL_OuterParts
     3300000: //RootNode
+    3300002: EL_InnerEdge
+    3300004: EL_InnerLetterFace
+    3300006: EL_OuterParts
     4300000: Cube_002
+    4300002: EL_InnerEdge
+    4300004: EL_InnerLetterFace
+    4300006: EL_OuterParts
     7400000: Default Take
     9500000: //RootNode
   externalObjects:
@@ -19,6 +34,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Material__EridaLogoTexture
     second: {fileID: 2100000, guid: dee0b328b2baa2c4aa69dde946e35c05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material__LogoTex2_png
+    second: {fileID: 2100000, guid: ad761e189eaeac5489eb151285456103, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -67,7 +87,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

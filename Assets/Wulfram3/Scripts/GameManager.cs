@@ -186,8 +186,8 @@ namespace Com.Wulfram3
                 instanceData[1] = UnitType.Tank;
                 instanceData[2] = vel;
                 PhotonView senderPV = PhotonView.Find(senderID);
-                senderPV.RPC("DestroyLocalShell", info.sender);
-                PhotonNetwork.InstantiateSceneObject("Prefabs/Weapons/PulseShell", pos, rot, 0, instanceData);
+                GameObject shell = PhotonNetwork.InstantiateSceneObject("Prefabs/Weapons/PulseShell", pos, rot, 0, instanceData);
+                senderPV.RPC("DestroyLocalShell", info.sender, shell.GetPhotonView().viewID);
             }
         }
 

@@ -52,6 +52,7 @@ namespace Com.Wulfram3
 
         private GameManager gameManager;
         private GameObject tempShell;
+        private GameObject serverShell;
         private IVehicleSetting mySettings;
         private Rigidbody myRigidbody;
         private FuelManager fuelManager;
@@ -470,6 +471,17 @@ namespace Com.Wulfram3
                 myRigidbody.isKinematic = true;
             }
 
+            if (tempShell != null && serverShell != null)
+            {
+                tempShell.transform.position = Vector3.Slerp(tempShell.transform.position, serverShell.transform.position, 50 * Time.deltaTime);
+                if (Vector3.Distance(tempShell.transform.position, serverShell.transform.position) <= 1.0f)
+                {
+                    serverShell.GetComponent<SplashProjectileController>().Show();
+                    Destroy(tempShell);
+                    tempShell = null;
+                    serverShell = null;
+                }
+            }
 
         }
 
@@ -540,13 +552,11 @@ namespace Com.Wulfram3
         }
 
         [PunRPC]
-        public void DestroyLocalShell()
+        public void DestroyLocalShell(int serverShellViewID)
         {
-            if (tempShell != null)
-            {
-                Destroy(tempShell);
-                tempShell = null;
-            }
+            PhotonView pv = PhotonView.Find(serverShellViewID);
+            serverShell = pv.gameObject;
+            serverShell.GetComponent<SplashProjectileController>().Hide();
         }
 
         public void FixedUpdate()

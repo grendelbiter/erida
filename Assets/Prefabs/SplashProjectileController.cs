@@ -35,13 +35,15 @@ namespace Com.Wulfram3 {
         [HideInInspector]
         public PunTeams.Team team;
 
+        private UnitType firedBy;
+
         private Vector3 parentVelocity = Vector3.zero;
 
         // Use this for initialization
         void Start() {
             object[] instanceData = transform.GetComponent<PhotonView>().instantiationData;
             team = (PunTeams.Team) instanceData[0];
-            UnitType firedBy = (UnitType) instanceData[1];
+            firedBy = (UnitType) instanceData[1];
 
             if (firedBy == UnitType.FlakTurret)
             {
@@ -120,6 +122,32 @@ namespace Com.Wulfram3 {
             {
                 unit.TellServerTakeDamage(amount);
             }
+        }
+
+        public void Show()
+        {
+            if (firedBy == UnitType.Tank)
+            {
+                if (team == PunTeams.Team.Blue)
+                {
+                    bluePulse.gameObject.SetActive(true);
+                }
+                else
+                {
+                    redPulse.gameObject.SetActive(true);
+                }
+            } else
+            {
+                flakShell.gameObject.SetActive(true);
+            }
+        }
+
+        public void Hide()
+        {
+            bluePulse.gameObject.SetActive(false);
+            redPulse.gameObject.SetActive(false);
+            flakShell.gameObject.SetActive(false);
+
         }
 
         void SplashDetonation()
