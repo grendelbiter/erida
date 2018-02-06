@@ -59,7 +59,7 @@ namespace Assets.Wulfram3.Scripts.InternalApis
         {
             Register<IInternalStorage, JavascriptLocalStorage>();
             Register<IUserController, UserController>(new UserController());
-            Register<IDiscordApi, DiscordApi>();
+            //Register<IDiscordApi, DiscordApi>();
         }
     }
 }

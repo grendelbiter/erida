@@ -6,7 +6,7 @@ public class DemoBoxesGui : MonoBehaviour
     public bool HideUI = false;
 
     /// <summary>A GUI element to show tips in.</summary>
-    public GUIText GuiTextForTips;
+    //public GUIText GuiTextForTips;
 
     private int tipsIndex;
 
@@ -26,11 +26,12 @@ public class DemoBoxesGui : MonoBehaviour
                                      };
 
     private const float TimePerTip = 3.0f;
-    private float timeSinceLastTip;
+    //private float timeSinceLastTip;
     private const float FadeSpeedForTip = 0.05f;
 
     private void Update()
     {
+        /*
         if (this.GuiTextForTips == null)
         {
             return;
@@ -41,7 +42,7 @@ public class DemoBoxesGui : MonoBehaviour
         {
             this.timeSinceLastTip = 0;
             StartCoroutine("SwapTip"); // this does the fading. the coroutine ends when fading is done.
-        }
+        }*/
     }
 
 
@@ -51,17 +52,17 @@ public class DemoBoxesGui : MonoBehaviour
         while (alpha > 0)
         {
             alpha -= FadeSpeedForTip;
-            this.timeSinceLastTip = 0;
-            this.GuiTextForTips.color = new Color(this.GuiTextForTips.color.r, this.GuiTextForTips.color.r, this.GuiTextForTips.color.r, alpha);
+            //this.timeSinceLastTip = 0;
+            //this.GuiTextForTips.color = new Color(this.GuiTextForTips.color.r, this.GuiTextForTips.color.r, this.GuiTextForTips.color.r, alpha);
             yield return null;
         }
         this.tipsIndex = (this.tipsIndex + 1)%this.tips.Length;
-        this.GuiTextForTips.text = this.tips[this.tipsIndex];
+        //this.GuiTextForTips.text = this.tips[this.tipsIndex];
         while (alpha < 1.0f)
         {
             alpha += FadeSpeedForTip;
-            this.timeSinceLastTip = 0;
-            this.GuiTextForTips.color = new Color(this.GuiTextForTips.color.r, this.GuiTextForTips.color.r, this.GuiTextForTips.color.r, alpha);
+            //this.timeSinceLastTip = 0;
+            //this.GuiTextForTips.color = new Color(this.GuiTextForTips.color.r, this.GuiTextForTips.color.r, this.GuiTextForTips.color.r, alpha);
             yield return null;
         }
     }

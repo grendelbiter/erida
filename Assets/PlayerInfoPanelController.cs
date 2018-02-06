@@ -38,7 +38,7 @@ namespace Com.Wulfram3 {
                     pos.y += 50;
 
                     string playerName = target.GetComponent<PhotonView>().owner.NickName;
-                    string hitpoints = target.GetComponent<Unit>().health + "/" + target.GetComponent<Unit>().maxHealth;
+                    // [ASSIGNED NEVER USED] string hitpoints = target.GetComponent<Unit>().health + "/" + target.GetComponent<Unit>().maxHealth;
 
                     var name = gameManager.GetColoredPlayerName(playerName, target.GetComponent<PhotonView>().owner.IsMasterClient, true, target.GetComponent<Unit>().unitTeam);
                     playerNameText.text = name;

@@ -107,7 +107,7 @@ namespace Com.Wulfram3 {
         private void CheckAndFire() {
             if ((GetComponent<CargoManager>() != null && GetComponent<CargoManager>().isDeploying) || 
                 Cursor.visible || 
-                GetComponent<PlayerMovementManager>().isDead ||
+                GetComponent<PlayerManager>().isDead ||
                 !GetComponent<FuelManager>().CanTakeFuel(fuelPerBullet))
             {
                 SetAndSyncShooting(false);
@@ -164,7 +164,6 @@ namespace Com.Wulfram3 {
                     rayOrigin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
 
                 Vector3 bulletHitPoint;
-                RaycastHit objectHit;
                 Vector3 targetPoint = (gunEnd.rotation * GetRandomPointInCircle()) + (gunEnd.position + transform.forward * range);
                 if (Physics.Linecast(rayOrigin, targetPoint, out hit)) {
                     bulletHitPoint = hit.point;

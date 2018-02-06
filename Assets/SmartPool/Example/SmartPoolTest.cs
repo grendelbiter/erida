@@ -31,8 +31,8 @@ public class SmartPoolTest : MonoBehaviour {
         if (GUILayout.Button("Despawn all bullets"))
             SmartPool.DespawnAllItems("Bullet");
         GUILayout.Label("Please add Example and Example2ndScene as levels to the build settings!");
-        if (GUILayout.Button("Switch Scene"))
-            Application.LoadLevel(1);
+        //if (GUILayout.Button("Switch Scene"))
+        //    Application.LoadLevel(1);
         
         
     }

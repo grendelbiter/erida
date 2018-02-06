@@ -35,7 +35,7 @@ namespace DimBoxes
 
         private Quaternion quat;
 
-        private Camera mcamera;
+        //private Camera mcamera;
 
         private DimBoxes.DrawLines cameralines;
 
@@ -53,8 +53,8 @@ namespace DimBoxes
         [HideInInspector]
         public Vector3 startingScale;
         private Vector3 previousScale;
-        private Vector3 startingBoundSize;
-        private Vector3 startingBoundCenterLocal;
+        //private Vector3 startingBoundSize;
+        //private Vector3 startingBoundCenterLocal;
         private Vector3 previousPosition;
         private Quaternion previousRotation;
 
@@ -85,13 +85,13 @@ namespace DimBoxes
                 return;
             }
 
-            mcamera = cameralines.GetComponent<Camera>();
+            //mcamera = cameralines.GetComponent<Camera>();
             previousPosition = transform.position;
             previousRotation = transform.rotation;
-            startingBoundSize = bound.size;
+            //startingBoundSize = bound.size;
             startingScale = transform.localScale;
             previousScale = startingScale;
-            startingBoundCenterLocal = transform.InverseTransformPoint(bound.center);
+            //startingBoundCenterLocal = transform.InverseTransformPoint(bound.center);
             init();
         }
 
@@ -186,12 +186,13 @@ namespace DimBoxes
 
             if (colliderBased)
             {
-                if (colliderBound == null)
+                /* REMOVED ====================== v
+                if (colliderBound == null) // This will always return false
                 {
                     Debug.LogError("no collider - add collider to " + gameObject.name + " gameObject");
                     return;
 
-                }
+                } */
                 bound = colliderBound;
                 boundOffset = colliderBoundOffset;
             }

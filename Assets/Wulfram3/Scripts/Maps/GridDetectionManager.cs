@@ -21,11 +21,11 @@ public class GridDetectionManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(PlayerMovementManager.LocalPlayerInstance == null)
+        if(PlayerManager.LocalPlayerInstance == null)
         {
             return;
         }
-        var worldPos = PlayerMovementManager.LocalPlayerInstance.transform.position;
+        var worldPos = PlayerManager.LocalPlayerInstance.transform.position;
         var terrainLocalPos = worldPos - loadedTerrain.transform.position;
         var normalizedPos = new Vector2(Mathf.InverseLerp(0.0f, loadedTerrain.terrainData.size.x, terrainLocalPos.x),
                                     Mathf.InverseLerp(0.0f, loadedTerrain.terrainData.size.z, terrainLocalPos.z));

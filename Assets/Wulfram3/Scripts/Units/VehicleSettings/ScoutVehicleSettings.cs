@@ -13,6 +13,13 @@ public class ScoutVehicleSettings : IVehicleSetting
         }
     }
 
+    public float RigidbodyDrag
+    {
+        get
+        {
+            return 0.5f;
+        }
+    }
     public float BaseThrust
     {
         get

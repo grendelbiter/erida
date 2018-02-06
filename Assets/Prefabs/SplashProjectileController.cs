@@ -76,10 +76,13 @@ namespace Com.Wulfram3 {
                 }
             }
             Rigidbody rb = GetComponent<Rigidbody>();
-            rb.velocity = parentVelocity + (transform.forward * velocity);
             if (PhotonNetwork.isMasterClient)
             {
+                rb.velocity = parentVelocity + (transform.forward * velocity);
                 gameManager = FindObjectOfType<GameManager>();
+            } else
+            {
+                rb.isKinematic = true;
             }
         }
 

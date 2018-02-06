@@ -70,4 +70,6 @@ MonoBehaviour:
   - GetDataFromMaster
   - ReceiveDataFromMaster
   - DestroyLocalShell
+  - SyncTeam
+  - SyncUnit
   DisableAutoOpenWizard: 1

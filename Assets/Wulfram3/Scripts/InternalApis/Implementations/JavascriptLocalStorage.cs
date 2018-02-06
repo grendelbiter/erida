@@ -13,7 +13,6 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
             }
             catch (System.Exception ex)
             {
-
                 return "null";
             }
             

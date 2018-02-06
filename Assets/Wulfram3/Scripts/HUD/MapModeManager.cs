@@ -116,7 +116,7 @@ public class MapModeManager : MonoBehaviour {
 
     void OnMapMarkerClicked(object theSender, EventArgs theArgs)
 	{
-        PlayerMovementManager player = PlayerMovementManager.LocalPlayerInstance.GetComponent<PlayerMovementManager>();
+        //[ASSIGNED NEVER USED] PlayerManager player = PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>();
         if (this.currentMapType == MapType.Spawn)
         {
             KGFMapSystem.KGFMarkerEventArgs aMarkerArgs = (KGFMapSystem.KGFMarkerEventArgs)theArgs;

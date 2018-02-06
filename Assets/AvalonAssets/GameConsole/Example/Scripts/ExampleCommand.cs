@@ -8,12 +8,12 @@ namespace AvalonAssets.Example
 {
 		public class ExampleCommand : Photon.PunBehaviour
     {
-		private GameManager gameManager;
+		//private GameManager gameManager;
 		public GameObject playerPrefab;
 		public GameObject crimsonTank;
 
 			void Start() {
-				gameManager = FindObjectOfType<GameManager>();
+				//gameManager = FindObjectOfType<GameManager>();
 			}
 
 
@@ -44,7 +44,7 @@ namespace AvalonAssets.Example
 
         public void ColorHelloWorld(Action<string> output, string[] args)
         {
-				
+				/*
 				PlayerMovementManager player = PlayerMovementManager.LocalPlayerInstance.GetComponent<PlayerMovementManager>();
 				player.gameObject.GetComponent<CameraManager> ().Detach ();
 				PhotonNetwork.Destroy (player.gameObject);
@@ -53,7 +53,7 @@ namespace AvalonAssets.Example
 				if (FindObjectOfType<RepairPad>().transform.position != null){
 					GameObject go = PhotonNetwork.Instantiate(this.playerPrefab.name, FindObjectOfType<RepairPad>().transform.position + new Vector3(0,5,0) , Quaternion.identity, 0);
 				}
-
+                */
         }
     }
 }

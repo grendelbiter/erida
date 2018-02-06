@@ -5,33 +5,23 @@ using UnityEngine;
 namespace Com.Wulfram3 {
     public class FuelManager : Photon.PunBehaviour {
 
-        public float fuelRegenerationPerSecond = 1f;
-        public float landedRegenerationBoost = 5f;
-        public int maxFuel = 100;
-        public float boost = 1f;
-        public int fuel;
-        private float fuleRegenerationCollected = 0;
+        public int fuel = 500;
+        public int maxFuel = 500;
+        private float fuelRegenerationPerSecond = 0.75f;
+        private float landedRegenerationBoost = 5f;
+        private float pcMultiplier = 1.25f;
+        private float pcBoost = 1f;
+        private float landedBoost = 1f;
+        private float fuelRegenerationCollected = 0;
 
-        // Use this for initialization
-        void Start() {
-            ResetFuel();
-        }
+        void Start() { }
 
-        // Update is called once per frame
         void Update() {
             if (photonView.isMine) {
-                PlayerMovementManager playerMovementManager = GetComponent<PlayerMovementManager>();
-                if (playerMovementManager != null && playerMovementManager.GetIsGrounded())
-                    boost = landedRegenerationBoost;
-                else
-                    boost = 1;
-                float fuel = fuelRegenerationPerSecond * boost * Time.deltaTime;
-                fuleRegenerationCollected += fuel;
-                if (fuleRegenerationCollected >= 1f) {
-                    fuleRegenerationCollected--;
-                    if (playerMovementManager == null || !playerMovementManager.isDead) {
-                        TakeFuel(-1);
-                    }
+                fuelRegenerationCollected += (fuelRegenerationPerSecond + landedBoost) * pcBoost * Time.deltaTime;
+                if (fuelRegenerationCollected >= 1f) {
+                    fuelRegenerationCollected--;
+                    TakeFuel(-1);
                 }
             }
         }
@@ -40,10 +30,25 @@ namespace Com.Wulfram3 {
             fuel = maxFuel;
         }
 
+        public void SetLandedBoost(bool t)
+        {
+            if (t)
+                landedBoost = landedRegenerationBoost;
+            else
+                landedBoost = 1f;
+        }
+
+        public void SetPowerCellBoost(bool t)
+        {
+            if (t)
+                pcBoost = pcMultiplier;
+            else
+                pcBoost = 1f;
+        }
+
         private GameManager GetGameManager() {
             return FindObjectOfType<GameManager>();
         }
-
 
         public bool CanTakeFuel(int amount) {
             int newFuel = fuel - amount;

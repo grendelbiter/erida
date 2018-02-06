@@ -12,10 +12,10 @@ namespace Com.Wulfram3
         public float hitpointRegenPerSecond = 0.3f;
         public bool needsPower = false;
 
-        [HideInInspector]
-        public float playerLandedBoost = 2.65f;
-        [HideInInspector]
-        public float repairPadBoost = 75f;
+        //[HideInInspector]
+        //public float playerLandedBoost = 2.65f;
+        //[HideInInspector]
+        //public float repairPadBoost = 75f;
         [HideInInspector]
         public int health;
         [HideInInspector]
@@ -24,57 +24,43 @@ namespace Com.Wulfram3
         private float currentBoost = 1f;
         private float healthCollected = 0;
         private GameManager gameManager;
-        private PlayerMovementManager playerManager;
+        private bool isPlayer = false;
+        private PlayerManager playerManager;
 
+        private float syncTeamStamp;
+        private float syncUnitStamp;
+
+        public bool needsUpdate = true;
 
         // Use this for initialization
         void Start() {
-            if (unitTeam == null)
-            {
-                Debug.Log("Unit.cs is missing a team assignment.");
-            }
-            if (unitType == null)
-            {
-                Debug.Log("Unit.cs is missing a type assignment.");
-            }
+            //if (unitTeam == null)
+            //    Debug.Log("Unit.cs is missing a team assignment.");
+            //if (unitType == null)
+            //    Debug.Log("Unit.cs is missing a type assignment.");
             if (unitType == UnitType.RepairPad || unitType == UnitType.RefuelPad || unitType == UnitType.GunTurret || unitType == UnitType.FlakTurret || unitType == UnitType.MissleLauncher)
-            {
                 needsPower = true;
-            }
-            if (photonView.isMine)
-            {
-                playerManager = GetComponent<PlayerMovementManager>();
-            } else
-            {
-                photonView.RPC("GetDataFromMaster", PhotonTargets.MasterClient);
-            }
+            isPlayer = GetComponent<PlayerMotionController>() != null;
         }
 
         private void Awake()
         {
             gameManager = FindObjectOfType<GameManager>();
             if (PhotonNetwork.isMasterClient)
-            {
                 SetHealth(maxHealth);
-            }
         }
 
         // Update is called once per frame
         void Update() {
+            if (needsUpdate)
+            {
+
+            }
             if (photonView.isMine)
             {
                 currentBoost = 1f;
-                if (playerManager != null)
-                {
-                    if (playerManager.GetIsGrounded() && playerManager.onRepairPad == null)
-                    {
-                        currentBoost = playerLandedBoost;
-                    }
-                    else if (playerManager.GetIsGrounded() && playerManager.onRepairPad != null)
-                    {
-                        currentBoost = repairPadBoost;
-                    }
-                }
+                if (isPlayer)
+                    currentBoost = GetComponent<PlayerMotionController>().healingBoost;
                 float health = hitpointRegenPerSecond * currentBoost * Time.deltaTime;
                 healthCollected += health;
                 if (healthCollected >= 1f)
@@ -86,26 +72,64 @@ namespace Com.Wulfram3
                     }
                 }
             }
+            if (PhotonNetwork.isMasterClient)
+            {
+                if (Time.time > syncTeamStamp)
+                {
+                    syncTeamStamp = Time.time + 2f;
+                    SyncTeam(unitTeam);
+                }
+                if (Time.time > syncUnitStamp)
+                {
+                    syncUnitStamp = Time.time + 5f;
+                    SyncUnit(unitType);
+                }
+            }
+        }
+
+        [PunRPC]
+        public void SyncTeam(PunTeams.Team t)
+        {
+            if (PhotonNetwork.isMasterClient)
+            {
+                photonView.RPC("SyncTeam", PhotonTargets.Others, unitTeam);
+            } else
+            {
+                unitTeam = t;
+            }
+        }
+
+        [PunRPC]
+        public void SyncUnit(UnitType u)
+        {
+            if (PhotonNetwork.isMasterClient)
+            {
+                photonView.RPC("SyncUnit", PhotonTargets.Others, unitType);
+            } else
+            {
+                unitType = u;
+            }
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            if (stream.isWriting && PhotonNetwork.isMasterClient)
+            if (stream.isWriting)
             {
                 stream.SendNext((int)health);
-                stream.SendNext((PunTeams.Team)unitTeam);
+                //stream.SendNext((PunTeams.Team)unitTeam);
                 if (playerManager != null)
                 {
                     stream.SendNext((int)playerManager.GetMeshIndex());
                 }
             }
-            else if (stream.isReading && !PhotonNetwork.isMasterClient)
+            else if (stream.isReading)
             {
                 int syncHealth = (int)stream.ReceiveNext();
                 health = Mathf.Clamp(syncHealth, 0, maxHealth);
+                /*
                 PunTeams.Team syncTeam = (PunTeams.Team)stream.ReceiveNext();
                 unitTeam = syncTeam;
-
+                */
                 if (playerManager != null)
                 {
                     int syncMesh = (int)stream.ReceiveNext();
@@ -155,14 +179,9 @@ namespace Com.Wulfram3
 
         public bool IsUnitFriendly()
         {
-            if (PlayerMovementManager.LocalPlayerInstance.GetComponent<Unit>().unitTeam == this.unitTeam)
-            {
+            if (PlayerManager.LocalPlayerInstance.GetComponent<Unit>().unitTeam == this.unitTeam)
                 return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public PunTeams.Team GetHostileTeam()
@@ -171,7 +190,6 @@ namespace Com.Wulfram3
             {
                 case PunTeams.Team.Red:
                     return PunTeams.Team.Blue;
-
                 case PunTeams.Team.Blue:
                     return PunTeams.Team.Red;
                 default:
@@ -190,7 +208,7 @@ namespace Com.Wulfram3
             if (PhotonNetwork.isMasterClient)
             {
                 int newHealth = Mathf.Clamp(health - amount, 0, maxHealth);
-                SetHealth(newHealth);
+                photonView.RPC("UpdateHealth", PhotonTargets.All, newHealth);
             }
         }
 
@@ -234,94 +252,11 @@ namespace Com.Wulfram3
             if (playerManager != null && photonView.isMine)
             {
                 gameManager.SetHullBar((float)health / (float)maxHealth);
-            } else if (PhotonNetwork.isMasterClient && (maxHealth != null && health <= 0))
+            } else if (PhotonNetwork.isMasterClient && (maxHealth != 0 && health <= 0))
             {
                 PhotonNetwork.Destroy(gameObject);
                 gameManager.SpawnExplosion(transform.position); 
             }
         }
-
-        [PunRPC]
-        public void GetDataFromMaster(PhotonMessageInfo info)
-        {
-            if (PhotonNetwork.isMasterClient)
-            {
-                if (playerManager == null)
-                {
-                    object[] o = new object[2];
-                    o[0] = health;
-                    o[1] = unitTeam;
-                    this.photonView.RPC("ReceiveDataFromMaster", info.sender, o);
-                }
-                else
-                {
-                    object[] o = new object[3];
-                    o[0] = health;
-                    o[1] = unitTeam;
-                    o[2] = playerManager.GetMeshIndex();
-                    this.photonView.RPC("ReceiveDataFromMaster", info.sender, o);
-                }
-            }
-        }
-
-        [PunRPC]
-        public void ReceiveDataFromMaster(object[] o)
-        {
-            if (!photonView.isMine)
-            {
-                health = (int)o[0];
-                unitTeam = (PunTeams.Team)o[1];
-                if (playerManager != null)
-                    playerManager.SetMesh((int)o[2]);
-            }
-        }
-
-
-        /*
-        public string GetTypeString()
-        {
-            switch(unitType)
-            {
-                case UnitType.Cargo:
-                    return "Cargo Box";
-                case UnitType.Darklight:
-                    return "Darklight";
-                case UnitType.FlakTurret:
-                    return "Flak Turret";
-                case UnitType.GunTurret:
-                    return "Gun Turret";
-                case UnitType.MissleLauncher:
-                    return "Missile Launcher";
-                case UnitType.PowerCell:
-                    return "Powercell";
-                case UnitType.RefuelPad:
-                    return "Refuel Pad";
-                case UnitType.RepairPad:
-                    return "Repair Pad";
-                case UnitType.Scout:
-                    return "Scout";
-                case UnitType.Skypump:
-                    return "Skypump";
-                case UnitType.Tank:
-                    return "Tank";
-                case UnitType.Uplink:
-                    return "Uplink";
-                case UnitType.None:
-                    return "UnitType.None";
-                default: return "UnitType.ERROR";
-            }
-        }
-
-        public string GetTeamString()
-        {
-            if (unitTeam == null)
-                return "unitTeam.ERROR";
-            if (unitTeam == PunTeams.Team.blue)
-                return "Blue";
-            if (unitTeam == PunTeams.Team.red)
-                return "Red";
-            return "Grey";
-        }
-        */
     }
 }

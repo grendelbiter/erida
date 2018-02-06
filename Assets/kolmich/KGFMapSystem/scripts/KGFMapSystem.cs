@@ -31,16 +31,16 @@ public class KGFMapSystem : KGFModule, KGFICustomGUI, KGFIValidator
 		#if UNITY_4_0
 		theGameObject.SetActive(theActive);
 		#else
-		theGameObject.SetActiveRecursively(theActive);
-		#endif
-	}
+		theGameObject.SetActive(theActive);//SetActiveRecursively(theActive);
+#endif
+    }
 	
 	public static bool KGFGetActive(GameObject theGameObject)
 	{
 		#if UNITY_4_0
 		return theGameObject.activeSelf;
 		#else
-		return theGameObject.active;
+		return theGameObject.GetActive();
 		#endif
 	}
 	
@@ -1235,7 +1235,7 @@ public class KGFMapSystem : KGFModule, KGFICustomGUI, KGFIValidator
 	/// <returns></returns>
 	bool GetHasProVersion()
 	{
-		return SystemInfo.supportsRenderTextures;
+        return true; // SystemInfo.supportsRenderTextures; < Always returns true.
 	}
 	
 	IEnumerator DeferedPhoto ()
@@ -2623,7 +2623,7 @@ public class KGFMapSystem : KGFModule, KGFICustomGUI, KGFIValidator
 		MeshRenderer aMeshRenderer = aMiniMapPlane.gameObject.AddComponent<MeshRenderer>();
 		aMeshRenderer.material = new Material(theShader);
 		aMeshRenderer.material.mainTexture = theTexture;
-		aMeshRenderer.castShadows = false;
+		aMeshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 		aMeshRenderer.receiveShadows = false;
 		
 		return aGameObject;
@@ -2650,7 +2650,7 @@ public class KGFMapSystem : KGFModule, KGFICustomGUI, KGFIValidator
 		aMiniMapPlane.mesh = GeneratePlaneMeshXZ();
 		
 		MeshRenderer aMeshRenderer = aMiniMapPlane.gameObject.AddComponent<MeshRenderer>();
-		aMeshRenderer.castShadows = false;
+		aMeshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 		aMeshRenderer.receiveShadows = false;
 		
 		Material aMaterial = new Material(itsDataModuleMinimap.itsShaders.itsShaderPhotoPlane);

@@ -6,6 +6,8 @@ public class OtherVehicleSetting : IVehicleSetting
 {
     public int MaxHitPoints { get { return 500; } }
 
+    public float RigidbodyDrag { get { return 1.0f; } }
+
     public float BaseThrust
     {
         get

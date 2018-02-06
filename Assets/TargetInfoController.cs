@@ -12,7 +12,7 @@ namespace Com.Wulfram3 {
 
         public GameObject targetInfoPanel;
         public Text hitpoints;
-        public Text name;
+        public Text myName;
         public Text team;
         public Text user;
 
@@ -46,16 +46,8 @@ namespace Com.Wulfram3 {
                 //rectTransform.localPosition = new Vector2(0, 100);
                 rectTransform.SetPositionAndRotation(pos, rectTransform.rotation);
 
-                PlayerMovementManager player = PlayerMovementManager.LocalPlayerInstance.GetComponent<PlayerMovementManager>();
+                PlayerManager player = PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>();
                 float dist = (float) Math.Round(Vector3.Distance(target.transform.position, player.transform.position), 0);
-
-                /*
-                 * This will turn the info panel off when it goes off the screen... but for some reason it never comes back on until re-targetting
-                float angle = Vector3.Angle(target.transform.position - player.transform.position, player.transform.forward);
-                if (angle > 90f)
-                {
-                    targetInfoPanel.SetActive(false);
-                } */
 
 
                 Unit unit = target.GetComponent<Unit>();
@@ -74,23 +66,23 @@ namespace Com.Wulfram3 {
                 }
 
                 hitpoints.text = dist + "M " + unit.health + "HP";
-                name.text = unit.unitType.ToString();
+                myName.text = unit.unitType.ToString();
                 team.text = unit.unitTeam.ToString();
 
-                var panel = targetInfoPanel.GetComponent<Image>();
+                //[ASSIGNED NEVER USED] var panel = targetInfoPanel.GetComponent<Image>();
                 switch (unit.unitTeam)
                 {
                     case PunTeams.Team.none:
-                        name.color = FindObjectOfType<GameManager>().graycolor.color;
+                        myName.color = FindObjectOfType<GameManager>().graycolor.color;
                         break;
                     case PunTeams.Team.Red:
-                        name.color = FindObjectOfType<GameManager>().redcolor.color;
+                        myName.color = FindObjectOfType<GameManager>().redcolor.color;
                         break;
                     case PunTeams.Team.Blue:
-                        name.color = FindObjectOfType<GameManager>().bluecolor.color;
+                        myName.color = FindObjectOfType<GameManager>().bluecolor.color;
                         break;
                     default:
-                        name.color = FindObjectOfType<GameManager>().graycolor.color;
+                        myName.color = FindObjectOfType<GameManager>().graycolor.color;
                         break;
                 }
 

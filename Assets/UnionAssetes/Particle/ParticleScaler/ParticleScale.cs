@@ -15,32 +15,31 @@ public class ParticleScale : MonoBehaviour {
 		if(particle == null) {
 			return;
 		}
-
-		particle.startSize = particle.startSize + particle.startSize * mod;
-		particle.startSpeed = particle.startSpeed + particle.startSpeed * mod;
-		
+        ParticleSystem.MinMaxCurve m;
+        m = particle.main.startSize;
+		m.constant = m.constant + m.constant * mod;
+        m = particle.main.startSpeed;
+		m.constant = m.constant + m.constant * mod;		
 	}
 
 
 	public void ReduceScale(float mod) {
-		
-		if(particle == null) {
+		if(particle == null)
 			return;
-		}
+        ParticleSystem.MinMaxCurve m;
+        m = particle.main.startSize;
+        m.constant = m.constant - m.constant * mod;
+        m = particle.main.startSpeed;
+        m.constant = m.constant - m.constant * mod;
+
+    }
 
 
-		particle.startSize = particle.startSize - particle.startSize * mod;
-		particle.startSpeed = particle.startSpeed - particle.startSpeed * mod;
-		
-	}
-
-
-	public ParticleSystem particle {
-		get {
-			if(_particle == null) {
+    public ParticleSystem particle {
+		get
+        {
+			if(_particle == null)
 				_particle = GetComponent<ParticleSystem>();
-			}
-			
 			return _particle;
 		}
 	}

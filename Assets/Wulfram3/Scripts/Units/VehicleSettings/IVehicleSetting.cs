@@ -8,6 +8,8 @@ public interface IVehicleSetting
 { 
     int MaxHitPoints { get; }
 
+    float RigidbodyDrag { get; }
+
     float BaseThrust { get; }
 
     float StrafePercent { get; }

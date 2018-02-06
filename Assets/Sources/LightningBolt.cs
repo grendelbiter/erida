@@ -18,19 +18,20 @@ public class LightningBolt : Photon.PunBehaviour
 	Perlin noise;
 	float oneOverZigs;
 	
-	private Particle[] particles;
+	private ParticleSystem[] particles;
 	
 	void Start()
 	{
+            /*
 			target = new GameObject();
-		GetComponent<ParticleEmitter>();
 		oneOverZigs = 1f / (float)zigs;
-		GetComponent<ParticleEmitter>().emit = false;
-
-		GetComponent<ParticleEmitter>().Emit(zigs);
-		particles = GetComponent<ParticleEmitter>().particles;
+        ParticleSystem p = 
+		GetComponent<ParticleSystem>().emission.enabled = false;
+		GetComponent<ParticleSystem>().Emit(zigs);
+		particles = GetComponent<ParticleSystem>().GetParticles
+        */
 	}
-	
+	/*
 	void Update ()
 	{
 
@@ -80,6 +81,6 @@ public class LightningBolt : Photon.PunBehaviour
 			if (endLight)
 				endLight.transform.position = particles[particles.Length - 1].position;
 		}
-	}	
+	}	&*/
 }
 }

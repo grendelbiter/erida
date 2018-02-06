@@ -365,10 +365,10 @@ GameObject:
   - component: {fileID: 114621915073000352}
   - component: {fileID: 114329940540199428}
   - component: {fileID: 120253160599368710}
-  - component: {fileID: 114632425496792056}
   - component: {fileID: 114337348684026594}
   - component: {fileID: 114699472787082240}
   - component: {fileID: 114236685262357424}
+  - component: {fileID: 114167870936718730}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1257,7 +1257,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 062c0f96701453e40a42a31a3af16ca1, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.201
   m_Pitch: 1
@@ -1568,6 +1568,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseOverColor: {r: 0.14117648, g: 0.45882353, b: 0.42745098, a: 1}
+--- !u!114 &114167870936718730
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1841311625191074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8681972bdf7c24ea2d9112addea3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  takeoffSound: {fileID: 8300000, guid: 12a3f660b4dadc54bad69f0b1d3293bb, type: 3}
+  landingSound: {fileID: 8300000, guid: 717cda498658139418a98e2166ea1f73, type: 3}
+  jumpSound: {fileID: 8300000, guid: 820211a4788f1fd40855df02517e52f6, type: 3}
+  tankInternalSound: {fileID: 8300000, guid: c0cc07b5e85e24649a7949e4d5ef6058, type: 3}
+  tankExternalSound: {fileID: 8300000, guid: 062c0f96701453e40a42a31a3af16ca1, type: 3}
+  scoutInternalSound: {fileID: 8300000, guid: 58ee2e0876a23744d93c8a322ce4c999, type: 3}
+  scoutExternalSound: {fileID: 8300000, guid: 354fc0386ceb3a64984b2f06f55f8fee, type: 3}
+  myUnitType: 0
+  receiveInput: 1
+  isLandedOnRepairPad: {fileID: 0}
+  healingBoost: 1
+  currentHeight: 1.2
+  isGrounded: 0
+  xSens: 0.2
+  ySens: 0.22
 --- !u!114 &114236685262357424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1585,7 +1611,7 @@ MonoBehaviour:
     itsTextureArrow: {fileID: 0}
     itsRotate: 1
     itsColor: {r: 1, g: 1, b: 1, a: 1}
-    itsIsVisible: 1
+    itsIsVisible: 0
     itsUseArrow: 0
     itsRevealFogOfWar: 0
     itsShowToolTip: 1
@@ -1675,11 +1701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25e0cdabcce6d374fb2852bd16157531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelRegenerationPerSecond: 2
-  landedRegenerationBoost: 5
-  maxFuel: 500
-  boost: 1
   fuel: 500
+  maxFuel: 500
 --- !u!114 &114342434317698888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1873,29 +1896,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d3ecfaf5c154441813d29c22c959db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSource: {fileID: 8300000, guid: 820211a4788f1fd40855df02517e52f6, type: 3}
-  landSource: {fileID: 8300000, guid: 717cda498658139418a98e2166ea1f73, type: 3}
-  takeoffSource: {fileID: 8300000, guid: 12a3f660b4dadc54bad69f0b1d3293bb, type: 3}
-  myUnit: {fileID: 0}
-  myMesh: {fileID: 0}
-  gunEnd: {fileID: 0}
-  firstPersonCamPos: {fileID: 0}
-  thirdPersonCamPos: {fileID: 0}
-  placePosition: {fileID: 0}
-  dropPosition: {fileID: 0}
   destroyDelayWhenDead: 3
-  axes: 0
-  minimumY: -56
-  maximumY: 56
-  isDead: 0
-  isSpawning: 0
-  onRepairPad: {fileID: 0}
   meshList:
   - {fileID: 4932852334015082}
   - {fileID: 4883840461233092}
   - {fileID: 4775528811366586}
   - {fileID: 4218560249486868}
-  myMapIcon: {fileID: 114236685262357424}
   availableColliders:
   - {fileID: 4300004, guid: 11b7ea09bf2e9fb48b5fd6692a543727, type: 3}
   - {fileID: 4300006, guid: 11b7ea09bf2e9fb48b5fd6692a543727, type: 3}
@@ -1925,6 +1931,16 @@ MonoBehaviour:
   - {fileID: 4297099631324034}
   - {fileID: 4978231919232402}
   - {fileID: 4558380785870198}
+  isDead: 0
+  isSpawning: 0
+  myMapIcon: {fileID: 114236685262357424}
+  myUnit: {fileID: 0}
+  myMesh: {fileID: 0}
+  gunEnd: {fileID: 0}
+  firstPersonCamPos: {fileID: 0}
+  thirdPersonCamPos: {fileID: 0}
+  placePosition: {fileID: 0}
+  dropPosition: {fileID: 0}
 --- !u!114 &114609421694380428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1941,10 +1957,9 @@ MonoBehaviour:
   maxHealth: 500
   hitpointRegenPerSecond: 0.3
   needsPower: 0
-  playerLandedBoost: 2.65
-  repairPadBoost: 75
   health: 0
   hasPower: 0
+  needsUpdate: 1
 --- !u!114 &114621915073000352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1956,20 +1971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe60b439fbe6564489b162c18a4af8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114632425496792056
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841311625191074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0b7002416f4dea499e681393d998d2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthPerSecond: 0.7
-  playerLandedBoost: 2.65
-  repairPadBoost: 75
 --- !u!114 &114699472787082240
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -234,7 +234,7 @@ public class KGFEventSequence : KGFEventBase, KGFIValidator
 		#if UNITY_4_0
 		if (gameObject.activeSelf)
 		#else
-		if (gameObject.active)
+		if (gameObject.GetActive())
 		#endif
 		{
 			itsEventSequenceRunning = true;

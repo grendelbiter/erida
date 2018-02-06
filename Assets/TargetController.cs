@@ -317,15 +317,15 @@ namespace Com.Wulfram3
                     if(isTargetFriendly)
                     {
                         // Find units for same team
-                        findTeam = PlayerMovementManager.LocalPlayerInstance.GetComponent<Unit>().unitTeam;
+                        findTeam = PlayerManager.LocalPlayerInstance.GetComponent<Unit>().unitTeam;
                     }
                     else
                     {
                         // Find units for hostile team
-                        findTeam = PlayerMovementManager.LocalPlayerInstance.GetComponent<Unit>().GetHostileTeam(); ;
+                        findTeam = PlayerManager.LocalPlayerInstance.GetComponent<Unit>().GetHostileTeam(); ;
                     }
 
-                    PlayerMovementManager player = PlayerMovementManager.LocalPlayerInstance.GetComponent<PlayerMovementManager>();
+                    PlayerManager player = PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>();
                     if (item.unitTeam == findTeam)
                     {
                         if (type == UnitType.None)

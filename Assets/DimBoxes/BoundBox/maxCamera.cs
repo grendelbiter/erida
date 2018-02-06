@@ -39,7 +39,7 @@ namespace DimBoxes
         private float viewerYmin;
         private Vector2 desiredInputPosition;
         private Vector2 currentInputPosition;
-        private Vector3 currentTargetPosition;
+        //private Vector3 currentTargetPosition;
         private Vector3 hitPoint = Vector3.zero;
         private bool dragging = false;
 
@@ -143,7 +143,7 @@ namespace DimBoxes
 
             // calculate position based on the new currentDistance 
 
-            currentTargetPosition = target.position;////
+            //currentTargetPosition = target.position;////
             currentInputPosition = Vector2.Lerp(currentInputPosition, desiredInputPosition, Time.deltaTime * 5f);///
 
 

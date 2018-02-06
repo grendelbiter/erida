@@ -7,8 +7,6 @@ public class VehicleSelector : MonoBehaviour {
     public Transform playerPrefab;
     public Transform[] nestedModels;
     public List<int> available;
-    private int listStart = 0;
-    private int listEnd = 1;
     public int current = 0;
     private int last = 0;
     public Camera myCamera;

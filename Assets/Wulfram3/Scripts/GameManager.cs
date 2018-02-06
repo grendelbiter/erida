@@ -35,120 +35,92 @@ namespace Com.Wulfram3
 
         #region Photon Messages
 
-
-
-
-        /// <summary>
-        /// Called when the local player left the room. We need to load the launcher scene.
-        /// </summary>
-        public void OnLeftRoom()
+        /*
+        public override void OnLeftRoom()
         {
             SceneManager.LoadScene(0);
         }
+        */
 
         public override void OnPhotonPlayerConnected(PhotonPlayer other)
         {
-            Debug.Log("OnPhotonPlayerConnected() " + other.NickName); // not seen if you're the player connecting
-            /*
-            PlayerMovementManager pmm = PlayerMovementManager.LocalPlayerInstance.GetComponent<PlayerMovementManager>();
-            object[] o = new object[1];
-            o[0] = pmm.GetMeshIndex();
-            pmm.photonView.RPC("SendMeshToNewPlayer", other, o);
-            */
             if (PhotonNetwork.isMasterClient)
-            {
-                Debug.Log("OnPhotonPlayerConnected isMasterClient " + PhotonNetwork.isMasterClient); // called before OnPhotonPlayerDisconnected
-
-
-                //LoadArena();
-            }
+                Debug.Log(other.NickName + " has connected as MasterClient. (GameManager.cs / OnPhotonPlayerConnected:46)");
+            else
+                Debug.Log(other.NickName + " has connected. (GameManager.cs / OnPhotonPlayerConnected:48)");
         }
 
 
         public override void OnPhotonPlayerDisconnected(PhotonPlayer other)
         {
-            Debug.Log("OnPhotonPlayerDisconnected() " + other.NickName); // seen when other disconnects
-
-
             if (PhotonNetwork.isMasterClient)
-            {
-                Debug.Log("OnPhotonPlayerDisonnected isMasterClient " + PhotonNetwork.isMasterClient); // called before OnPhotonPlayerDisconnected
-
-
-                //LoadArena();
-            }
+                Debug.Log("MasterClient " + other.NickName + " has disconnected. This will probably get ugly.  (GameManager.cs / OnPhotonPlayerDisconnected:55)");
+            else
+                Debug.Log(other.NickName + " has disconnected. (GameManager.cs / OnPhotonPlayerDisconnected:57)");
         }
 
-
+        /*
+        public override void OnJoinedRoom()
+        {
+            Debug.Log("Room Joined. (GameManager.cs / OnJoinedRoom:62)");
+            if (PhotonNetwork.room.PlayerCount == 1)
+            {
+                Debug.Log("Loading Game Scene ('Playground' as MasterClient). (GameManager.cs / OnJoinedRoom:66)");
+                PhotonNetwork.LoadLevel("Playground");
+            }
+            else
+            {
+                Debug.Log("Syncing Game Scene ('Playground' as RemoteClient). (GameManager.cs / OnJoinedRoom:69)");
+            }
+        }
+        */
+        public void LeaveRoom()
+        {
+            //[ASSIGNED NEVER USED] var userControler = DepenencyInjector.Resolve<IUserController>();
+            //var discordApi = DepenencyInjector.Resolve<IDiscordApi>();
+            PhotonNetwork.LeaveRoom();
+            //StartCoroutine(discordApi.PlayerLeft(PhotonNetwork.playerName));
+        }
         #endregion
 
 
         #region Public Methods
-
-
-        public void LeaveRoom()
-        {
-            var userControler = DepenencyInjector.Resolve<IUserController>();
-            var discordApi = DepenencyInjector.Resolve<IDiscordApi>();
-            PhotonNetwork.LeaveRoom();
-            StartCoroutine(discordApi.PlayerLeft(PhotonNetwork.playerName));
-        }
-
         public void Start()
         {
-            Debug.Log("GameManager.cs Start() " + Application.loadedLevelName);
+            Debug.Log("Starting GameManager.  (GameManager.cs / Start:86)");
 
-            if (PlayerMovementManager.LocalPlayerInstance == null) {
-                Debug.Log("We are Instantiating LocalPlayer from " + Application.loadedLevelName);
-
+            if (PlayerManager.LocalPlayerInstance == null)
+            {
+                Debug.Log("Creating LocalPlayer. Active scene name: " + SceneManager.GetActiveScene().name + ". (GameManager.cs / Start:89)");
                 GameObject g = Instantiate(Resources.Load("Prefabs/SceneBase/VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
                 unitSelector = g.GetComponent<VehicleSelector>();
 
-                //GameObject map = Instantiate(Resources.Load("Terrains/TronNoGrass"), new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-                // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-
-
-                //team start
                 PunTeams.UpdateTeamsNow();
-
-                int redPlayers = PunTeams.PlayersPerTeam[PunTeams.Team.Red].Count;
-                int bluePlayers = PunTeams.PlayersPerTeam[PunTeams.Team.Blue].Count;
-
-                Debug.Log("Number of Red players: " + redPlayers);
-                Debug.Log("Number of Blue players: " + bluePlayers);
-                GameObject player;
-                /* TODO: 
-                 * Sort Respawn Code
-                 * Detect player tags and modify starting prefab choices 
-                 
-                 */
-
-                object[] o = new object[2];
-                o[0] = UnitType.Tank;
+                object[] o = new object[1];
                 List<int> availableUnits = new List<int>();
-                if (bluePlayers > redPlayers) {
-                    o[1] = PunTeams.Team.Red;
+                if (PunTeams.PlayersPerTeam[PunTeams.Team.Blue].Count > PunTeams.PlayersPerTeam[PunTeams.Team.Red].Count)
+                {
+                    o[0] = PunTeams.Team.Red;
                     availableUnits.Add(2);
                     availableUnits.Add(3);
                 }
-                else {
-                    o[1] = PunTeams.Team.Blue;
+                else
+                {
+                    o[0] = PunTeams.Team.Blue;
                     availableUnits.Add(0);
                     availableUnits.Add(1);
                 }
-
-                Debug.Log("Assigned to " + o[1] + " team. Awaiting first spawn.");
+                Debug.Log("Assigned to " + o[0] + " team. Awaiting first spawn. (GameManager.cs / Start:107)");
                 unitSelector.SetAvailableModels(availableUnits);
-                player = PhotonNetwork.Instantiate("Prefabs/Player/Player", new Vector3(0, -100, 0), Quaternion.identity, 0, o);
-                PhotonNetwork.player.SetTeam((PunTeams.Team)o[1]);
+                PhotonNetwork.Instantiate("Prefabs/Player/Player", new Vector3(0, -100, 0), Quaternion.identity, 0, o);
+                PhotonNetwork.player.SetTeam((PunTeams.Team)o[0]);
             }
-            else {
-                Debug.Log("Ignoring scene load for " + Application.loadedLevelName);
+            else
+            {
+                Debug.Log("Local Player Was Null.... Investigate. (GameManager.cs / Start:113)" + SceneManager.GetActiveScene().name);
             }
-            //PlayerSpawnManager.status = SpawnStatus.IsAlive;
             GetComponent<PlayerSpawnManager>().StartSpawn();
             GetComponent<MapModeManager>().ActivateMapMode(MapType.Spawn);
-            //normalCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();          
         }
 
         public void NextPreview()
@@ -161,20 +133,7 @@ namespace Com.Wulfram3
             unitSelector.Previous();
         }
 
-        private void Update()
-        {
-           /*
-            if(isFirstSpawn)
-            {
-                PlayerMovementManager player = PlayerMovementManager.LocalPlayerInstance.GetComponent<PlayerMovementManager>();
-                if (player != null)
-                {
-                    //player.PrepareForRespawn();
-                    //this.Respawn(null);
-                    isFirstSpawn = false;
-                }
-            } */
-        }
+        private void Update() { }
 
         [PunRPC]
         public void SpawnPulseShell(Vector3 pos, Quaternion rot, PunTeams.Team team, Vector3 vel, int senderID, PhotonMessageInfo info)
@@ -199,52 +158,42 @@ namespace Com.Wulfram3
                 instanceData[0] = team;
                 instanceData[1] = UnitType.FlakTurret;
                 instanceData[2] = fuse;
-                GameObject shell = PhotonNetwork.InstantiateSceneObject("Prefabs/Weapons/PulseShell", pos, rotation, 0, instanceData);
+                PhotonNetwork.InstantiateSceneObject("Prefabs/Weapons/PulseShell", pos, rotation, 0, instanceData);
             }
         }
 
         public void SpawnExplosion(Vector3 pos)
         {
             if (PhotonNetwork.isMasterClient)
-            {
                 PhotonNetwork.InstantiateSceneObject("Effects/Explosion_01", pos, Quaternion.identity, 0, null);
-            }
         }
 
-        //laser stuff autocannon
-        /*public void DrawLine(Vector3 startPos, Vector3 endPos)
-		{ 
-			if (PhotonNetwork.isMasterClient) {
-				//PhotonNetwork.Instantiate(lineRender, startPos, Quaternion.identity, 0);
-
-			}
-
-		}*/
-
-            /*
-        public void UnitsHealthUpdated(HitPointsManager hitpointsManager)
+        /*
+    public void UnitsHealthUpdated(HitPointsManager hitpointsManager)
+    {
+        if (hitpointsManager.tag.Equals("Player") && hitpointsManager.photonView.isMine)
         {
-            if (hitpointsManager.tag.Equals("Player") && hitpointsManager.photonView.isMine)
-            {
-                SetHullBar((float)hitpointsManager.health / (float)hitpointsManager.maxHealth);
-            }
-            if (PhotonNetwork.isMasterClient && hitpointsManager.health <= 0 && !hitpointsManager.tag.Equals("Player"))
-            {
-                PhotonNetwork.Destroy(hitpointsManager.gameObject);
-                SpawnExplosion(hitpointsManager.transform.position);
-            }
-        }*/
+            SetHullBar((float)hitpointsManager.health / (float)hitpointsManager.maxHealth);
+        }
+        if (PhotonNetwork.isMasterClient && hitpointsManager.health <= 0 && !hitpointsManager.tag.Equals("Player"))
+        {
+            PhotonNetwork.Destroy(hitpointsManager.gameObject);
+            SpawnExplosion(hitpointsManager.transform.position);
+        }
+    }*/
 
         public void SetHullBar(float level)
         {
             hullBar.GetComponent<LevelController>().SetLevel(level);
         }
 
-        public void FuelLevelUpdated(FuelManager fuelManager) {
-            SetFuelBar((float) fuelManager.fuel / (float) fuelManager.maxFuel);
+        public void FuelLevelUpdated(FuelManager fuelManager)
+        {
+            SetFuelBar((float)fuelManager.fuel / (float)fuelManager.maxFuel);
         }
 
-        public void SetFuelBar(float level) {
+        public void SetFuelBar(float level)
+        {
             fuelBar.GetComponent<LevelController>().SetLevel(level);
         }
 
@@ -302,7 +251,7 @@ namespace Com.Wulfram3
             {
                 var names = name.Split(' ');
 
-                modTag = "<color=yellow>" + names[0] + "</color>"; 
+                modTag = "<color=yellow>" + names[0] + "</color>";
                 if (colorFull == true)
                 {
                     username = modTag + " " + "<color=" + teamColor + ">" + names[1] + "</color>";
@@ -386,67 +335,19 @@ namespace Com.Wulfram3
         }
         */
 
-        public void Respawn(PlayerMovementManager player)
+        public void Respawn(PlayerManager player)
         {
-            if(PlayerSpawnManager.status == SpawnStatus.IsAlive)
+            if (PlayerSpawnManager.status == SpawnStatus.IsAlive)
             {
-                
+
                 GetComponent<PlayerSpawnManager>().StartSpawn();
                 GetComponent<MapModeManager>().ActivateMapMode(MapType.Spawn);
             }
         }
 
-        /*
         [PunRPC]
-        public void RequestPickUpCargo(CargoManager cargoManager) {
-            if (PhotonNetwork.isMasterClient) {
-                if (cargoManager.pickedUpCargo != "") {
-                    return;
-                }
-                Cargo cargo = FindCargoInRange(cargoManager.transform.position, 5f);
-                if (cargo != null) {
-                    cargoManager.photonView.RPC("SetPickedUpCargo", PhotonTargets.All, cargo.content);
-                    if (cargo.GetComponentInParent<PlayerMovementManager>() != null) {
-                    }
-                    PhotonNetwork.Destroy(cargo.gameObject);
-                }
-            }
-        }
-
-        private Cargo FindCargoInRange(Vector3 position, float scanRadius) {
-            Transform closestTarget = null;
-            float minDistance = scanRadius + 10f;
-            var cols = Physics.OverlapSphere(position, scanRadius);
-            var rigidbodies = new List<Rigidbody>();
-            foreach (var col in cols) {
-                if (col.attachedRigidbody != null && !rigidbodies.Contains(col.attachedRigidbody) && col.attachedRigidbody.GetComponentInParent<Cargo>() != null) {
-                    rigidbodies.Add(col.attachedRigidbody);
-                }
-            }
-
-            foreach (Rigidbody rb in rigidbodies) {
-                Transform target = rb.transform;
-
-                float distance = Vector3.Distance(position, target.transform.position);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestTarget = target;
-                }
-            }
-
-            if (closestTarget == null) {
-                return null;
-            }
-            return closestTarget.GetComponentInParent<Cargo>();
-        }
-
-        
-        public void PickUpCargo(CargoManager cargoManager) {
-            photonView.RPC("RequestPickUpCargo", PhotonTargets.MasterClient, cargoManager);
-        }*/
-
-        [PunRPC]
-        public void RequestDropCargo(int senderID) {
+        public void RequestDropCargo(int senderID)
+        {
             if (PhotonNetwork.isMasterClient)
             {
                 PhotonView pv = PhotonView.Find(senderID);
@@ -477,54 +378,19 @@ namespace Com.Wulfram3
             if (PhotonNetwork.isMasterClient)
             {
                 Vector3 desiredPosition = (Vector3)args[0];
-                Quaternion desiredRotation = (Quaternion) args[1];
+                Quaternion desiredRotation = (Quaternion)args[1];
                 UnitType cargoType = (UnitType)args[2];
-                PunTeams.Team cargoTeam = (PunTeams.Team) args[3];
+                PunTeams.Team cargoTeam = (PunTeams.Team)args[3];
                 object[] o = new object[2];
                 o[0] = cargoType;
                 o[1] = cargoTeam;
                 PhotonNetwork.InstantiateSceneObject(Unit.GetPrefabName(cargoType, cargoTeam), desiredPosition, desiredRotation, 0, o);
-                PhotonView.Find((int) args[4]).RPC("DeployedCargo", PhotonTargets.All, null);
+                PhotonView.Find((int)args[4]).RPC("DeployedCargo", PhotonTargets.All, null);
 
             }
 
         }
 
         #endregion
-
-        #region Private Methods
-
-        public override void OnJoinedRoom()
-        {
-
-
-            Debug.Log("Sent Post!' ");
-            // #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.automaticallySyncScene to sync our instance scene.
-            if (PhotonNetwork.room.PlayerCount == 1)
-            {
-                Debug.Log("We load the 'Playground' ");
-
-                // #Critical
-                // Load the Room Level. 
-                PhotonNetwork.LoadLevel("Playground");
-
-            }
-        }
-
-        void LoadArena()
-        {
-            if (!PhotonNetwork.isMasterClient)
-            {
-                Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
-                return;
-            }
-            Debug.Log("PhotonNetwork : Loading Level : " + PhotonNetwork.room.PlayerCount);
-            PhotonNetwork.LoadLevel("Playground");
-        }
-
-
-        #endregion
-
-
     }
 }

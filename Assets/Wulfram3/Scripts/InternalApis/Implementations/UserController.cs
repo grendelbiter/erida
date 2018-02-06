@@ -121,7 +121,7 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
         private void SetupSocketConnection()
         {
             //var serverUrl = "http://localhost:8080/";
-            var serverUrl = "https://wulfram-player-node.herokuapp.com/";
+            var serverUrl = "http://www.wulfrida.com/";
             socketServer = Socket.Connect(serverUrl);
 
             socketServer.On(SystemEvents.connect, () => {

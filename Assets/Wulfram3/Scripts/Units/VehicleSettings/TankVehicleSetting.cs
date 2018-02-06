@@ -13,6 +13,13 @@ public class TankVehicleSetting : IVehicleSetting
         }
     }
 
+    public float RigidbodyDrag
+    {
+        get
+        {
+            return 0.765f;
+        }
+    }
 
     public float BaseThrust
     {

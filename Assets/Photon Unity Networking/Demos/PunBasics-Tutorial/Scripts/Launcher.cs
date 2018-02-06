@@ -90,6 +90,7 @@ namespace ExitGames.Demos.DemoAnimator
 		/// </summary>
 		public void Connect()
 		{
+            /*
 			// we want to make sure the log is clear everytime we connect, we might have several failed attempted if connection failed.
 			feedbackText.text = "";
 
@@ -118,7 +119,7 @@ namespace ExitGames.Demos.DemoAnimator
 				
 				// #Critical, we must first and foremost connect to Photon Online Server.
 				PhotonNetwork.ConnectUsingSettings(_gameVersion);
-			}
+			}*/
 		}
 
 		/// <summary>
@@ -150,19 +151,19 @@ namespace ExitGames.Demos.DemoAnimator
 		public override void OnConnectedToMaster()
 		{
 
-			Debug.Log("Region:"+PhotonNetwork.networkingPeer.CloudRegion);
+			//Debug.Log("Region:"+PhotonNetwork.networkingPeer.CloudRegion);
 
 			// we don't want to do anything if we are not attempting to join a room. 
 			// this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
 			// we don't want to do anything.
-			if (isConnecting)
-			{
-				LogFeedback("OnConnectedToMaster: Next -> try to Join Random Room");
-				Debug.Log("DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room.\n Calling: PhotonNetwork.JoinRandomRoom(); Operation will fail if no room found");
+			//if (isConnecting)
+			//{
+				//LogFeedback("OnConnectedToMaster: Next -> try to Join Random Room");
+				//Debug.Log("DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room.\n Calling: PhotonNetwork.JoinRandomRoom(); Operation will fail if no room found");
 		
 				// #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnPhotonRandomJoinFailed()
-				PhotonNetwork.JoinRandomRoom();
-			}
+				//PhotonNetwork.JoinRandomRoom();
+			//}
 		}
 
 		/// <summary>
@@ -174,11 +175,11 @@ namespace ExitGames.Demos.DemoAnimator
 		/// <param name="codeAndMsg">codeAndMsg[0] is short ErrorCode. codeAndMsg[1] is string debug msg.</param>
 		public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
 		{
-			LogFeedback("<Color=Red>OnPhotonRandomJoinFailed</Color>: Next -> Create a new Room");
-			Debug.Log("DemoAnimator/Launcher:OnPhotonRandomJoinFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom(null, new RoomOptions() {maxPlayers = 4}, null);");
+			//LogFeedback("<Color=Red>OnPhotonRandomJoinFailed</Color>: Next -> Create a new Room");
+			//Debug.Log("DemoAnimator/Launcher:OnPhotonRandomJoinFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom(null, new RoomOptions() {maxPlayers = 4}, null);");
 
 			// #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
-			PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = this.maxPlayersPerRoom}, null);
+			//PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = this.maxPlayersPerRoom}, null);
 		}
 
 
@@ -191,14 +192,14 @@ namespace ExitGames.Demos.DemoAnimator
 		/// </remarks>
 		public override void OnDisconnectedFromPhoton()
 		{
-			LogFeedback("<Color=Red>OnDisconnectedFromPhoton</Color>");
-			Debug.LogError("DemoAnimator/Launcher:Disconnected");
+			//LogFeedback("<Color=Red>OnDisconnectedFromPhoton</Color>");
+			//Debug.LogError("DemoAnimator/Launcher:Disconnected");
 
 			// #Critical: we failed to connect or got disconnected. There is not much we can do. Typically, a UI system should be in place to let the user attemp to connect again.
-			loaderAnime.StopLoaderAnimation();
+			//loaderAnime.StopLoaderAnimation();
 
-			isConnecting = false;
-			controlPanel.SetActive(true);
+			//isConnecting = false;
+			//controlPanel.SetActive(true);
 
 		}
 
@@ -215,19 +216,19 @@ namespace ExitGames.Demos.DemoAnimator
 		/// </remarks>
 		public override void OnJoinedRoom()
 		{
-			LogFeedback("<Color=Green>OnJoinedRoom</Color> with "+PhotonNetwork.room.PlayerCount+" Player(s)");
-			Debug.Log("DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.\nFrom here on, your game would be running. For reference, all callbacks are listed in enum: PhotonNetworkingMessage");
+			//LogFeedback("<Color=Green>OnJoinedRoom</Color> with "+PhotonNetwork.room.PlayerCount+" Player(s)");
+			//Debug.Log("DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.\nFrom here on, your game would be running. For reference, all callbacks are listed in enum: PhotonNetworkingMessage");
 		
 			// #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.automaticallySyncScene to sync our instance scene.
-			if (PhotonNetwork.room.PlayerCount == 1)
-			{
-				Debug.Log("We load the 'Room for 1' ");
+			//if (PhotonNetwork.room.PlayerCount == 1)
+			//{
+			//	Debug.Log("We load the 'Room for 1' ");
 
 				// #Critical
 				// Load the Room Level. 
-				PhotonNetwork.LoadLevel("PunBasics-Room for 1");
+			//	PhotonNetwork.LoadLevel("PunBasics-Room for 1");
 
-			}
+			//}
 		}
 
 		#endregion

@@ -259,9 +259,9 @@ public static class KGFUtility : System.Object
 			#if UNITY_4_0
 			aChildTransform.gameObject.SetActive(theActive);
 			#else
-			aChildTransform.gameObject.SetActiveRecursively(theActive);
-			#endif
-		}
+			aChildTransform.gameObject.SetActive(theActive); //SetActiveRecursively(theActive);
+#endif
+        }
 	}
 
 	/// <summary>

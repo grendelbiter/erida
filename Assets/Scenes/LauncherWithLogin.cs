@@ -45,9 +45,9 @@ namespace Com.Wulfram3 {
         [Tooltip("The UI Label to inform the user that the connection is in progress")]
         public GameObject progressLabel;
 
-        public GameObject versionLabel;
+		public GameObject versionLabel;
 
-        public GameObject errorLabel;
+		public GameObject errorLabel;
 
         public GameObject playername;
 
@@ -56,9 +56,9 @@ namespace Com.Wulfram3 {
 		public AudioSource click;
 
         public GameObject loadingSpinner;
+       
 
-
-
+        
         #endregion
 
 
@@ -102,13 +102,13 @@ namespace Com.Wulfram3 {
         void Start() {
             DepenencyInjector.SetupInjection();
             this.SetUserName();
-            discordApi = DepenencyInjector.Resolve<IDiscordApi>();
+            //discordApi = DepenencyInjector.Resolve<IDiscordApi>();
             progressLabel.SetActive(false);
             loadingSpinner.SetActive(false);
             controlPanel.SetActive(true);
             registrationPanel.SetActive(false);
             errorLabel.SetActive(false);
-            versionLabel.GetComponent<UnityEngine.UI.Text>().text = "Version " + GameInfo.Version();
+			versionLabel.GetComponent<UnityEngine.UI.Text>().text = "Version " + GameInfo.Version();
         }
 
 
@@ -130,12 +130,12 @@ namespace Com.Wulfram3 {
         /// </summary>
         public void Connect() {
             // keep track of the will to join a room, because when we come back from the game we will get a callback that we are connected, so we need to know what to do then
-			click.PlayOneShot(clicksound, 3f);
+			click.PlayOneShot(clicksound, 0.8f);
             isConnecting = true;
             progressLabel.SetActive(true);
             loadingSpinner.SetActive(true);
             controlPanel.SetActive(false);
-            StartCoroutine(discordApi.PlayerJoined(PhotonNetwork.playerName));
+            //StartCoroutine(discordApi.PlayerJoined(PhotonNetwork.playerName));
             
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
             if (PhotonNetwork.connected) {
@@ -250,7 +250,7 @@ namespace Com.Wulfram3 {
         public override void OnConnectedToMaster() {
 
 
-            Debug.Log("DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN");
+            Debug.Log("OnConnectedToMaster() called by PUN (LauncherWithLogin/OnConnectedToMaster:255)");
             // we don't want to do anything if we are not attempting to join a room. 
             // this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
             // we don't want to do anything.
@@ -271,12 +271,12 @@ namespace Com.Wulfram3 {
             //string postdiscord = "{ \"content\": \"" + greetdiscord + "\" } ";
             //Debug.Log (postdiscord);
             
-            Debug.LogWarning("DemoAnimator/Launcher: OnDisconnectedFromPhoton() was called by PUN");
+            //Debug.LogWarning("DemoAnimator/Launcher: OnDisconnectedFromPhoton() was called by PUN");
         }
 
         public override void OnPhotonRandomJoinFailed(object[] codeAndMsg) {
-            Debug.Log("DemoAnimator/Launcher:OnPhotonRandomJoinFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom(null, new RoomOptions() {maxPlayers = 4}, null);");
-
+            // Debug.Log("DemoAnimator/Launcher:OnPhotonRandomJoinFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom(null, new RoomOptions() {maxPlayers = 4}, null);");
+            Debug.Log("Creating Room. Max Players: " + MaxPlayersPerRoom + " (LauncherWithLogin/OnPhotonRandomJoinFailed:218)");
             // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
             PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
         }
@@ -285,22 +285,22 @@ namespace Com.Wulfram3 {
         public override void OnJoinedRoom() {
           
 
-            Debug.Log("Sent Post!' ");
+            Debug.Log("Room Joined. (LauncherWithLogin/OnJoinedRoom:290)");
             // #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.automaticallySyncScene to sync our instance scene.
             if (PhotonNetwork.room.PlayerCount == 1) {
-                Debug.Log("We load the 'Playground' ");
-			
+                Debug.Log("Loading 'Playground'. (LauncherWithLogin/OnJoinedRoom:293)");
                 // #Critical
                 // Load the Room Level. 
                 PhotonNetwork.LoadLevel("Playground");
-
-
+            } else
+            {
+                Debug.Log("Syncing 'Playground'. (LauncherWithLogin/OnJoinedRoom:299)");
             }
         }
 
         public override void OnLeftRoom()
         {
-            Debug.Log("OnLeftRoom!' ");
+            Debug.Log("OnLeftRoom! (LauncherWithLogin/OnLeftRoom:305)");
             base.OnLeftRoom();
         }
 
