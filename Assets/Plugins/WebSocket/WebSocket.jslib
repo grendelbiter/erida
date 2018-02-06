@@ -12,15 +12,6 @@ SocketCreate: function(url)
     }
     socket.socket.binaryType = 'arraybuffer';
     socket.socket.onmessage = function (e) {
-//		if (e.data instanceof Blob)
-//		{
-//			var reader = new FileReader();
-//			reader.addEventListener("loadend", function() {
-//				var array = new Uint8Array(reader.result);
-//				socket.messages.push(array);
-//			});
-//			reader.readAsArrayBuffer(e.data);
-//		}
         if (e.data instanceof ArrayBuffer)
         {
             var array = new Uint8Array(e.data);

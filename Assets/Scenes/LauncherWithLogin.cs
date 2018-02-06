@@ -45,6 +45,8 @@ namespace Com.Wulfram3 {
         [Tooltip("The UI Label to inform the user that the connection is in progress")]
         public GameObject progressLabel;
 
+        public GameObject versionLabel;
+
         public GameObject errorLabel;
 
         public GameObject playername;
@@ -54,18 +56,13 @@ namespace Com.Wulfram3 {
 		public AudioSource click;
 
         public GameObject loadingSpinner;
-       
 
-        
+
+
         #endregion
 
 
         #region Private Variables
-
-        /// <summary>
-        /// This client's version number. Users are separated from each other by gameversion (which allows you to make breaking changes).
-        /// </summary>
-        string _gameVersion = "1.6 alpha";
 
         /// <summary>
         /// Keep track of the current process. Since connection is asynchronous and is based on several callbacks from Photon, 
@@ -111,6 +108,7 @@ namespace Com.Wulfram3 {
             controlPanel.SetActive(true);
             registrationPanel.SetActive(false);
             errorLabel.SetActive(false);
+            versionLabel.GetComponent<UnityEngine.UI.Text>().text = "Version " + GameInfo.Version();
         }
 
 
@@ -146,7 +144,7 @@ namespace Com.Wulfram3 {
                 PhotonNetwork.JoinRandomRoom();
             } else {
                 // #Critical, we must first and foremost connect to Photon Online Server.
-                PhotonNetwork.ConnectUsingSettings(_gameVersion);
+                PhotonNetwork.ConnectUsingSettings(GameInfo.Version());
             }
         }
 
