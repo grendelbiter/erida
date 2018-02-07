@@ -21,6 +21,7 @@ namespace Com.Wulfram3
         [HideInInspector]
         public UnitType myUnitType;
         private IVehicleSetting vehicleSettings;
+        private PlayerManager playerManager;
         private FuelManager fuelManager;
         private Rigidbody rigidBody;
         [HideInInspector]
@@ -82,6 +83,7 @@ namespace Com.Wulfram3
         {
             if (photonView.isMine)
             {
+                playerManager = GetComponent<PlayerManager>();
                 fuelManager = GetComponent<FuelManager>();
                 rigidBody = GetComponent<Rigidbody>();
             }
@@ -100,16 +102,13 @@ namespace Com.Wulfram3
 
         void Update()
         {
-            if (!photonView.isMine || (GetComponent<PlayerManager>() != null && GetComponent<PlayerManager>().isSpawning))
+            if (!photonView.isMine || (playerManager != null && (playerManager.isSpawning || playerManager.isDead)))
                 return;
             if (GetComponent<Unit>().unitType != myUnitType)
                 SetUnitType(GetComponent<Unit>().unitType);
 
             if (receiveInput && vehicleSettings != null)
             {
-                if (!isGrounded)
-                    rigidBody.freezeRotation = false;
-                    rigidBody.isKinematic = false;
                 HandleMouseMotion(); // Mouse controls first, can cause liftoff from landed
                 HandleSpeedControls(); // Boost is calculated here, as well as user set thrust control
                 HandleDriveControls(); // This method sets the "drive" forces
@@ -128,7 +127,11 @@ namespace Com.Wulfram3
 
         private void FixedUpdate()
         {
-            if (!photonView.isMine || (GetComponent<PlayerManager>() != null && GetComponent<PlayerManager>().isSpawning) || vehicleSettings == null)
+            if (!photonView.isMine || isGrounded || vehicleSettings == null)
+                return;
+            if (playerManager != null && playerManager.isSpawning)
+                return;
+            if (GetComponent<Unit>() && GetComponent<Unit>().isDead)
                 return;
             if (!isLanding && !isGrounded)
                 AddHoverForce();
@@ -297,12 +300,10 @@ namespace Com.Wulfram3
 
         private void Land()
         {
-            Debug.Log("try land");
             tryLandStamp = Time.time + 0.05f;
             RaycastHit hit;
             if (Physics.Raycast(new Ray(transform.position, Vector3.down), out hit, GetComponent<Collider>().bounds.extents.z * 1.15f))
             {
-                Debug.Log("land");
                 healingBoost = landedBoost;
                 if (hit.transform != null)
                 {

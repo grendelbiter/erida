@@ -65,24 +65,20 @@ namespace Com.Wulfram3
 
         void Start()
         {
-            myUnit = GetComponent<Unit>();
-            if (myUnit != null)
-            {
-                myUnit.unitTeam = (PunTeams.Team)photonView.instantiationData[0];
-            } else
-            {
-                Debug.Log("*******[Player Error]*******: Unit.cs or Instantiation Data Not Found. This may occur if a scene was loaded with existing vehicles.");
-            }
             if (!photonView.isMine)
             {
                 myRigidbody.isKinematic = true;
                 return;
             }
-            PrepareForRespawn();
         }
 
         private void Awake()
         {
+            myUnit = GetComponent<Unit>();
+            if (myUnit != null)
+                myUnit.unitTeam = (PunTeams.Team)photonView.instantiationData[0];
+            else
+                Debug.Log("*******[Player Error]*******: Unit.cs or Instantiation Data Not Found. This may occur if a scene was loaded with existing vehicles.");
             gameManager = FindObjectOfType<GameManager>();
             myRigidbody = GetComponent<Rigidbody>();
             if (photonView.isMine)
@@ -91,17 +87,14 @@ namespace Com.Wulfram3
                 fuelManager = GetComponent<FuelManager>();
                 PMC = GetComponent<PlayerMotionController>();
             }
-            // #Critical
-            // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
+            PrepareForRespawn();
             DontDestroyOnLoad(gameObject);
         }
 
         public void SetMesh(int i)
         {
             for (int n = 0; n < meshList.Length; n++)
-            {
                 meshList[n].gameObject.SetActive(false);
-            }
             if (myUnit != null && myUnit.unitTeam == PunTeams.Team.Blue)
                 myMapIcon.SetTextureIcon(myIconTextures[0]);
             else if (myUnit != null && myUnit.unitTeam == PunTeams.Team.Red)
@@ -125,7 +118,8 @@ namespace Com.Wulfram3
             {
                 dropPosition = cargoDropPositions[0];
                 placePosition = unitPlacePositions[0];
-            } else if (i == 2)
+            }
+            else if (i == 2)
             {
                 dropPosition = cargoDropPositions[1];
                 placePosition = unitPlacePositions[1];
@@ -167,17 +161,11 @@ namespace Com.Wulfram3
         public void SetSelectedVehicle(int i)
         {
             if ((i == 1 || i == 3))
-            {
                 myUnit.unitType = UnitType.Scout;
-            }
             else if ((i == 0 || i == 2))
-            {
                 myUnit.unitType = UnitType.Tank;
-            }
             else
-            {
                 myUnit.unitType = UnitType.Other;
-            }
             SetMesh(i);
         }
 
@@ -190,8 +178,8 @@ namespace Com.Wulfram3
         [PunRPC]
         public void SetPosAndRotation(Vector3 pos, Quaternion rot, int meshIndex)
         {
-            CheckRespawn();
             SetSelectedVehicle(meshIndex);
+            CheckRespawn();
             if (!photonView.isMine)
                 return;
             transform.position = pos;
@@ -209,6 +197,7 @@ namespace Com.Wulfram3
                     GetComponent<AudioSource>().Play();
                 }
                 GetComponent<KGFMapIcon>().SetVisibility(true);
+                isDead = false;
                 isSpawning = false;
                 myRigidbody.isKinematic = false;
             }
@@ -222,26 +211,30 @@ namespace Com.Wulfram3
             {
                 myMesh.gameObject.SetActive(false);
                 myRigidbody.isKinematic = true;
+                myRigidbody.freezeRotation = true;
                 GetComponent<Collider>().enabled = false;
             }
             GetComponent<KGFMapIcon>().SetVisibility(false);
             GetComponent<AudioSource>().Stop();
-            //gameManager.SpawnExplosion(transform.position);
             Reset();
         }
 
         public void CheckIsDead()
         {
-            isDead = myUnit.health <= 0;
-            if (isDead && !isSpawning)
+            if (myUnit.isDead && !isSpawning)
             {
                 if (timeSinceDead == 0)
                 {
+                    isDead = true;
                     myRigidbody.freezeRotation = false;
+                    myRigidbody.isKinematic = false;
+                    if (PMC != null)
+                        PMC.receiveInput = false;
                 }
                 timeSinceDead += Time.deltaTime;
                 if (timeSinceDead >= destroyDelayWhenDead)
                 {
+                    Debug.Log("Player ready for respawn.");
                     PrepareForRespawn();
                 }
             }
@@ -252,13 +245,9 @@ namespace Com.Wulfram3
             if (InputEx.GetAxisRaw("Fire2") != 0)
             {
                 if (myUnit.unitType == UnitType.Tank && Time.time >= pulseStamp && fuelManager.TakeFuel(fuelPerPulse))
-                {
                     CmdFirePulseShell();
-                }
                 else if (myUnit.unitType == UnitType.Scout)
-                {
                     Debug.Log("PlayerMovementManager.cs (Line: 309) Scout Secondary Firing Detected.");
-                }
             }
         }
 
@@ -312,9 +301,7 @@ namespace Com.Wulfram3
             tempShell.GetComponent<Rigidbody>().velocity = myRigidbody.velocity + (tempShell.transform.forward * SplashProjectileController.PulseVelocity);
             gameManager.photonView.RPC("SpawnPulseShell", PhotonTargets.MasterClient, args);
             if (!PMC.isGrounded)
-            {
                 myRigidbody.AddForce(-transform.forward * pulseShellFiringImpulse, ForceMode.Impulse);
-            }
             pulseStamp = Time.time + timeBetweenPulse;
         }
 

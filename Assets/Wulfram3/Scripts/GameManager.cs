@@ -123,16 +123,6 @@ namespace Com.Wulfram3
             GetComponent<MapModeManager>().ActivateMapMode(MapType.Spawn);
         }
 
-        public void NextPreview()
-        {
-            unitSelector.Next();
-        }
-
-        public void PreviousPreview()
-        {
-            unitSelector.Previous();
-        }
-
         private void Update() { }
 
         [PunRPC]
