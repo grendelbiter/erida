@@ -233,13 +233,16 @@ namespace Com.Wulfram3
             {
                 gameManager.SetHullBar((float)health / (float)maxHealth);
             }
-            if (PhotonNetwork.isMasterClient && (maxHealth != 0 && health <= 0))
+            if (PhotonNetwork.isMasterClient && (maxHealth != 0 && health <= 0) && !isDead)
             {
-                isDead = true;
                 if (!isPlayer)
                 {
                     gameManager.SpawnExplosion(transform.position);
                     PhotonNetwork.Destroy(gameObject);
+                } else
+                {
+                    if (!playerManager.isSpawning && !isDead)
+                        isDead = true;
                 }
             }
         }

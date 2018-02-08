@@ -109,6 +109,11 @@ namespace Com.Wulfram3
 
             if (receiveInput && vehicleSettings != null)
             {
+                if (rigidBody.isKinematic && !isGrounded)
+                {
+                    rigidBody.isKinematic = false;
+                    rigidBody.freezeRotation = false;
+                }
                 HandleMouseMotion(); // Mouse controls first, can cause liftoff from landed
                 HandleSpeedControls(); // Boost is calculated here, as well as user set thrust control
                 HandleDriveControls(); // This method sets the "drive" forces
