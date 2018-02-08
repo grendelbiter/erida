@@ -70,22 +70,18 @@ namespace Com.Wulfram3
 
         private Quaternion oRot = Quaternion.identity;
 
-        private void Start()
-        {
-            if (!photonView.isMine)
-            {
-                rigidBody.isKinematic = true;
-                return;
-            }
-        }
+        private void Start()  { }
 
         private void Awake()
         {
+            rigidBody = GetComponent<Rigidbody>();
             if (photonView.isMine)
             {
                 playerManager = GetComponent<PlayerManager>();
                 fuelManager = GetComponent<FuelManager>();
-                rigidBody = GetComponent<Rigidbody>();
+            } else
+            {
+                rigidBody.isKinematic = true;
             }
         }
 
@@ -106,7 +102,6 @@ namespace Com.Wulfram3
                 return;
             if (GetComponent<Unit>().unitType != myUnitType)
                 SetUnitType(GetComponent<Unit>().unitType);
-
             if (receiveInput && vehicleSettings != null)
             {
                 if (rigidBody.isKinematic && !isGrounded)
@@ -332,7 +327,6 @@ namespace Com.Wulfram3
 
         private void TakeOff()
         {
-            Debug.Log("takeoff");
             if (isLandedOnRepairPad != null)
             {
                 Physics.IgnoreCollision(isLandedOnRepairPad.GetComponent<Collider>(), GetComponent<Collider>(), false);

@@ -101,7 +101,7 @@ namespace Com.Wulfram3
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            if (stream.isWriting)
+            if (stream.isWriting && Time.time > startStamp)
             {
                 stream.SendNext((int)health);
                 if (playerManager != null)
@@ -109,7 +109,7 @@ namespace Com.Wulfram3
                     stream.SendNext((int)playerManager.GetMeshIndex());
                 }
             }
-            else if (stream.isReading)
+            else if (stream.isReading && Time.time > startStamp)
             {
                 int syncHealth = (int)stream.ReceiveNext();
                 health = Mathf.Clamp(syncHealth, 0, maxHealth);
