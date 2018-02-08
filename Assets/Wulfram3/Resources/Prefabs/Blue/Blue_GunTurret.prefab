@@ -353,10 +353,10 @@ MonoBehaviour:
   maxHealth: 520
   hitpointRegenPerSecond: 0.3
   needsPower: 1
-  playerLandedBoost: 2.65
-  repairPadBoost: 75
   health: 0
   hasPower: 0
+  isDead: 0
+  needsUpdate: 1
 --- !u!114 &114849153664911234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -433,7 +433,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.1
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:

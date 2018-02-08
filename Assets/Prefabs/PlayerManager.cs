@@ -63,14 +63,7 @@ namespace Com.Wulfram3
 
         private PlayerMotionController PMC;
 
-        void Start()
-        {
-            if (!photonView.isMine)
-            {
-                myRigidbody.isKinematic = true;
-                return;
-            }
-        }
+        void Start() { }
 
         private void Awake()
         {
@@ -199,7 +192,8 @@ namespace Com.Wulfram3
                 GetComponent<KGFMapIcon>().SetVisibility(true);
                 isDead = false;
                 isSpawning = false;
-                myRigidbody.isKinematic = false;
+                if (photonView.isMine)
+                    myRigidbody.isKinematic = false;
             }
 
         }

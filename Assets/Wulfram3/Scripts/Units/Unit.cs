@@ -34,16 +34,19 @@ namespace Com.Wulfram3
 
         public bool needsUpdate = true;
 
+        private float startStamp;
+
         void Start() {
             if (unitType == UnitType.RepairPad || unitType == UnitType.RefuelPad || unitType == UnitType.GunTurret || unitType == UnitType.FlakTurret || unitType == UnitType.MissleLauncher)
                 needsPower = true;
-            isPlayer = GetComponent<PlayerMotionController>() != null;
+            startStamp = Time.time + 2f;
         }
 
         private void Awake()
         {
             gameManager = FindObjectOfType<GameManager>();
             playerManager = GetComponent<PlayerManager>();
+            isPlayer = GetComponent<PlayerMotionController>() != null;
             if (PhotonNetwork.isMasterClient)
                 SetHealth(maxHealth);
         }
@@ -227,22 +230,24 @@ namespace Com.Wulfram3
         [PunRPC]
         public void UpdateHealth(int amount)
         {
-            int newHealth = Mathf.Clamp(amount, 0, maxHealth);
-            health = newHealth;
-            if (playerManager != null && photonView.isMine)
+            if (Time.time > startStamp)
             {
-                gameManager.SetHullBar((float)health / (float)maxHealth);
-            }
-            if (PhotonNetwork.isMasterClient && (maxHealth != 0 && health <= 0) && !isDead)
-            {
-                if (!isPlayer)
+                int newHealth = Mathf.Clamp(amount, 0, maxHealth);
+                health = newHealth;
+                if (playerManager != null && photonView.isMine)
+                    gameManager.SetHullBar((float)health / (float)maxHealth);
+                if (PhotonNetwork.isMasterClient && (maxHealth != 0 && health <= 0) && !isDead)
                 {
-                    gameManager.SpawnExplosion(transform.position);
-                    PhotonNetwork.Destroy(gameObject);
-                } else
-                {
-                    if (!playerManager.isSpawning && !isDead)
-                        isDead = true;
+                    if (!isPlayer)
+                    {
+                        gameManager.SpawnExplosion(transform.position);
+                        PhotonNetwork.Destroy(gameObject);
+                    }
+                    else
+                    {
+                        if (!playerManager.isSpawning && !isDead)
+                            isDead = true;
+                    }
                 }
             }
         }
