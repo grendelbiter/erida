@@ -18,6 +18,8 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Interfaces
 
         Task<WulframPlayer> LoginUser(string username, string password);
 
+        Task<bool> LogoutUser();
+
         Task<string> RegisterUser(string username, string password, string email);
 
     }

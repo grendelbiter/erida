@@ -48,6 +48,12 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
             return null;
         }
 
+        public async Task<bool> LogoutUser()
+        {
+            var result = await api.Logout(this.player._id);
+            return result.Result;
+        }
+
         public async Task<string> RegisterUser(string username, string password, string email)
         {
             var result = await api.Register(username, password, email);
