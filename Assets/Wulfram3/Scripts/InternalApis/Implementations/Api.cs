@@ -12,9 +12,9 @@ using System.Text;
 
 public class Api
 {
-    //public string Url { get { return "http://www.wulfrida.com/api/v1"; } }
+    public string Url { get { return "http://www.wulfrida.com"; } }
 
-    public string Url { get { return "http://localhost:8080"; } }
+    //public string Url { get { return "http://localhost:8080"; } }
 
     public async Task<ApiResult<WulframPlayer>> Login(string username, string password)
     {
