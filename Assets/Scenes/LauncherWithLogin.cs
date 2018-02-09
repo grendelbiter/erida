@@ -130,11 +130,11 @@ namespace Com.Wulfram3 {
         /// </summary>
         public void Connect() {
             // keep track of the will to join a room, because when we come back from the game we will get a callback that we are connected, so we need to know what to do then
-			click.PlayOneShot(clicksound, 0.8f);
+			click.PlayOneShot(clicksound, 0.3f);
             isConnecting = true;
             progressLabel.SetActive(true);
             loadingSpinner.SetActive(true);
-            controlPanel.SetActive(false);
+            controlPanel.SetActive(true);
             //StartCoroutine(discordApi.PlayerJoined(PhotonNetwork.playerName));
             
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
@@ -148,35 +148,24 @@ namespace Com.Wulfram3 {
             }
         }
 
-        public void Login()
+        public async void Login()
         {
             progressLabel.SetActive(true);
             loadingSpinner.SetActive(true);
-            controlPanel.SetActive(false);
+            controlPanel.SetActive(true);
             progressLabel.GetComponent<UnityEngine.UI.Text>().text = "Accessing governmental registery..";
 
             InputField userNameInputField = loginUsername.GetComponent<InputField>();
             InputField passwordInputField = loginPassword.GetComponent<InputField>();
 
-            DepenencyInjector.Resolve<IUserController>().LoginCompleted += LoginCompleted;
-            DepenencyInjector.Resolve<IUserController>().LoginUser(userNameInputField.text, passwordInputField.text);
+            var user = await DepenencyInjector.Resolve<IUserController>().LoginUser(userNameInputField.text, passwordInputField.text);
             progressLabel.GetComponent<UnityEngine.UI.Text>().text = "Provisioning assests...";
-        }
-
-        private void LoginCompleted(Assets.Wulfram3.Scripts.InternalApis.Classes.WulframPlayer arg1, string arg2)
-        {
-            progressLabel.GetComponent<UnityEngine.UI.Text>().text = "Warping to closest battleground";
-            DepenencyInjector.Resolve<IUserController>().LoginCompleted -= LoginCompleted;
-
-            if (arg1 != null)
+            if (user != null)
             {
                 Connect();
             }
             else
             {
-                InputField userNameInputField = loginUsername.GetComponent<InputField>();
-                InputField passwordInputField = loginPassword.GetComponent<InputField>();
-
                 userNameInputField.text = "";
                 passwordInputField.text = "";
                 progressLabel.SetActive(false);
@@ -185,7 +174,7 @@ namespace Com.Wulfram3 {
                 // Login failed
                 errorLabel.SetActive(true);
                 //Get the GUIText Component attached to that GameObject named Best
-                errorLabel.GetComponent<UnityEngine.UI.Text>().text = arg2;
+                errorLabel.GetComponent<UnityEngine.UI.Text>().text = "Invalid username or password";
             }
         }
 
@@ -210,7 +199,7 @@ namespace Com.Wulfram3 {
 
         }
 
-        public void RegisterNewUser()
+        public async void RegisterNewUser()
         {
             progressLabel.SetActive(true);
             loadingSpinner.SetActive(true);
@@ -221,21 +210,22 @@ namespace Com.Wulfram3 {
             InputField passwordInputField = registrationPassword.GetComponent<InputField>();
             InputField emailInputField = registrationEmail.GetComponent<InputField>();
 
-            DepenencyInjector.Resolve<IUserController>().RegisterUserCompleted += RegisterUserCompleted;
-            DepenencyInjector.Resolve<IUserController>().RegisterUser(userNameInputField.text, passwordInputField.text, emailInputField.text);
+            var message = await DepenencyInjector.Resolve<IUserController>().RegisterUser(userNameInputField.text, passwordInputField.text, emailInputField.text);
             progressLabel.GetComponent<UnityEngine.UI.Text>().text = "Creating new user....";
-        }
 
-        private void RegisterUserCompleted(string obj)
-        {
-            DepenencyInjector.Resolve<IUserController>().RegisterUserCompleted -= RegisterUserCompleted;
             progressLabel.SetActive(false);
             loadingSpinner.SetActive(false);
             CloseRegistrationPanel();
             errorLabel.SetActive(true);
             //Get the GUIText Component attached to that GameObject named Best
-            errorLabel.GetComponent<UnityEngine.UI.Text>().text = obj;
+            errorLabel.GetComponent<UnityEngine.UI.Text>().text = message;
         }
+
+        ////private void RegisterUserCompleted(string obj)
+        ////{
+        ////    DepenencyInjector.Resolve<IUserController>().RegisterUserCompleted -= RegisterUserCompleted;
+            
+        ////}
 
         public void Quit() {
             Application.Quit();

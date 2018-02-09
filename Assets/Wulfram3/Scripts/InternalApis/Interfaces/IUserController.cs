@@ -1,14 +1,11 @@
 ﻿using Assets.Wulfram3.Scripts.InternalApis.Classes;
 using System;
+using System.Threading.Tasks;
 
 namespace Assets.Wulfram3.Scripts.InternalApis.Interfaces
 {
     public interface IUserController
     {
-        event Action<WulframPlayer, string> LoginCompleted;
-
-        event Action<string> RegisterUserCompleted;
-
         void UpdateUserData();
 
         void RecordUnitKill(UnitType type);
@@ -19,9 +16,9 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Interfaces
 
         WulframPlayer GetWulframPlayerData();
 
-        void LoginUser(string username, string password);
+        Task<WulframPlayer> LoginUser(string username, string password);
 
-        void RegisterUser(string username, string password, string email);
+        Task<string> RegisterUser(string username, string password, string email);
 
     }
 }
