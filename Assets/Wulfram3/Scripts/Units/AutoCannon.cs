@@ -35,7 +35,7 @@ namespace Com.Wulfram3 {
         private float timeBetweenShots;
         private float nextFireTime;
 
-        private Vector3 screenCenter;
+        //private Vector3 screenCenter;
         private Transform targetPosition;
 
         public List<Material> teamColorMaterials;
@@ -47,7 +47,7 @@ namespace Com.Wulfram3 {
             nextFireTime = Time.time;
             if (photonView.isMine)
             {
-                screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0.0f);
+                //screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0.0f);
             }
             Unit u = GetComponent<Unit>();
             if (u.unitTeam == PunTeams.Team.Red)

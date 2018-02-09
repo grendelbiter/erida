@@ -96,10 +96,12 @@ public class KGFGUIUtilityEditor
 		{
 			itsIconOK = Resources.Load("KGFCore/textures/ok") as Texture2D;
 		}
-		#endregion
-		
-		//set the look to Unity default
-		EditorGUIUtility.LookLikeControls();
+        #endregion
+
+        //set the look to Unity default
+        EditorGUIUtility.labelWidth = 125;
+        EditorGUIUtility.fieldWidth = 50;
+		//EditorGUIUtility.LookLikeControls();
 		
 		KGFGUIUtility.BeginVerticalBox(KGFGUIUtility.eStyleBox.eBoxDecorated, GUILayout.ExpandHeight(false), GUILayout.ExpandWidth(true));
 		{

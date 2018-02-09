@@ -24,7 +24,7 @@ namespace Com.Wulfram3 {
         private Transform currentTarget = null;
         private Vector3 currentIntercept = new Vector3(99999f, 99999f, 99999f);
         private float interceptTime;
-        private bool targetOnSight = false;
+        //private bool targetOnSight = false;
         private PunTeams.Team team;
 
         private Unit myUnit;
@@ -65,7 +65,7 @@ namespace Com.Wulfram3 {
             currentIntercept = new Vector3(99999f, 99999f, 99999f);
             interceptTime = -1f;
             currentTarget = null;
-            targetOnSight = false;
+            //targetOnSight = false;
 
         }
 

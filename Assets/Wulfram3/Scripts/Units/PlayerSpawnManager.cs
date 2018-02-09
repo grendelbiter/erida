@@ -33,24 +33,13 @@ namespace Assets.Wulfram3.Scripts.Units
 
         public static void SpawnPlayer(Vector3 spawnPoint)
         {
-            PlayerManager player = PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>();
             GameManager gm = FindObjectOfType<GameManager>();
-            //player.photonView.RPC("SetSelectedVehicle", PhotonTargets.All, gm.unitSelector.SelectedIndex());
             gm.unitSelector.gameObject.SetActive(false);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-
-            float rXp = UnityEngine.Random.Range(-6f, 6f);
-            float rZp = UnityEngine.Random.Range(-9f, 9f);
-
-            player.photonView.RPC("SetPosAndRotation", PhotonTargets.All, spawnPoint + new Vector3(rXp, 50, rZp), Quaternion.identity, gm.unitSelector.SelectedIndex());
-
-            player.GetComponent<Unit>().SetMaxHealth();
-            player.GetComponent<CargoManager>().Reset();
-            player.GetComponent<FuelManager>().ResetFuel();
+            gm.photonView.RPC("SpawnPlayer", PhotonTargets.MasterClient, spawnPoint + new Vector3(UnityEngine.Random.Range(-6f, 6f), 50, UnityEngine.Random.Range(-9f, 9f)), Quaternion.identity, PhotonNetwork.player.GetTeam(), gm.unitSelector.SelectedIndex(), PhotonNetwork.player.ID);
             PlayerSpawnManager.status = SpawnStatus.IsAlive;
         }
-
 
         void Update()
         {

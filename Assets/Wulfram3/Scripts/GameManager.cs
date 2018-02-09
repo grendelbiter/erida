@@ -29,11 +29,7 @@ namespace Com.Wulfram3
 
         private TargetInfoController targetChangeListener;
 
-        private bool isFirstSpawn = true;
-
         public VehicleSelector unitSelector;
-
-        #region Photon Messages
 
         /*
         public override void OnLeftRoom()
@@ -59,21 +55,6 @@ namespace Com.Wulfram3
                 Debug.Log(other.NickName + " has disconnected. (GameManager.cs / OnPhotonPlayerDisconnected:57)");
         }
 
-        /*
-        public override void OnJoinedRoom()
-        {
-            Debug.Log("Room Joined. (GameManager.cs / OnJoinedRoom:62)");
-            if (PhotonNetwork.room.PlayerCount == 1)
-            {
-                Debug.Log("Loading Game Scene ('Playground' as MasterClient). (GameManager.cs / OnJoinedRoom:66)");
-                PhotonNetwork.LoadLevel("Playground");
-            }
-            else
-            {
-                Debug.Log("Syncing Game Scene ('Playground' as RemoteClient). (GameManager.cs / OnJoinedRoom:69)");
-            }
-        }
-        */
         public void LeaveRoom()
         {
             //[ASSIGNED NEVER USED] var userControler = DepenencyInjector.Resolve<IUserController>();
@@ -81,49 +62,62 @@ namespace Com.Wulfram3
             PhotonNetwork.LeaveRoom();
             //StartCoroutine(discordApi.PlayerLeft(PhotonNetwork.playerName));
         }
-        #endregion
 
-
-        #region Public Methods
         public void Start()
         {
-            Debug.Log("Starting GameManager.  (GameManager.cs / Start:86)");
-
+            Debug.Log("Starting GameManager.  (GameManager.cs / Start:75)");
             if (PlayerManager.LocalPlayerInstance == null)
             {
-                Debug.Log("Creating LocalPlayer. Active scene name: " + SceneManager.GetActiveScene().name + ". (GameManager.cs / Start:89)");
-                GameObject g = Instantiate(Resources.Load("Prefabs/SceneBase/VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
-                unitSelector = g.GetComponent<VehicleSelector>();
+                Debug.Log("Assigning Team. Active scene name: " + SceneManager.GetActiveScene().name + ". (GameManager.cs / Start:78)");
 
                 PunTeams.UpdateTeamsNow();
-                object[] o = new object[1];
                 List<int> availableUnits = new List<int>();
                 if (PunTeams.PlayersPerTeam[PunTeams.Team.Blue].Count > PunTeams.PlayersPerTeam[PunTeams.Team.Red].Count)
                 {
-                    o[0] = PunTeams.Team.Red;
+                    PhotonNetwork.player.SetTeam(PunTeams.Team.Red);
                     availableUnits.Add(2);
                     availableUnits.Add(3);
                 }
                 else
                 {
-                    o[0] = PunTeams.Team.Blue;
+                    PhotonNetwork.player.SetTeam(PunTeams.Team.Blue);
                     availableUnits.Add(0);
                     availableUnits.Add(1);
                 }
-                Debug.Log("Assigned to " + o[0] + " team. Awaiting first spawn. (GameManager.cs / Start:107)");
+                GameObject g = Instantiate(Resources.Load("Prefabs/SceneBase/VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
+                unitSelector = g.GetComponent<VehicleSelector>();
                 unitSelector.SetAvailableModels(availableUnits);
-                PhotonNetwork.Instantiate("Prefabs/Player/Player", new Vector3(0, -100, 0), Quaternion.identity, 0, o);
-                PhotonNetwork.player.SetTeam((PunTeams.Team)o[0]);
+                Debug.Log("Assigned to " + PhotonNetwork.player.GetTeam() + " team. Awaiting first spawn. (GameManager.cs / Start:97)");
             }
             else
             {
-                Debug.Log("Local Player Was Null.... Investigate. (GameManager.cs / Start:113)" + SceneManager.GetActiveScene().name);
+                Debug.Log("Local Player Was Null.... Investigate. (GameManager.cs / Start:104)" + SceneManager.GetActiveScene().name);
             }
             GetComponent<PlayerSpawnManager>().StartSpawn();
             GetComponent<MapModeManager>().ActivateMapMode(MapType.Spawn);
         }
 
         private void Update() { }
+
+        [PunRPC]
+        public void SpawnPlayer(Vector3 pos, Quaternion rot, PunTeams.Team team, int meshID, int ownerID)
+        {
+            PhotonPlayer requester = PhotonPlayer.Find(ownerID);
+            if (requester == null)
+            {
+                Debug.Log("Error: Spawn Player Failed To Find Requesting Player! GameManager.cs:124");
+                return;
+            }
+            object[] o = new object[3];
+            o[0] = ownerID;
+            o[1] = PhotonNetwork.player.GetTeam();
+            o[2] = meshID;
+            GameObject player = PhotonNetwork.InstantiateSceneObject("Prefabs/Player/Player", pos, rot, 0, o);
+            player.GetComponent<PhotonView>().TransferOwnership(ownerID);
+            player.GetComponent<Unit>().SetMaxHealth();
+            player.GetComponent<CargoManager>().Reset();
+            player.GetComponent<FuelManager>().ResetFuel();
+        }
 
         [PunRPC]
         public void SpawnPulseShell(Vector3 pos, Quaternion rot, PunTeams.Team team, Vector3 vel, int senderID, PhotonMessageInfo info)
@@ -157,20 +151,6 @@ namespace Com.Wulfram3
             if (PhotonNetwork.isMasterClient)
                 PhotonNetwork.InstantiateSceneObject("Effects/Explosion_01", pos, Quaternion.identity, 0, null);
         }
-
-        /*
-    public void UnitsHealthUpdated(HitPointsManager hitpointsManager)
-    {
-        if (hitpointsManager.tag.Equals("Player") && hitpointsManager.photonView.isMine)
-        {
-            SetHullBar((float)hitpointsManager.health / (float)hitpointsManager.maxHealth);
-        }
-        if (PhotonNetwork.isMasterClient && hitpointsManager.health <= 0 && !hitpointsManager.tag.Equals("Player"))
-        {
-            PhotonNetwork.Destroy(hitpointsManager.gameObject);
-            SpawnExplosion(hitpointsManager.transform.position);
-        }
-    }*/
 
         public void SetHullBar(float level)
         {
@@ -380,7 +360,5 @@ namespace Com.Wulfram3
             }
 
         }
-
-        #endregion
     }
 }

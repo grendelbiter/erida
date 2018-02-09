@@ -72,4 +72,5 @@ MonoBehaviour:
   - DestroyLocalShell
   - SyncTeam
   - SyncUnit
+  - SpawnPlayer
   DisableAutoOpenWizard: 1

@@ -6,8 +6,7 @@ using UnityEngine;
 namespace Com.Wulfram3 {
     public class PowerCellManager : Photon.PunBehaviour {
 
-        private int maxEnergy = 2;
-        private int currentEnergy = 0;
+        private int maxEnergy = 8;
 
         private List<Transform> powerableObjects = new List<Transform>();
         private List<Transform> poweredObjects = new List<Transform>();

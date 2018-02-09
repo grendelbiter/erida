@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 4883840461233092}
   - component: {fileID: 33267240538025812}
   - component: {fileID: 23148611957341114}
+  - component: {fileID: 114392572357844136}
   m_Layer: 12
   m_Name: Blue_Scout
   m_TagString: Untagged
@@ -217,6 +218,7 @@ GameObject:
   - component: {fileID: 4775528811366586}
   - component: {fileID: 33062067576598556}
   - component: {fileID: 23039521760132226}
+  - component: {fileID: 114093507607067746}
   m_Layer: 0
   m_Name: Red_Tank
   m_TagString: Untagged
@@ -290,6 +292,7 @@ GameObject:
   - component: {fileID: 4932852334015082}
   - component: {fileID: 33065596028659416}
   - component: {fileID: 23013339893539230}
+  - component: {fileID: 114269662736103410}
   m_Layer: 0
   m_Name: Blue_Tank
   m_TagString: Untagged
@@ -337,6 +340,7 @@ GameObject:
   - component: {fileID: 4218560249486868}
   - component: {fileID: 33596767322802540}
   - component: {fileID: 23205310158641840}
+  - component: {fileID: 114741922383689222}
   m_Layer: 0
   m_Name: Red_Scout
   m_TagString: Untagged
@@ -367,7 +371,6 @@ GameObject:
   - component: {fileID: 120253160599368710}
   - component: {fileID: 114337348684026594}
   - component: {fileID: 114699472787082240}
-  - component: {fileID: 114236685262357424}
   - component: {fileID: 114167870936718730}
   m_Layer: 8
   m_Name: Player
@@ -632,7 +635,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1841311625191074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 300.1552, y: 213.67816, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4883840461233092}
@@ -1556,6 +1559,32 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114093507607067746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1562918080662890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02254739a0001f849982520e1f08344c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itsDataMapIcon:
+    itsCategory: Red_Vehicles
+    itsTextureIcon: {fileID: 2800000, guid: e04683c90b6dbf5489ca52a6e8ca72c9, type: 3}
+    itsTextureArrow: {fileID: 0}
+    itsRotate: 0
+    itsColor: {r: 1, g: 1, b: 1, a: 1}
+    itsIsVisible: 1
+    itsUseArrow: 0
+    itsRevealFogOfWar: 0
+    itsShowToolTip: 1
+    itsToolTip: Red Tank
+    itsIconScale: 1
+    itsBlinking: 0
+    itsDepth: 3
+    itsRepresentation: {fileID: 0}
 --- !u!114 &114154728154521540
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1594,28 +1623,28 @@ MonoBehaviour:
   isGrounded: 0
   xSens: 0.2
   ySens: 0.22
---- !u!114 &114236685262357424
+--- !u!114 &114269662736103410
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841311625191074}
+  m_GameObject: {fileID: 1735701427658972}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02254739a0001f849982520e1f08344c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itsDataMapIcon:
-    itsCategory: Red_Vehicles
-    itsTextureIcon: {fileID: 2800000, guid: e04683c90b6dbf5489ca52a6e8ca72c9, type: 3}
+    itsCategory: Blue_Vehicles
+    itsTextureIcon: {fileID: 2800000, guid: 3ed5553cc0a30af4ab1c543c293decc6, type: 3}
     itsTextureArrow: {fileID: 0}
-    itsRotate: 1
+    itsRotate: 0
     itsColor: {r: 1, g: 1, b: 1, a: 1}
-    itsIsVisible: 0
+    itsIsVisible: 1
     itsUseArrow: 0
     itsRevealFogOfWar: 0
     itsShowToolTip: 1
-    itsToolTip: Red Tank
+    itsToolTip: Blue Tank
     itsIconScale: 1
     itsBlinking: 0
     itsDepth: 3
@@ -1715,6 +1744,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseOverColor: {r: 0.14117648, g: 0.45882353, b: 0.42745098, a: 1}
+--- !u!114 &114392572357844136
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1117363292560062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02254739a0001f849982520e1f08344c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itsDataMapIcon:
+    itsCategory: Blue_Vehicles
+    itsTextureIcon: {fileID: 2800000, guid: 3ed5553cc0a30af4ab1c543c293decc6, type: 3}
+    itsTextureArrow: {fileID: 0}
+    itsRotate: 0
+    itsColor: {r: 1, g: 1, b: 1, a: 1}
+    itsIsVisible: 1
+    itsUseArrow: 0
+    itsRevealFogOfWar: 0
+    itsShowToolTip: 1
+    itsToolTip: Blue Scout
+    itsIconScale: 1
+    itsBlinking: 0
+    itsDepth: 3
+    itsRepresentation: {fileID: 0}
 --- !u!114 &114417885958363012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1933,7 +1988,7 @@ MonoBehaviour:
   - {fileID: 4558380785870198}
   isDead: 0
   isSpawning: 0
-  myMapIcon: {fileID: 114236685262357424}
+  myMapIcon: {fileID: 0}
   myUnit: {fileID: 0}
   myMesh: {fileID: 0}
   gunEnd: {fileID: 0}
@@ -1959,6 +2014,7 @@ MonoBehaviour:
   needsPower: 0
   health: 0
   hasPower: 0
+  isDead: 0
   needsUpdate: 1
 --- !u!114 &114621915073000352
 MonoBehaviour:
@@ -1992,6 +2048,32 @@ MonoBehaviour:
   isDeploying: 0
   dropPosition: {fileID: 4016168478828836}
   myTeam: 0
+--- !u!114 &114741922383689222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1827880572459336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02254739a0001f849982520e1f08344c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itsDataMapIcon:
+    itsCategory: Red_Vehicles
+    itsTextureIcon: {fileID: 2800000, guid: e04683c90b6dbf5489ca52a6e8ca72c9, type: 3}
+    itsTextureArrow: {fileID: 0}
+    itsRotate: 0
+    itsColor: {r: 1, g: 1, b: 1, a: 1}
+    itsIsVisible: 1
+    itsUseArrow: 0
+    itsRevealFogOfWar: 0
+    itsShowToolTip: 1
+    itsToolTip: Red Scout
+    itsIconScale: 1
+    itsBlinking: 0
+    itsDepth: 3
+    itsRepresentation: {fileID: 0}
 --- !u!114 &114756826154515088
 MonoBehaviour:
   m_ObjectHideFlags: 1

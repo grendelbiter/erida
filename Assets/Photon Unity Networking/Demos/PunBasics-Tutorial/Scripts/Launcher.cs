@@ -51,7 +51,7 @@ namespace ExitGames.Demos.DemoAnimator
 		/// <summary>
 		/// This client's version number. Users are separated from each other by gameversion (which allows you to make breaking changes).
 		/// </summary>
-		string _gameVersion = "1";
+		//string _gameVersion = "1";
 
 		#endregion
 

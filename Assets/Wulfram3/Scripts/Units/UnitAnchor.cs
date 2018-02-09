@@ -7,7 +7,7 @@ namespace Com.Wulfram3 {
     public class UnitAnchor : Photon.PunBehaviour {
 
         private Vector3 anchorPosition;
-        private float anchorStrength;
+        //private float anchorStrength;
         private float distanceFromAnchor;
         private float unitHeight; // used for gun and flak turrets
         private Rigidbody myRigidbody;
@@ -16,9 +16,9 @@ namespace Com.Wulfram3 {
         private bool heightAttained = false;
         private float diffX;
         private float diffZ;
-        private float xVelocitySmoothing = 0.0f;
-        private float zVelocitySmoothing = 0.0f;
-        private float rotationSmoothing = 0.0f;
+        //private float xVelocitySmoothing = 0.0f;
+        //private float zVelocitySmoothing = 0.0f;
+        //private float rotationSmoothing = 0.0f;
         private Quaternion referenceRotation;
         // Use this for initialization
         void Start() {
@@ -32,14 +32,14 @@ namespace Com.Wulfram3 {
             if (myUnit != null)
             {
                 unitHeight = 0.05f;
-                anchorStrength = 0.05f;
+                //anchorStrength = 0.05f;
                 if (myUnit.unitType == UnitType.FlakTurret) {
                     unitHeight = 6f;
-                    anchorStrength = .1f;
+                    //anchorStrength = .1f;
                 }
                 if (myUnit.unitType == UnitType.GunTurret) {
                     unitHeight = 4f;
-                    anchorStrength = .1f; // 2f;
+                    //anchorStrength = .1f; // 2f;
                 }
             }
 

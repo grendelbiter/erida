@@ -16,7 +16,7 @@ namespace Com.Wulfram3
         public float turnSpeed = 12;
         public float bulletsPerSecond = 4;
 
-        private GameManager gameManager;
+        //private GameManager gameManager;
         private LineRenderer laserLine;
         private Transform currentTarget = null;
         private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
@@ -37,7 +37,7 @@ namespace Com.Wulfram3
             laserLine = GetComponent<LineRenderer>();
             //if (PhotonNetwork.isMasterClient)
             //{
-                gameManager = FindObjectOfType<GameManager>();
+                //gameManager = FindObjectOfType<GameManager>();
                 myUnit = GetComponent<Unit>();
             //}
         }

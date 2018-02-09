@@ -47,6 +47,16 @@ namespace Com.Wulfram3
             gameManager = FindObjectOfType<GameManager>();
             playerManager = GetComponent<PlayerManager>();
             isPlayer = GetComponent<PlayerMotionController>() != null;
+            if (unitTeam == PunTeams.Team.none)
+                unitTeam = (PunTeams.Team)photonView.instantiationData[1];
+            if (playerManager != null)
+            {
+                int receivedIdx = (int)photonView.instantiationData[2];
+                if (unitType == UnitType.None)
+                    unitType = playerManager.GetPlayerTypeFromMeshIndex(receivedIdx);
+                playerManager.SetMesh(receivedIdx);
+                maxHealth = playerManager.mySettings.MaxHitPoints;
+            }
             if (PhotonNetwork.isMasterClient)
                 SetHealth(maxHealth);
         }
@@ -159,7 +169,7 @@ namespace Com.Wulfram3
 
         public bool IsUnitFriendly()
         {
-            if (PlayerManager.LocalPlayerInstance.GetComponent<Unit>().unitTeam == this.unitTeam)
+            if (PhotonNetwork.player.GetTeam() == this.unitTeam)
                 return true;
             return false;
         }
@@ -238,16 +248,16 @@ namespace Com.Wulfram3
                     gameManager.SetHullBar((float)health / (float)maxHealth);
                 if (PhotonNetwork.isMasterClient && (maxHealth != 0 && health <= 0) && !isDead)
                 {
-                    if (!isPlayer)
-                    {
+                    //if (!isPlayer)
+                    //{
                         gameManager.SpawnExplosion(transform.position);
                         PhotonNetwork.Destroy(gameObject);
-                    }
-                    else
-                    {
-                        if (!playerManager.isSpawning && !isDead)
-                            isDead = true;
-                    }
+                    //}
+                    //else
+                    //{
+                    //    if (!playerManager.isSpawning && !isDead)
+                    //        isDead = true;
+                    //}
                 }
             }
         }

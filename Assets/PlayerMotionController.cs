@@ -21,7 +21,7 @@ namespace Com.Wulfram3
         [HideInInspector]
         public UnitType myUnitType;
         private IVehicleSetting vehicleSettings;
-        private PlayerManager playerManager;
+        private Unit unitManager;
         private FuelManager fuelManager;
         private Rigidbody rigidBody;
         [HideInInspector]
@@ -77,7 +77,7 @@ namespace Com.Wulfram3
             rigidBody = GetComponent<Rigidbody>();
             if (photonView.isMine)
             {
-                playerManager = GetComponent<PlayerManager>();
+                unitManager = GetComponent<Unit>();
                 fuelManager = GetComponent<FuelManager>();
             } else
             {
@@ -85,22 +85,13 @@ namespace Com.Wulfram3
             }
         }
 
-        public void Reset()
-        {
-            if (photonView.isMine)
-            {
-                isLanding = false;
-                isGrounded = false;
-                jump = false;
-                currentHeight = defaultHeight;
-            }
-        }
-
         void Update()
         {
-            if (!photonView.isMine || (playerManager != null && (playerManager.isSpawning || playerManager.isDead)))
+            if (!photonView.isMine)
                 return;
-            if (GetComponent<Unit>().unitType != myUnitType)
+            if (unitManager.isDead)
+                return;
+            if (unitManager.unitType != myUnitType || vehicleSettings == null)
                 SetUnitType(GetComponent<Unit>().unitType);
             if (receiveInput && vehicleSettings != null)
             {
@@ -129,9 +120,7 @@ namespace Com.Wulfram3
         {
             if (!photonView.isMine || isGrounded || vehicleSettings == null)
                 return;
-            if (playerManager != null && playerManager.isSpawning)
-                return;
-            if (GetComponent<Unit>() && GetComponent<Unit>().isDead)
+            if (unitManager.isDead)
                 return;
             if (!isLanding && !isGrounded)
                 AddHoverForce();

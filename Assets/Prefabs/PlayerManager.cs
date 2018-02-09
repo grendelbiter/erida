@@ -32,7 +32,7 @@ namespace Com.Wulfram3
         private GameManager gameManager;
         private GameObject tempShell;
         private GameObject serverShell;
-        private IVehicleSetting mySettings;
+        public IVehicleSetting mySettings;
         private Rigidbody myRigidbody;
         private FuelManager fuelManager;
         private PunTeams.Team initialTeam;
@@ -68,10 +68,6 @@ namespace Com.Wulfram3
         private void Awake()
         {
             myUnit = GetComponent<Unit>();
-            if (myUnit != null)
-                myUnit.unitTeam = (PunTeams.Team)photonView.instantiationData[0];
-            else
-                Debug.Log("*******[Player Error]*******: Unit.cs or Instantiation Data Not Found. This may occur if a scene was loaded with existing vehicles.");
             gameManager = FindObjectOfType<GameManager>();
             myRigidbody = GetComponent<Rigidbody>();
             if (photonView.isMine)
@@ -80,28 +76,19 @@ namespace Com.Wulfram3
                 fuelManager = GetComponent<FuelManager>();
                 PMC = GetComponent<PlayerMotionController>();
             }
-            PrepareForRespawn();
-            DontDestroyOnLoad(gameObject);
         }
 
         public void SetMesh(int i)
         {
             for (int n = 0; n < meshList.Length; n++)
                 meshList[n].gameObject.SetActive(false);
-            if (myUnit != null && myUnit.unitTeam == PunTeams.Team.Blue)
-                myMapIcon.SetTextureIcon(myIconTextures[0]);
-            else if (myUnit != null && myUnit.unitTeam == PunTeams.Team.Red)
-                myMapIcon.SetTextureIcon(myIconTextures[1]);
-            else
-                Debug.Log("TODO: Set other team map icons. (Or Unit Script NULL)");
             meshIndex = i;
             meshList[i].gameObject.SetActive(true);
             myMesh = meshList[i];
             gunEnd = gunPositions[i];
             GetComponent<AutoCannon>().gunEnd = gunPositions[i];
             GetComponent<MeshCollider>().sharedMesh = availableColliders[i];
-            mySettings = VehicleSettingFactory.GetVehicleSetting(myUnit.unitType);
-            myUnit.maxHealth = mySettings.MaxHitPoints;
+            mySettings = VehicleSettingFactory.GetVehicleSetting(GetPlayerTypeFromMeshIndex(i));
             if (!photonView.isMine)
                 return;
             CameraManager cm = GetComponent<CameraManager>();
@@ -116,9 +103,7 @@ namespace Com.Wulfram3
             {
                 dropPosition = cargoDropPositions[1];
                 placePosition = unitPlacePositions[1];
-
             }
-            //strafeThrust = mySettings.StrafePercent * mySettings.BaseThrust;
         }
 
         public int GetPlayerMeshIndexFromType(PunTeams.Team t, UnitType u)
@@ -134,21 +119,19 @@ namespace Com.Wulfram3
             return -1;
         }
 
+        public UnitType GetPlayerTypeFromMeshIndex(int i)
+        {
+            if (i == 0 || i == 2)
+                return UnitType.Tank;
+            else if (i == 1 || i == 3)
+                return UnitType.Scout;
+            return UnitType.None;
+        }
+
 
         public int GetMeshIndex()
         {
             return meshIndex;
-        }
-
-        public void Reset()
-        {
-            if (photonView.isMine)
-            {
-                myRigidbody.freezeRotation = false;
-                PMC.Reset();
-                timeSinceDead = 0;
-                gameManager.Respawn(this);
-            }
         }
 
         public void SetSelectedVehicle(int i)
@@ -168,54 +151,9 @@ namespace Com.Wulfram3
             myUnit.unitTeam = t;
         }
 
-        [PunRPC]
-        public void SetPosAndRotation(Vector3 pos, Quaternion rot, int meshIndex)
-        {
-            SetSelectedVehicle(meshIndex);
-            CheckRespawn();
-            if (!photonView.isMine)
-                return;
-            transform.position = pos;
-            transform.rotation = rot;
-        }
-
-        void CheckRespawn()
-        {
-            if (isSpawning)
-            {
-                if (myMesh != null)
-                {
-                    myMesh.gameObject.SetActive(true);
-                    GetComponent<Collider>().enabled = true;
-                    GetComponent<AudioSource>().Play();
-                }
-                GetComponent<KGFMapIcon>().SetVisibility(true);
-                isDead = false;
-                isSpawning = false;
-                if (photonView.isMine)
-                    myRigidbody.isKinematic = false;
-            }
-
-        }
-
-        public void PrepareForRespawn()
-        {
-            isSpawning = true;
-            if (myMesh != null)
-            {
-                myMesh.gameObject.SetActive(false);
-                myRigidbody.isKinematic = true;
-                myRigidbody.freezeRotation = true;
-                GetComponent<Collider>().enabled = false;
-            }
-            GetComponent<KGFMapIcon>().SetVisibility(false);
-            GetComponent<AudioSource>().Stop();
-            Reset();
-        }
-
         public void CheckIsDead()
         {
-            if (myUnit.isDead && !isSpawning)
+            if (myUnit.isDead)
             {
                 if (timeSinceDead == 0)
                 {
@@ -226,10 +164,10 @@ namespace Com.Wulfram3
                         PMC.receiveInput = false;
                 }
                 timeSinceDead += Time.deltaTime;
-                if (timeSinceDead >= destroyDelayWhenDead)
+                if (timeSinceDead >= destroyDelayWhenDead && photonView.isMine)
                 {
                     Debug.Log("Player ready for respawn.");
-                    PrepareForRespawn();
+                    PhotonNetwork.Destroy(gameObject);
                 }
             }
         }
@@ -249,7 +187,7 @@ namespace Com.Wulfram3
         {
             CheckIsDead();
 
-            if (!photonView.isMine || isDead || isSpawning || PMC == null)
+            if (!photonView.isMine || PMC == null)
             {
                 if (PMC != null && PMC.receiveInput)
                     PMC.receiveInput = false;
@@ -266,7 +204,6 @@ namespace Com.Wulfram3
             {
                 if (PMC.receiveInput)
                     PMC.receiveInput = false;
-
             }
 
             if (tempShell != null && serverShell != null)

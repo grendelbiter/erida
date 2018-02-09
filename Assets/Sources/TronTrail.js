@@ -24,7 +24,7 @@
  
  //private var sections = new Array();
  private var sections = new TronTrailSection[0];
- 
+ /*
  function LateUpdate () {
      var position = transform.position;
      var now = Time.time;
@@ -116,6 +116,6 @@
      mesh.colors = colors;
      mesh.uv = uv;
      mesh.triangles = triangles;
- }
+ }*/
  
  @script RequireComponent (MeshFilter)

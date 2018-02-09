@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class RepairPad : MonoBehaviour {
 
-    private GameManager gameManager;
+    //private GameManager gameManager;
 
 	void Awake ()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        //gameManager = FindObjectOfType<GameManager>();
 	}
 
 
