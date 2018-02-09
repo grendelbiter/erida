@@ -20,7 +20,7 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
             player = new WulframPlayer();
 
             Logger.Log("UserController constructor:" + player.userName);
-            SetupSocketConnection();
+            
             api = new Api();
         }
 
@@ -41,6 +41,7 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
             if(result.message == "Login Complete!")
             {
                 this.player = result.Result;
+                SetupSocketConnection();
                 return this.player;
             }
 
@@ -123,54 +124,16 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
 
         private void SetupSocketConnection()
         {
-            //var serverUrl = "http://localhost:8080/";
-            var serverUrl = "http://www.wulfrida.com/";
-            socketServer = Socket.Connect(serverUrl);
+            socketServer = Socket.Connect(this.api.Url);
 
             socketServer.On(SystemEvents.connect, () => {
                 Debug.Log("Hello, Socket.io~");
+                socketServer.EmitJson("handshake", JsonConvert.SerializeObject(this.player));
             });
 
             socketServer.On("handshake", (string data) => {
-                Debug.Log(data);
+                socketServer.EmitJson("handshake", JsonConvert.SerializeObject(this.player));
             });
-
-            ////socketServer.On("loginCompleted", (string data) => {
-            ////    Loom.QueueOnMainThread(() =>
-            ////    {
-            ////        Debug.Log("loginCompleted:" + data);
-            ////        this.player = Newtonsoft.Json.JsonConvert.DeserializeObject<WulframPlayer>(data);
-            ////        if (this.player.userName.ToLower() == "gotcha" || this.player.userName.ToLower() == "d4rksh4de" || this.player.userName.ToLower() == "knight1219")
-            ////        {
-            ////            this.player.type = "Developer";
-            ////        }
-
-            ////        GetUsername();
-            ////        LoginCompleted.Invoke(player, "Login Complete");
-            ////    });
-                
-            ////});
-
-            ////socketServer.On("loginFailed", (string data) => {
-            ////    Loom.QueueOnMainThread(() =>
-            ////    {
-            ////        LoginCompleted.Invoke(null, "Login Failed");
-            ////    });
-            ////});
-
-            ////socketServer.On("registerComplete", (string data) => {
-            ////    Loom.QueueOnMainThread(() =>
-            ////    {
-            ////        RegisterUserCompleted.Invoke(data);
-            ////    });
-            ////});
-
-            ////socketServer.On("registerFailed", (string data) => {
-            ////    Loom.QueueOnMainThread(() =>
-            ////    {
-            ////        RegisterUserCompleted.Invoke(data);
-            ////    });
-            ////});
 
             socketServer.On(SystemEvents.reconnect, (int reconnectAttempt) => {
                 Debug.Log("Hello, Again! " + reconnectAttempt);
