@@ -6,19 +6,15 @@ namespace Com.Wulfram3 {
         private Vector3 thirdPersonPos = new Vector3(0, 1.5f, -3.5f);
         private Vector3 firstPersonPos = new Vector3(0, 1.2f, -0.5f);//new Vector3(0, 0.33f, -0.3f);
 
-        //public Transform firstPersonT;
-        //public Transform thirdPersonT;
-
         public float transitionTime = 1.0f;
 
-        private Camera cam;
+        public Camera cam;
         private Vector3 currentPos;
         private Vector3 targetPos;
         private float transitionStartTime;
         private bool transitionComplete = true;
         private bool needsReset = false;
 
-        // Use this for initialization
         void Start() {
             if (photonView.isMine) {
                 targetPos = firstPersonPos;

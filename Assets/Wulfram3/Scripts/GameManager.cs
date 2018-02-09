@@ -94,7 +94,6 @@ namespace Com.Wulfram3
                 Debug.Log("Local Player Was Null.... Investigate. (GameManager.cs / Start:104)" + SceneManager.GetActiveScene().name);
             }
             GetComponent<PlayerSpawnManager>().StartSpawn();
-            GetComponent<MapModeManager>().ActivateMapMode(MapType.Spawn);
         }
 
         private void Update() { }

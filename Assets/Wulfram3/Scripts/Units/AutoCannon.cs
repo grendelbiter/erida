@@ -13,6 +13,7 @@ namespace Com.Wulfram3 {
         public float bulletsPerSecond = 16; // Changed from 10 in Pre-Alpha Planning Iteration
         private float range = 60;
         public float deviationConeRadius = 1;
+        public float maximumDConeRadius = 12f;
         public int fuelPerBullet = 1;
 		private GameManager gameManager;
 		//Start of the laser
@@ -125,9 +126,9 @@ namespace Com.Wulfram3 {
                     deviationConeRadius = Vector3.Angle(targetDir, transform.forward);
                 } else
                 {
-                    deviationConeRadius = 25f;
+                    deviationConeRadius = maximumDConeRadius;
                 }
-                deviationConeRadius = Mathf.Clamp(deviationConeRadius, 0f, 25f);
+                deviationConeRadius = Mathf.Clamp(deviationConeRadius, 0f, maximumDConeRadius);
                 Vector3 shotPoint = (gunEnd.rotation * GetRandomPointInCircle()) + (gunEnd.position + transform.forward * range);
                 RaycastHit objectHit;
                 Vector3 rayOrigin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));

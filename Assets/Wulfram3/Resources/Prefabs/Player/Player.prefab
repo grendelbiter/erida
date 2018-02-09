@@ -1710,6 +1710,7 @@ MonoBehaviour:
   bulletDamageinHitpoints: 4
   bulletsPerSecond: 8
   deviationConeRadius: 1
+  maximumDConeRadius: 12
   fuelPerBullet: 1
   gunEnd: {fileID: 4832298440499314}
   simDelayInSeconds: 0.1
@@ -1916,6 +1917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionTime: 1
+  cam: {fileID: 0}
 --- !u!114 &114561016228801482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1934,6 +1936,7 @@ MonoBehaviour:
   bulletDamageinHitpoints: 10
   bulletsPerSecond: 10
   deviationConeRadius: 1
+  maximumDConeRadius: 12
   fuelPerBullet: 1
   gunEnd: {fileID: 4206612252912348}
   simDelayInSeconds: 0.1

@@ -1,4 +1,7 @@
-﻿using Assets.Wulfram3.Scripts.InternalApis.Classes;
+﻿using Assets.Wulfram3.Scripts.InternalApis;
+using Assets.Wulfram3.Scripts.InternalApis.Classes;
+using Assets.Wulfram3.Scripts.InternalApis.Interfaces;
+using Assets.Wulfram3.Scripts.Units;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -166,7 +169,10 @@ namespace Com.Wulfram3
                 timeSinceDead += Time.deltaTime;
                 if (timeSinceDead >= destroyDelayWhenDead && photonView.isMine)
                 {
-                    Debug.Log("Player ready for respawn.");
+                    gameManager.GetComponent<PlayerSpawnManager>().StartSpawn();
+                    gameManager.GetComponent<MapModeManager>().ActivateMapMode(MapType.Spawn);
+                    gameManager.SpawnExplosion(transform.position);
+                    GetComponent<CameraManager>().Detach();
                     PhotonNetwork.Destroy(gameObject);
                 }
             }

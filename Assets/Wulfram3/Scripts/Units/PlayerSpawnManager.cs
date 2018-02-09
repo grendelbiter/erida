@@ -22,8 +22,9 @@ namespace Assets.Wulfram3.Scripts.Units
         public void StartSpawn()
         {
             status = SpawnStatus.IsSpawning;
-            GameManager gm = FindObjectOfType<GameManager>();
-            gm.unitSelector.gameObject.SetActive(true);
+            GameManager g = FindObjectOfType<GameManager>();
+            g.unitSelector.gameObject.SetActive(true);
+            g.GetComponent<MapModeManager>().ActivateMapMode(MapType.Spawn);
         }
 
         public SpawnStatus GetSpawnStatus()
@@ -33,11 +34,12 @@ namespace Assets.Wulfram3.Scripts.Units
 
         public static void SpawnPlayer(Vector3 spawnPoint)
         {
-            GameManager gm = FindObjectOfType<GameManager>();
-            gm.unitSelector.gameObject.SetActive(false);
+            GameManager g = FindObjectOfType<GameManager>();
+            g.unitSelector.gameObject.SetActive(false);
+            g.photonView.RPC("SpawnPlayer", PhotonTargets.MasterClient, spawnPoint + new Vector3(UnityEngine.Random.Range(-6f, 6f), 50, UnityEngine.Random.Range(-9f, 9f)), Quaternion.identity, PhotonNetwork.player.GetTeam(), g.unitSelector.SelectedIndex(), PhotonNetwork.player.ID);
+            g.GetComponent<MapModeManager>().ActivateMapMode(MapType.Mini);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-            gm.photonView.RPC("SpawnPlayer", PhotonTargets.MasterClient, spawnPoint + new Vector3(UnityEngine.Random.Range(-6f, 6f), 50, UnityEngine.Random.Range(-9f, 9f)), Quaternion.identity, PhotonNetwork.player.GetTeam(), gm.unitSelector.SelectedIndex(), PhotonNetwork.player.ID);
             PlayerSpawnManager.status = SpawnStatus.IsAlive;
         }
 

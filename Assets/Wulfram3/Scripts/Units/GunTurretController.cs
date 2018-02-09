@@ -128,12 +128,15 @@ namespace Com.Wulfram3
 
                 RaycastHit objectHit;
                 targetOnSight = Physics.Raycast(pos, transform.forward, out objectHit, scanRadius) && ValidTarget(objectHit.collider.transform);
-                Unit hitUnit = objectHit.transform.GetComponent<Unit>();
-                if (targetOnSight && hitUnit.unitTeam != this.gameObject.GetComponent<Unit>().unitTeam)
+                if (objectHit.transform != null)
                 {
-                    hitUnit.TellServerTakeDamage((int) Mathf.Ceil(bulletDamageinHitpoints * bulletsPerSecond));
+                    Unit hitUnit = objectHit.transform.GetComponent<Unit>();
+                    if (targetOnSight && hitUnit.unitTeam != this.gameObject.GetComponent<Unit>().unitTeam)
+                    {
+                        hitUnit.TellServerTakeDamage((int)Mathf.Ceil(bulletDamageinHitpoints * bulletsPerSecond));
+                    }
+                    timeSinceLastDamage = 0;
                 }
-                timeSinceLastDamage = 0;
             }
         }
 
