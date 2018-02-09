@@ -57,10 +57,8 @@ namespace Com.Wulfram3
 
         public void LeaveRoom()
         {
-            DepenencyInjector.Resolve<IUserController>().
-            //var discordApi = DepenencyInjector.Resolve<IDiscordApi>();
+            DepenencyInjector.Resolve<IUserController>().LogoutUser();
             Application.Quit();
-            //StartCoroutine(discordApi.PlayerLeft(PhotonNetwork.playerName));
         }
 
         public void Start()
