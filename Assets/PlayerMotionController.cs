@@ -89,7 +89,7 @@ namespace Com.Wulfram3
         {
             if (!photonView.isMine)
                 return;
-            if (unitManager.isDead)
+            if (unitManager == null || unitManager.isDead)
                 return;
             if (unitManager.unitType != myUnitType || vehicleSettings == null)
                 SetUnitType(GetComponent<Unit>().unitType);

@@ -26,7 +26,6 @@ namespace Com.Wulfram3
         private float currentBoost = 1f;
         private float healthCollected = 0;
         private GameManager gameManager;
-        private bool isPlayer = false;
         private PlayerManager playerManager;
 
         private float syncTeamStamp;
@@ -46,7 +45,6 @@ namespace Com.Wulfram3
         {
             gameManager = FindObjectOfType<GameManager>();
             playerManager = GetComponent<PlayerManager>();
-            isPlayer = GetComponent<PlayerMotionController>() != null;
             if (unitTeam == PunTeams.Team.none)
                 unitTeam = (PunTeams.Team)photonView.instantiationData[1];
             if (playerManager != null)
@@ -65,7 +63,7 @@ namespace Com.Wulfram3
             if (photonView.isMine && !isDead)
             {
                 currentBoost = 1f;
-                if (isPlayer)
+                if (playerManager != null)
                     currentBoost = GetComponent<PlayerMotionController>().healingBoost;
                 float health = hitpointRegenPerSecond * currentBoost * Time.deltaTime;
                 healthCollected += health;
@@ -249,7 +247,7 @@ namespace Com.Wulfram3
                 if (PhotonNetwork.isMasterClient && (maxHealth != 0 && health <= 0) && !isDead)
                 {
                     isDead = true;
-                    if (!isPlayer)
+                    if (playerManager == null)
                     {
                         gameManager.SpawnExplosion(transform.position);
                         PhotonNetwork.Destroy(gameObject);

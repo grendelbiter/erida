@@ -216,6 +216,8 @@ namespace Com.Wulfram3
                 currentTarget = closestTarget;
                 timeSinceLastScan = 0;
             }
+            if (currentTarget != null && currentTarget.transform == null)
+                currentTarget = null;
         }
     }
 }

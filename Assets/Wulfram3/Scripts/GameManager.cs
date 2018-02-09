@@ -41,18 +41,18 @@ namespace Com.Wulfram3
         public override void OnPhotonPlayerConnected(PhotonPlayer other)
         {
             if (PhotonNetwork.isMasterClient)
-                Debug.Log(other.NickName + " has connected as MasterClient. (GameManager.cs / OnPhotonPlayerConnected:46)");
+                Debug.Log(other.NickName + " has connected as MasterClient. (GameManager.cs / OnPhotonPlayerConnected:44)");
             else
-                Debug.Log(other.NickName + " has connected. (GameManager.cs / OnPhotonPlayerConnected:48)");
+                Debug.Log(other.NickName + " has connected. (GameManager.cs / OnPhotonPlayerConnected:46)");
         }
 
 
         public override void OnPhotonPlayerDisconnected(PhotonPlayer other)
         {
             if (PhotonNetwork.isMasterClient)
-                Debug.Log("MasterClient " + other.NickName + " has disconnected. This will probably get ugly.  (GameManager.cs / OnPhotonPlayerDisconnected:55)");
+                Debug.Log("MasterClient " + other.NickName + " has disconnected. This will probably get ugly.  (GameManager.cs / OnPhotonPlayerDisconnected:53)");
             else
-                Debug.Log(other.NickName + " has disconnected. (GameManager.cs / OnPhotonPlayerDisconnected:57)");
+                Debug.Log(other.NickName + " has disconnected. (GameManager.cs / OnPhotonPlayerDisconnected:55)");
         }
 
         public void LeaveRoom()
@@ -66,7 +66,7 @@ namespace Com.Wulfram3
             Debug.Log("Starting GameManager.  (GameManager.cs / Start:75)");
             if (PlayerManager.LocalPlayerInstance == null)
             {
-                Debug.Log("Assigning Team. Active scene name: " + SceneManager.GetActiveScene().name + ". (GameManager.cs / Start:78)");
+                Debug.Log("Assigning Team. Active scene name: " + SceneManager.GetActiveScene().name + ". (GameManager.cs / Start:69)");
 
                 PunTeams.UpdateTeamsNow();
                 List<int> availableUnits = new List<int>();
@@ -85,11 +85,11 @@ namespace Com.Wulfram3
                 GameObject g = Instantiate(Resources.Load("Prefabs/SceneBase/VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
                 unitSelector = g.GetComponent<VehicleSelector>();
                 unitSelector.SetAvailableModels(availableUnits);
-                Debug.Log("Assigned to " + PhotonNetwork.player.GetTeam() + " team. Awaiting first spawn. (GameManager.cs / Start:97)");
+                Debug.Log("Assigned to " + PhotonNetwork.player.GetTeam() + " team. Awaiting first spawn. (GameManager.cs / Start:88)");
             }
             else
             {
-                Debug.Log("Local Player Was Null.... Investigate. (GameManager.cs / Start:104)" + SceneManager.GetActiveScene().name);
+                Debug.Log("Local Player Was Not Null.... Investigate. (GameManager.cs / Start:104)" + SceneManager.GetActiveScene().name);
             }
             GetComponent<PlayerSpawnManager>().StartSpawn();
         }
@@ -102,7 +102,7 @@ namespace Com.Wulfram3
             PhotonPlayer requester = PhotonPlayer.Find(ownerID);
             if (requester == null)
             {
-                Debug.Log("Error: Spawn Player Failed To Find Requesting Player! GameManager.cs:124");
+                Debug.Log("Error: Spawn Player Failed To Find Requesting Player! GameManager.cs:105");
                 return;
             }
             object[] o = new object[3];
@@ -111,9 +111,9 @@ namespace Com.Wulfram3
             o[2] = meshID;
             GameObject player = PhotonNetwork.InstantiateSceneObject("Prefabs/Player/Player", pos, rot, 0, o);
             player.GetComponent<PhotonView>().TransferOwnership(ownerID);
-            player.GetComponent<Unit>().SetMaxHealth();
-            player.GetComponent<CargoManager>().Reset();
-            player.GetComponent<FuelManager>().ResetFuel();
+            //player.GetComponent<Unit>().SetMaxHealth();
+            //player.GetComponent<CargoManager>().Reset();
+            //player.GetComponent<FuelManager>().ResetFuel();
         }
 
         [PunRPC]

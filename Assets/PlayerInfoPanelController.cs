@@ -25,7 +25,7 @@ namespace Com.Wulfram3 {
             if (target != null && target.GetComponentInChildren<MeshRenderer>() != null) // New (see note at second "if"
             {
                 var isMeshVisable = target.GetComponentInChildren<MeshRenderer>().isVisible;
-                var isMapIconVisable = target.GetComponent<KGFMapIcon>().GetIsVisible();
+                var isMapIconVisable = target.GetComponentInChildren<KGFMapIcon>().GetIsVisible();
 
 
 

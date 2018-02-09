@@ -8,7 +8,7 @@ namespace Com.Wulfram3 {
 
         public float transitionTime = 1.0f;
 
-        public Camera cam;
+        private Camera cam;
         private Vector3 currentPos;
         private Vector3 targetPos;
         private float transitionStartTime;
@@ -28,7 +28,7 @@ namespace Com.Wulfram3 {
         }
 
 		public void Detach(){
-			cam.transform.SetParent(null);
+            cam.transform.SetParent(null);
 
 		}
 
