@@ -38,8 +38,6 @@ namespace Com.Wulfram3
         public IVehicleSetting mySettings;
         private Rigidbody myRigidbody;
         private FuelManager fuelManager;
-        private PunTeams.Team initialTeam;
-        private UnitType initialUnit;
         private int meshIndex = 0;
         private float pulseStamp;
         private float timeSinceDead = 0;
@@ -66,9 +64,11 @@ namespace Com.Wulfram3
 
         private PlayerMotionController PMC;
 
-        void Start() { }
+        void Start()
+        {
+        }
 
-        private void Awake()
+            private void Awake()
         {
             myUnit = GetComponent<Unit>();
             gameManager = FindObjectOfType<GameManager>();
@@ -78,17 +78,18 @@ namespace Com.Wulfram3
                 PlayerManager.LocalPlayerInstance = gameObject;
                 fuelManager = GetComponent<FuelManager>();
                 PMC = GetComponent<PlayerMotionController>();
+                gameManager.GetComponent<MapModeManager>().ActivateMapMode(MapType.Mini);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                PlayerSpawnManager.status = SpawnStatus.IsAlive;
             }
-            gameManager.GetComponent<MapModeManager>().ActivateMapMode(MapType.Mini);
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            PlayerSpawnManager.status = SpawnStatus.IsAlive;
         }
 
-        public void SetMesh(int i)
+        public void SetMesh(PunTeams.Team t, UnitType u)
         {
             for (int n = 0; n < meshList.Length; n++)
                 meshList[n].gameObject.SetActive(false);
+            int i = GetPlayerMeshIndexFromType(t, u);
             meshIndex = i;
             meshList[i].gameObject.SetActive(true);
             myMesh = meshList[i];
@@ -141,6 +142,7 @@ namespace Com.Wulfram3
             return meshIndex;
         }
 
+        /*
         public void SetSelectedVehicle(int i)
         {
             if ((i == 1 || i == 3))
@@ -150,7 +152,7 @@ namespace Com.Wulfram3
             else
                 myUnit.unitType = UnitType.Other;
             SetMesh(i);
-        }
+        }*/
 
         [PunRPC]
         public void SetTeam(PunTeams.Team t)

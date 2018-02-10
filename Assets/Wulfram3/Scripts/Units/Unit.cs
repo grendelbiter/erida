@@ -51,7 +51,8 @@ namespace Com.Wulfram3
                 int receivedIdx = (int)photonView.instantiationData[2];
                 if (unitType == UnitType.None)
                     unitType = playerManager.GetPlayerTypeFromMeshIndex(receivedIdx);
-                playerManager.SetMesh(receivedIdx);
+
+                playerManager.SetMesh(unitTeam, unitType);
                 maxHealth = playerManager.mySettings.MaxHitPoints;
             }
             if (PhotonNetwork.isMasterClient)

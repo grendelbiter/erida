@@ -55,7 +55,7 @@ public class MapModeManager : MonoBehaviour {
         {
             case MapType.Mini:
                 itsMapSystem.SetTarget(PlayerManager.LocalPlayerInstance);
-                //itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(PlayerManager.LocalPlayerInstance.transform.position));
+                itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(PlayerManager.LocalPlayerInstance.transform.position));
                 if(MasterHUD != null)
                 {
                     MasterHUD.SetActive(true); 
@@ -76,7 +76,7 @@ public class MapModeManager : MonoBehaviour {
                 break;
             case MapType.Large:
                 itsMapSystem.SetTarget(PlayerManager.LocalPlayerInstance);
-                //itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(PlayerManager.LocalPlayerInstance.transform.position));
+                itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(PlayerManager.LocalPlayerInstance.transform.position));
                 if (MasterHUD != null)
                 {
                     MasterHUD.SetActive(false);

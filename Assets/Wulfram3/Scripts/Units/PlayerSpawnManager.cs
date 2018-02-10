@@ -36,11 +36,8 @@ namespace Assets.Wulfram3.Scripts.Units
         {
             GameManager g = FindObjectOfType<GameManager>();
             g.unitSelector.gameObject.SetActive(false);
-            g.photonView.RPC("SpawnPlayer", PhotonTargets.MasterClient, spawnPoint + new Vector3(UnityEngine.Random.Range(-6f, 6f), 50, UnityEngine.Random.Range(-9f, 9f)), Quaternion.identity, PhotonNetwork.player.GetTeam(), g.unitSelector.SelectedIndex(), PhotonNetwork.player.ID);
-            g.GetComponent<MapModeManager>().ActivateMapMode(MapType.Mini);
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            PlayerSpawnManager.status = SpawnStatus.IsAlive;
+            g.SpawnPlayer(spawnPoint + new Vector3(UnityEngine.Random.Range(-6f, 6f), 50, UnityEngine.Random.Range(-9f, 9f)), Quaternion.identity, PhotonNetwork.player.GetTeam(), g.unitSelector.SelectedIndex(), PhotonNetwork.player.ID);
+            //g.photonView.RPC("SpawnPlayer", PhotonTargets.MasterClient, spawnPoint + new Vector3(UnityEngine.Random.Range(-6f, 6f), 50, UnityEngine.Random.Range(-9f, 9f)), Quaternion.identity, PhotonNetwork.player.GetTeam(), g.unitSelector.SelectedIndex(), PhotonNetwork.player.ID);
         }
 
         void Update()

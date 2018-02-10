@@ -78,9 +78,12 @@ namespace Com.Wulfram3
 
         private void ShowFeedback()
         {
-            StartCoroutine(ShotEffect());
-            laserLine.SetPosition(0, gunEnd.position);
-            laserLine.SetPosition(1, currentTarget.transform.position);
+            if (currentTarget.transform != null)
+            {
+                StartCoroutine(ShotEffect());
+                laserLine.SetPosition(0, gunEnd.position);
+                laserLine.SetPosition(1, currentTarget.transform.position);
+            }
         }
 
         private Vector3 GetRandomPointInCircle()
