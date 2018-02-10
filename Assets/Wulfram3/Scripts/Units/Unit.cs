@@ -56,6 +56,8 @@ namespace Com.Wulfram3
             }
             if (PhotonNetwork.isMasterClient)
                 SetHealth(maxHealth);
+            SyncTeam(unitTeam);
+            SyncUnit(unitType);
         }
 
         void Update() {
@@ -109,6 +111,11 @@ namespace Com.Wulfram3
                 photonView.RPC("SyncUnit", PhotonTargets.Others, unitType);
             else
                 unitType = u;
+        }
+
+        public void OnPhotonSerializeView()
+        {
+
         }
 
         public static string GetPrefabName(UnitType u, PunTeams.Team t)
