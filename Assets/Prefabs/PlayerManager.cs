@@ -79,6 +79,10 @@ namespace Com.Wulfram3
                 fuelManager = GetComponent<FuelManager>();
                 PMC = GetComponent<PlayerMotionController>();
             }
+            gameManager.GetComponent<MapModeManager>().ActivateMapMode(MapType.Mini);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            PlayerSpawnManager.status = SpawnStatus.IsAlive;
         }
 
         public void SetMesh(int i)
