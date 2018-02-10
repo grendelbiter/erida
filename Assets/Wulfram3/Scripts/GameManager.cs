@@ -79,38 +79,24 @@ namespace Com.Wulfram3
                 GameObject g = Instantiate(Resources.Load("Prefabs/SceneBase/VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
                 unitSelector = g.GetComponent<VehicleSelector>();
                 unitSelector.SetAvailableModels(availableUnits);
-                Debug.Log("Assigned to " + PhotonNetwork.player.GetTeam() + " team. Awaiting first spawn. (GameManager.cs / Start:88)");
+                Debug.Log("Assigned to " + PhotonNetwork.player.GetTeam() + " team. Awaiting first spawn. (GameManager.cs / Start:82)");
                 GetComponent<PlayerSpawnManager>().StartSpawn();
             }
             else
             {
-                Debug.Log("Local Player Was Not Null.... Investigate. (GameManager.cs / Start:104)" + SceneManager.GetActiveScene().name);
+                Debug.Log("Local Player Was Not Null.... Investigate. (GameManager.cs / Start:87)" + SceneManager.GetActiveScene().name);
             }
         }
 
         private void Update() { }
 
-        //[PunRPC]
         public void SpawnPlayer(Vector3 pos, Quaternion rot, PunTeams.Team team, int meshID, int ownerID)
         {
-            //if (PhotonNetwork.isMasterClient)
-            //{
-                //PhotonPlayer requester = PhotonPlayer.Find(ownerID);
-                //if (requester == null)
-                //{
-                //    Debug.Log("Error: Spawn Player Failed To Find Requesting Player! GameManager.cs:105");
-                //    return;
-                //}
-                object[] o = new object[3];
-                o[0] = ownerID;
-                o[1] = PhotonNetwork.player.GetTeam();
-                o[2] = meshID;
-                GameObject player = PhotonNetwork.Instantiate("Prefabs/Player/Player", pos, rot, 0, o);
-                //player.GetComponent<PhotonView>().TransferOwnership(ownerID);
-                //player.GetComponent<Unit>().SetMaxHealth();
-                //player.GetComponent<CargoManager>().Reset();
-                //player.GetComponent<FuelManager>().ResetFuel();
-            //}
+            object[] o = new object[3];
+            o[0] = ownerID;
+            o[1] = PhotonNetwork.player.GetTeam();
+            o[2] = meshID;
+            GameObject player = PhotonNetwork.Instantiate("Prefabs/Player/Player", pos, rot, 0, o);
         }
 
         [PunRPC]

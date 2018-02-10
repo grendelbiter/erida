@@ -75,14 +75,11 @@ namespace Com.Wulfram3
                     if (playerManager == null || !isDead)
                         TellServerTakeDamage(-1);
                 }
-                else
-                {
-                    if (Time.time > syncHpStamp)
-                    {
-                        syncHpStamp = Time.time + 1f;
-                        photonView.RPC("UpdateHealth", PhotonTargets.All, health);
-                    }
-                }
+            }
+            if (PhotonNetwork.isMasterClient && Time.time > syncHpStamp)
+            {
+                syncHpStamp = Time.time + 1f;
+                photonView.RPC("UpdateHealth", PhotonTargets.All, health);
             }
             /*
             if (PhotonNetwork.isMasterClient)
