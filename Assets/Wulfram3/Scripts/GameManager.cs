@@ -40,19 +40,13 @@ namespace Com.Wulfram3
 
         public override void OnPhotonPlayerConnected(PhotonPlayer other)
         {
-            if (PhotonNetwork.isMasterClient)
-                Debug.Log(other.NickName + " has connected as MasterClient. (GameManager.cs / OnPhotonPlayerConnected:44)");
-            else
-                Debug.Log(other.NickName + " has connected. (GameManager.cs / OnPhotonPlayerConnected:46)");
+            Debug.Log(other.NickName + " has connected. (GameManager.cs / OnPhotonPlayerConnected:43)");
         }
 
 
         public override void OnPhotonPlayerDisconnected(PhotonPlayer other)
         {
-            if (PhotonNetwork.isMasterClient)
-                Debug.Log("MasterClient " + other.NickName + " has disconnected. This will probably get ugly.  (GameManager.cs / OnPhotonPlayerDisconnected:53)");
-            else
-                Debug.Log(other.NickName + " has disconnected. (GameManager.cs / OnPhotonPlayerDisconnected:55)");
+            Debug.Log(other.NickName + " has disconnected. (GameManager.cs / OnPhotonPlayerDisconnected:49)");
         }
 
         public void LeaveRoom()
@@ -63,10 +57,10 @@ namespace Com.Wulfram3
 
         public void Start()
         {
-            Debug.Log("Starting GameManager.  (GameManager.cs / Start:75)");
+            Debug.Log("Starting GameManager.  (GameManager.cs / Start:60)");
             if (PlayerManager.LocalPlayerInstance == null)
             {
-                Debug.Log("Assigning Team. Active scene name: " + SceneManager.GetActiveScene().name + ". (GameManager.cs / Start:69)");
+                Debug.Log("Assigning Team. Active scene name: " + SceneManager.GetActiveScene().name + ". (GameManager.cs / Start:63)");
 
                 PunTeams.UpdateTeamsNow();
                 List<int> availableUnits = new List<int>();

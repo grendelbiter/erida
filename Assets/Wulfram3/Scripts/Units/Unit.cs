@@ -113,7 +113,7 @@ namespace Com.Wulfram3
                 unitType = u;
         }
 
-        public void OnPhotonSerializeView()
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
 
         }
