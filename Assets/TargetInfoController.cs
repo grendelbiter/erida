@@ -3,6 +3,7 @@ using Greyman;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -106,13 +107,15 @@ namespace Com.Wulfram3 {
 
             if (t == null) {
                 targetInfoPanel.SetActive(false);
-                foreach (var item in offScreenIndicator.targetList)
+                var temp = offScreenIndicator.targetList.ToList();
+                foreach (var item in temp)
                 {
                     offScreenIndicator.RemoveIndicator(item.target);
                 }
             }
             else {
-                foreach (var item in offScreenIndicator.targetList.ToArray())
+                var temp = offScreenIndicator.targetList.ToList();
+                foreach (var item in temp)
                 {
                     offScreenIndicator.RemoveIndicator(item.target);
                 }

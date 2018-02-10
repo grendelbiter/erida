@@ -75,7 +75,16 @@ namespace Com.Wulfram3
                     if (playerManager == null || !isDead)
                         TellServerTakeDamage(-1);
                 }
+                else
+                {
+                    if (Time.time > syncHpStamp)
+                    {
+                        syncHpStamp = Time.time + 1f;
+                        photonView.RPC("UpdateHealth", PhotonTargets.All, health);
+                    }
+                }
             }
+            /*
             if (PhotonNetwork.isMasterClient)
             {
                 if (Time.time > syncTeamStamp)
@@ -89,11 +98,7 @@ namespace Com.Wulfram3
                     SyncUnit(unitType);
                 }
             }
-            if (Time.time > syncHpStamp)
-            {
-                syncHpStamp = Time.time + 1f;
-                photonView.RPC("UpdateHealth", PhotonTargets.All, health);
-            }
+            */
         }
 
         [PunRPC]
@@ -179,13 +184,6 @@ namespace Com.Wulfram3
             return Enum.GetName(typeof(UnitType), unitType) + " " + Enum.GetName(typeof(PunTeams.Team), unitTeam) + "| |" + this.unitType.ToString() + " " + this.unitTeam.ToString();
         }
 
-        public void SetMaxHealth()
-        {
-            SetHealth(maxHealth);
-            if (isDead)
-                isDead = false;
-        }
-
         [PunRPC]
         public void TakeDamage(int amount)
         {
@@ -196,7 +194,6 @@ namespace Com.Wulfram3
             }
         }
 
-
         public void SetHealth(int newHealth)
         {
             if (PhotonNetwork.isMasterClient)
@@ -205,6 +202,7 @@ namespace Com.Wulfram3
             }
         }
 
+        
         public void TellServerTakeDamage(int amount)
         {
             photonView.RPC("TakeDamage", PhotonTargets.MasterClient, amount);
@@ -231,10 +229,10 @@ namespace Com.Wulfram3
             health = newHealth;
             if (playerManager != null && photonView.isMine)
                 gameManager.SetHullBar((float)health / (float)maxHealth);
-            if (PhotonNetwork.isMasterClient && (maxHealth != 0 && health <= 0) && !isDead)
+            if ((maxHealth != 0 && health <= 0) && !isDead)
             {
                 isDead = true;
-                if (playerManager == null)
+                if (playerManager == null && PhotonNetwork.isMasterClient)
                 {
                     gameManager.SpawnExplosion(transform.position);
                     PhotonNetwork.Destroy(gameObject);
