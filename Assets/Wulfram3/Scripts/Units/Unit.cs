@@ -30,15 +30,14 @@ namespace Com.Wulfram3
 
         private float syncTeamStamp;
         private float syncUnitStamp;
+        private float syncHpStamp;
 
         public bool needsUpdate = true;
 
-        private float startStamp;
 
         void Start() {
             if (unitType == UnitType.RepairPad || unitType == UnitType.RefuelPad || unitType == UnitType.GunTurret || unitType == UnitType.FlakTurret || unitType == UnitType.MissleLauncher)
                 needsPower = true;
-            startStamp = Time.time + 2f;
         }
 
         private void Awake()
@@ -87,6 +86,11 @@ namespace Com.Wulfram3
                     SyncUnit(unitType);
                 }
             }
+            if (Time.time > syncHpStamp)
+            {
+                syncHpStamp = Time.time + 1f;
+                photonView.RPC("UpdateHealth", PhotonTargets.All, health);
+            }
         }
 
         [PunRPC]
@@ -105,29 +109,6 @@ namespace Com.Wulfram3
                 photonView.RPC("SyncUnit", PhotonTargets.Others, unitType);
             else
                 unitType = u;
-        }
-
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-        {
-            if (stream.isWriting && Time.time > startStamp)
-            {
-                stream.SendNext((int)health);
-                if (playerManager != null)
-                {
-                    stream.SendNext((int)playerManager.GetMeshIndex());
-                }
-            }
-            else if (stream.isReading && Time.time > startStamp)
-            {
-                int syncHealth = (int)stream.ReceiveNext();
-                health = Mathf.Clamp(syncHealth, 0, maxHealth);
-                UpdateHealth(health);
-                if (playerManager != null)
-                {
-                    int syncMesh = (int)stream.ReceiveNext();
-                    playerManager.SetMesh(syncMesh);
-                }
-            }
         }
 
         public static string GetPrefabName(UnitType u, PunTeams.Team t)
@@ -238,20 +219,17 @@ namespace Com.Wulfram3
         [PunRPC]
         public void UpdateHealth(int amount)
         {
-            if (Time.time > startStamp)
+            int newHealth = Mathf.Clamp(amount, 0, maxHealth);
+            health = newHealth;
+            if (playerManager != null && photonView.isMine)
+                gameManager.SetHullBar((float)health / (float)maxHealth);
+            if (PhotonNetwork.isMasterClient && (maxHealth != 0 && health <= 0) && !isDead)
             {
-                int newHealth = Mathf.Clamp(amount, 0, maxHealth);
-                health = newHealth;
-                if (playerManager != null && photonView.isMine)
-                    gameManager.SetHullBar((float)health / (float)maxHealth);
-                if (PhotonNetwork.isMasterClient && (maxHealth != 0 && health <= 0) && !isDead)
+                isDead = true;
+                if (playerManager == null)
                 {
-                    isDead = true;
-                    if (playerManager == null)
-                    {
-                        gameManager.SpawnExplosion(transform.position);
-                        PhotonNetwork.Destroy(gameObject);
-                    }
+                    gameManager.SpawnExplosion(transform.position);
+                    PhotonNetwork.Destroy(gameObject);
                 }
             }
         }
