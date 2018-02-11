@@ -60,7 +60,7 @@ namespace Com.Wulfram3 {
                     return;
                 }
                 // Check if targetd unit is now dead, if so, clear
-                if(unit.health == 0)
+                if(unit.isDead)
                 {
                     TargetChanged(null);
                     return;

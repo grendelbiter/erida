@@ -1713,6 +1713,8 @@ MonoBehaviour:
   maximumDConeRadius: 12
   fuelPerBullet: 1
   gunEnd: {fileID: 4832298440499314}
+  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
+    type: 2}
   simDelayInSeconds: 0.1
   laserLine: {fileID: 120253160599368710}
   debug: 0
@@ -1917,7 +1919,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionTime: 1
-  cam: {fileID: 0}
 --- !u!114 &114561016228801482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1939,6 +1940,7 @@ MonoBehaviour:
   maximumDConeRadius: 12
   fuelPerBullet: 1
   gunEnd: {fileID: 4206612252912348}
+  muzzleFlash: {fileID: 0}
   simDelayInSeconds: 0.1
   laserLine: {fileID: 120228717185597116}
   debug: 1

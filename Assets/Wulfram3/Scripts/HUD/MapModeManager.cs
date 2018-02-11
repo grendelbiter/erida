@@ -16,6 +16,7 @@ public class MapModeManager : MonoBehaviour {
     public GameObject SpawnModeHUD;
 
     public GameObject MapCenter;
+    public GameObject SpawnCenter;
 
     public KGFMapSystem itsMapSystem;
 
@@ -75,8 +76,8 @@ public class MapModeManager : MonoBehaviour {
                 Cursor.visible = false;
                 break;
             case MapType.Large:
-                itsMapSystem.SetTarget(PlayerManager.LocalPlayerInstance);
-                itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(PlayerManager.LocalPlayerInstance.transform.position));
+                itsMapSystem.SetTarget(MapCenter);
+                itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(MapCenter.transform.position));
                 if (MasterHUD != null)
                 {
                     MasterHUD.SetActive(false);
@@ -95,8 +96,8 @@ public class MapModeManager : MonoBehaviour {
                 Cursor.visible = true;
                 break;
             case MapType.Spawn:
-                itsMapSystem.SetTarget(MapCenter);
-                itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(MapCenter.transform.position));
+                itsMapSystem.SetTarget(SpawnCenter);
+                itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(SpawnCenter.transform.position));
                 if (MasterHUD != null)
                 {
                     MasterHUD.SetActive(false);

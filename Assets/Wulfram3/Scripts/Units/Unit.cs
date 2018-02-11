@@ -50,7 +50,7 @@ namespace Com.Wulfram3
             {
                 int receivedIdx = (int)photonView.instantiationData[2];
                 if (unitType == UnitType.None)
-                    unitType = playerManager.GetPlayerTypeFromMeshIndex(receivedIdx);
+                    unitType = PlayerManager.GetPlayerTypeFromMeshIndex(receivedIdx);
 
                 playerManager.SetMesh(unitTeam, unitType);
                 maxHealth = playerManager.mySettings.MaxHitPoints;
@@ -67,8 +67,8 @@ namespace Com.Wulfram3
                 currentBoost = 1f;
                 if (playerManager != null)
                     currentBoost = GetComponent<PlayerMotionController>().healingBoost;
-                float health = hitpointRegenPerSecond * currentBoost * Time.deltaTime;
-                healthCollected += health;
+                float tickHealth = hitpointRegenPerSecond * currentBoost * Time.deltaTime;
+                healthCollected += tickHealth;
                 if (healthCollected >= 1f)
                 {
                     healthCollected--;

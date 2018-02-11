@@ -18,6 +18,7 @@ namespace Com.Wulfram3 {
 		private GameManager gameManager;
 		//Start of the laser
 		public Transform gunEnd;
+        public GameObject muzzleFlash;
         bool shooting = false;
 		//camera for firing
         public float simDelayInSeconds = 0.1f;
@@ -183,6 +184,7 @@ namespace Com.Wulfram3 {
 
                 laserLine.SetPosition(0, gunEnd.position);
                 laserLine.SetPosition(1, bulletHitPoint);
+                muzzleFlash.GetComponent<ParticleSystem>().Emit(1);
                 if (!photonView.isMine)
                     audioSource.PlayOneShot(shootSound, 1);
             }    

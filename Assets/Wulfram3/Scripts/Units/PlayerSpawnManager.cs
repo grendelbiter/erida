@@ -12,10 +12,10 @@ namespace Assets.Wulfram3.Scripts.Units
     public class PlayerSpawnManager : MonoBehaviour
     {
         public static SpawnStatus status;
-
         public static float currentSpawnTime = 30f; // in seconds
 
         public Text countdownText;
+        public GameObject countdownPanel;
 
         private float defaultSpawnTime = 30f;
 
@@ -23,7 +23,8 @@ namespace Assets.Wulfram3.Scripts.Units
         {
             status = SpawnStatus.IsSpawning;
             GameManager g = FindObjectOfType<GameManager>();
-            g.unitSelector.gameObject.SetActive(true);
+            g.unitSelector.gameObject.SetActive(false);
+            countdownPanel.SetActive(true);
             g.GetComponent<MapModeManager>().ActivateMapMode(MapType.Spawn);
         }
 
@@ -48,6 +49,9 @@ namespace Assets.Wulfram3.Scripts.Units
                 if (currentSpawnTime < 0)
                 {
                     status = SpawnStatus.IsReady;
+                    GameManager g = FindObjectOfType<GameManager>();
+                    g.unitSelector.gameObject.SetActive(true);
+                    countdownPanel.SetActive(false);
                     currentSpawnTime = defaultSpawnTime; // in seconds
                     countdownText.text = "READY FOR DEPLOYMENT!";
                 }

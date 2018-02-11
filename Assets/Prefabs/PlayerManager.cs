@@ -127,7 +127,7 @@ namespace Com.Wulfram3
             return -1;
         }
 
-        public UnitType GetPlayerTypeFromMeshIndex(int i)
+        public static UnitType GetPlayerTypeFromMeshIndex(int i)
         {
             if (i == 0 || i == 2)
                 return UnitType.Tank;
