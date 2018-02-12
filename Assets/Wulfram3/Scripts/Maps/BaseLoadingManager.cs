@@ -279,7 +279,7 @@ namespace Assets.Wulfram3.Scripts.Maps
                     baseSetup.bases.Add(tempBase);
                 }
 
-                Debug.Log(Newtonsoft.Json.JsonConvert.SerializeObject(baseSetup));
+                Logger.Log(Newtonsoft.Json.JsonConvert.SerializeObject(baseSetup));
                 return baseSetup;
             }
             else

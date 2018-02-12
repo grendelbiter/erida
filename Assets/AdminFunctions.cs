@@ -19,11 +19,11 @@ public class AdminFunctions : Photon.PunBehaviour {
     }
 
     public void SendPlayerKick(string name) {
-        Debug.Log("Player List: ");
+        Logger.Log("Player List: ");
         foreach (PhotonPlayer player in PhotonNetwork.playerList) {
             string s = player.NickName;
              if (s != null && s == name) {
-                Debug.Log("Kicking player :" + s);
+                Logger.Log("Kicking player :" + s);
                 //PhotonNetwork.CloseConnection(player);
                 photonView.RPC("KickPlayer", player);
                 break;

@@ -101,7 +101,7 @@ namespace Com.Wulfram3
             {
                 doNotExecuteRetrives = true;
                 StoreTarget(this.currentPlayerTarget, 0);
-                Debug.Log("store_target 0");
+                Logger.Log("store_target 0");
             }
 
             //bind "targeting" "ctrl-F6" "store_target 1"
@@ -109,7 +109,7 @@ namespace Com.Wulfram3
             {
                 doNotExecuteRetrives = true;
                 StoreTarget(this.currentPlayerTarget, 1);
-                Debug.Log("store_target 1");
+                Logger.Log("store_target 1");
             }
 
             //bind "targeting" "ctrl-F7" "store_target 2"
@@ -117,7 +117,7 @@ namespace Com.Wulfram3
             {
                 doNotExecuteRetrives = true;
                 StoreTarget(this.currentPlayerTarget, 2);
-                Debug.Log("store_target 2");
+                Logger.Log("store_target 2");
             }
 
             //bind "targeting" "ctrl-F8" "store_target 3"
@@ -125,7 +125,7 @@ namespace Com.Wulfram3
             {
                 doNotExecuteRetrives = true;
                 StoreTarget(this.currentPlayerTarget, 3);
-                Debug.Log("store_target 3");
+                Logger.Log("store_target 3");
             }
 
             //bind "targeting" "F5" "retrieve_target 0"
@@ -133,7 +133,7 @@ namespace Com.Wulfram3
             {
                 if (doNotExecuteRetrives) return;
                 RetrieveStoredTarget(0);
-                Debug.Log("retrieve_target 0");
+                Logger.Log("retrieve_target 0");
             }
 
             //bind "targeting" "F6" "retrieve_target 1"
@@ -141,7 +141,7 @@ namespace Com.Wulfram3
             {
                 if (doNotExecuteRetrives) return;
                 RetrieveStoredTarget(1);
-                Debug.Log("retrieve_target 1");
+                Logger.Log("retrieve_target 1");
             }
 
             //bind "targeting" "F7" "retrieve_target 2"
@@ -149,7 +149,7 @@ namespace Com.Wulfram3
             {
                 if (doNotExecuteRetrives) return;
                 RetrieveStoredTarget(2);
-                Debug.Log("retrieve_target 2");
+                Logger.Log("retrieve_target 2");
             }
 
             //bind "targeting" "F8" "retrieve_target 3"
@@ -157,7 +157,7 @@ namespace Com.Wulfram3
             {
                 if (doNotExecuteRetrives) return;
                 RetrieveStoredTarget(3);
-                Debug.Log("retrieve_target 3");
+                Logger.Log("retrieve_target 3");
             }
 
 
@@ -166,14 +166,14 @@ namespace Com.Wulfram3
             //bind "targeting" "`" "clear_target"
             if (Input.GetKeyDown(KeyCode.BackQuote))
             {
-                Debug.Log("clear_target");
+                Logger.Log("clear_target");
                 gameManager.SetCurrentTarget(null);
             }
 
             //bind "targeting" "y" "target_cycle"
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                Debug.Log("target_cycle");
+                Logger.Log("target_cycle");
             }
 
             //bind "targeting" "tab" "target_cycle nearest frontward major_object"
@@ -188,31 +188,31 @@ namespace Com.Wulfram3
                 {
                     this.SetThisAsPlayerCurrentTarget(objectHit.transform.gameObject);
                 }
-                Debug.Log("target_cycle nearest frontward major_object");
+                Logger.Log("target_cycle nearest frontward major_object");
             }
 
             //bind "targeting" "u" "target_cycle nearest under_reticle any_object"
             if (Input.GetKeyDown(KeyCode.U))
             {
-                Debug.Log("target_cycle nearest under_reticle any_object");
+                Logger.Log("target_cycle nearest under_reticle any_object");
             }
 
             //bind "targeting" "h" "target_cycle nearest most_damaged friendly major_object"
             if (Input.GetKeyDown(KeyCode.H))
             {
-                Debug.Log("target_cycle nearest most_damaged friendly major_object");
+                Logger.Log("target_cycle nearest most_damaged friendly major_object");
             }
 
             //bind "targeting" "shift-h" "target_cycle most_damaged friendly major_object"
             if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.H))
             {
-                Debug.Log("target_cycle most_damaged friendly major_object");
+                Logger.Log("target_cycle most_damaged friendly major_object");
             }
 
             //bind "targeting" "alt-h" "target_cycle nearest most_damaged hostile major_object"
             if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.H))
             {
-                Debug.Log("target_cycle nearest most_damaged hostile major_object");
+                Logger.Log("target_cycle nearest most_damaged hostile major_object");
             }
 
 
@@ -222,81 +222,81 @@ namespace Com.Wulfram3
             if (Input.GetKeyDown(KeyCode.G))
             {
                 this.SetThisAsPlayerCurrentTarget(this.GetTarget(UnitType.PowerCell, true));
-                Debug.Log("target_cycle nearest friendly energy");
+                Logger.Log("target_cycle nearest friendly energy");
             }
 
             //bind "targeting" "alt-g" "target_cycle nearest hostile energy"
             if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.H))
             {
                 this.SetThisAsPlayerCurrentTarget(this.GetTarget(UnitType.PowerCell, false));
-                Debug.Log("target_cycle nearest hostile energy");
+                Logger.Log("target_cycle nearest hostile energy");
             }
 
             //bind "targeting" "r" "target_cycle nearest friendly repair"
             if (Input.GetKeyDown(KeyCode.R))
             {
                 this.SetThisAsPlayerCurrentTarget(this.GetTarget(UnitType.RepairPad, true));
-                Debug.Log("target_cycle nearest friendly repair");
+                Logger.Log("target_cycle nearest friendly repair");
             }
 
             //bind "targeting" "alt-r" "target_cycle nearest hostile repair"
             if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.R))
             {
                 this.SetThisAsPlayerCurrentTarget(this.GetTarget(UnitType.RepairPad, false));
-                Debug.Log("target_cycle nearest hostile repair");
+                Logger.Log("target_cycle nearest hostile repair");
             }
 
             //bind "targeting" "f" "target_cycle nearest friendly fuel"
             if (Input.GetKeyDown(KeyCode.F))
             {
                 this.SetThisAsPlayerCurrentTarget(this.GetTarget(UnitType.RefuelPad, true));
-                Debug.Log("target_cycle nearest friendly fuel");
+                Logger.Log("target_cycle nearest friendly fuel");
             }
 
             //bind "targeting" "alt-f" "target_cycle nearest hostile fuel"
             if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.F))
             {
                 this.SetThisAsPlayerCurrentTarget(this.GetTarget(UnitType.RefuelPad, false));
-                Debug.Log("target_cycle nearest hostile fuel");
+                Logger.Log("target_cycle nearest hostile fuel");
             }
 
             //bind "targeting" "c" "target_cycle nearest friendly cargo"
             if (Input.GetKeyDown(KeyCode.C))
             {
                 this.SetThisAsPlayerCurrentTarget(this.GetTarget(UnitType.Cargo, true));
-                Debug.Log("target_cycle nearest friendly cargo");
+                Logger.Log("target_cycle nearest friendly cargo");
             }
 
             //bind "targeting" "alt-c" "target_cycle nearest hostile cargo"
             if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.C))
             {
                 this.SetThisAsPlayerCurrentTarget(this.GetTarget(UnitType.Cargo, false));
-                Debug.Log("target_cycle nearest hostile cargo");
+                Logger.Log("target_cycle nearest hostile cargo");
             }
 
             //bind "targeting" "t" "target_only nearest hostile player"
             if (Input.GetKeyDown(KeyCode.T))
             {
-                Debug.Log("target_only nearest hostile player");
+                Logger.Log("target_only nearest hostile player");
             }
 
             //bind "targeting" "alt-t" "target_only nearest friendly player"
             if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.T))
             {
-                Debug.Log("target_only nearest friendly player");
+                Logger.Log("target_only nearest friendly player");
             }
 
             //bind "targeting" "i" "target_only nearest hostile hunter_missile"
             if (Input.GetKeyDown(KeyCode.I))
             {
-                Debug.Log("target_only nearest hostile hunter_missile");
+                Logger.Log("target_only nearest hostile hunter_missile");
             }
 
             //bind "targeting" "l" "target_cycle nearest friendly uplink"
             if (Input.GetKeyDown(KeyCode.L))
             {
                 this.SetThisAsPlayerCurrentTarget(this.GetTarget(UnitType.Uplink, true));
-                Debug.Log("target_cycle nearest friendly uplink");
+                Logger.Log("target_cycle nearest friendly uplink");
             }
         }
 
@@ -310,7 +310,7 @@ namespace Com.Wulfram3
             }
             else 
             {
-                Debug.Log("units count:" + units.Length + "Find Friendly?:" + isTargetFriendly);
+                Logger.Log("units count:" + units.Length + "Find Friendly?:" + isTargetFriendly);
                 foreach (var item in units)
                 {
                     PunTeams.Team findTeam;
@@ -357,7 +357,7 @@ namespace Com.Wulfram3
                     
                 }
 
-                Debug.Log("tempTargets count:" + tempTargets.Count);
+                Logger.Log("tempTargets count:" + tempTargets.Count);
                 if(tempTargets.Count > 0)
                 {
                     var min = tempTargets.Where(c => c.LastDistance > 0).Min(c => c.LastDistance);

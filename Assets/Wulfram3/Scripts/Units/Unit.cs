@@ -139,7 +139,7 @@ namespace Com.Wulfram3
                 case UnitType.Scout: s += "Scout"; break;
                 case UnitType.Uplink: s += "Uplink"; break;
                 default:
-                    Debug.Log("UnitTypeToPrefabString(" + u.ToString() + ", " + t.ToString() + ") ERROR: Unknown UnitType. Defaulting to cargobox!");
+                    Logger.Log("UnitTypeToPrefabString(" + u.ToString() + ", " + t.ToString() + ") ERROR: Unknown UnitType. Defaulting to cargobox!");
                     s += "Cargo";
                     break;
             }

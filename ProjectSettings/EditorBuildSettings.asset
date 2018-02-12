@@ -8,9 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Launcher 1.unity
     guid: 24f9739038441b7409fa27971186986d
-  - enabled: 0
-    path: Assets/MHLab/PATCH/Source/Launcher/Scenes/LauncherStyle1/Launcher.unity
-    guid: d1f4285119e9a6144abe320e8de03d85
   - enabled: 1
     path: Assets/Scenes/Playground.unity
     guid: 8129d7884e3e1d14789493b50ab9f494

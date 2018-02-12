@@ -31,7 +31,7 @@ namespace Com.Wulfram3 {
                 float maxWidth = transform.parent.GetComponent<RectTransform>().rect.width;
                 float newWidth = maxWidth * level;
                 tr.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, newWidth);
-                //Debug.Log("NEwWidth " + newWidth + " level " + level);
+                //Logger.Log("NEwWidth " + newWidth + " level " + level);
             }
         }
     }

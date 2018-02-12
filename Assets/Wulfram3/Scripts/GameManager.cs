@@ -40,13 +40,13 @@ namespace Com.Wulfram3
 
         public override void OnPhotonPlayerConnected(PhotonPlayer other)
         {
-            Debug.Log(other.NickName + " has connected. (GameManager.cs / OnPhotonPlayerConnected:43)");
+            Logger.Log(other.NickName + " has connected. (GameManager.cs / OnPhotonPlayerConnected:43)");
         }
 
 
         public override void OnPhotonPlayerDisconnected(PhotonPlayer other)
         {
-            Debug.Log(other.NickName + " has disconnected. (GameManager.cs / OnPhotonPlayerDisconnected:49)");
+            Logger.Log(other.NickName + " has disconnected. (GameManager.cs / OnPhotonPlayerDisconnected:49)");
         }
 
         public void LeaveRoom()
@@ -57,10 +57,10 @@ namespace Com.Wulfram3
 
         public void Start()
         {
-            Debug.Log("Starting GameManager.  (GameManager.cs / Start:60)");
+            Logger.Log("Starting GameManager.  (GameManager.cs / Start:60)");
             if (PlayerManager.LocalPlayerInstance == null)
             {
-                Debug.Log("Assigning Team. Active scene name: " + SceneManager.GetActiveScene().name + ". (GameManager.cs / Start:63)");
+                Logger.Log("Assigning Team. Active scene name: " + SceneManager.GetActiveScene().name + ". (GameManager.cs / Start:63)");
 
                 PunTeams.UpdateTeamsNow();
                 List<int> availableUnits = new List<int>();
@@ -79,12 +79,12 @@ namespace Com.Wulfram3
                 GameObject g = Instantiate(Resources.Load("Prefabs/SceneBase/VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
                 unitSelector = g.GetComponent<VehicleSelector>();
                 unitSelector.SetAvailableModels(availableUnits);
-                Debug.Log("Assigned to " + PhotonNetwork.player.GetTeam() + " team. Awaiting first spawn. (GameManager.cs / Start:82)");
+                Logger.Log("Assigned to " + PhotonNetwork.player.GetTeam() + " team. Awaiting first spawn. (GameManager.cs / Start:82)");
                 GetComponent<PlayerSpawnManager>().StartSpawn();
             }
             else
             {
-                Debug.Log("Local Player Was Not Null.... Investigate. (GameManager.cs / Start:87)" + SceneManager.GetActiveScene().name);
+                Logger.Log("Local Player Was Not Null.... Investigate. (GameManager.cs / Start:87)" + SceneManager.GetActiveScene().name);
             }
         }
 
@@ -277,7 +277,7 @@ namespace Com.Wulfram3
                 case UnitType.Scout: s += "Scout"; break;
                 case UnitType.Uplink: s += "Uplink"; break;
                 default:
-                    Debug.Log("UnitTypeToPrefabString(" + u.ToString() + ", " + t.ToString() + ") ERROR: Unknown UnitType. Defaulting to cargobox!");
+                    Logger.Log("UnitTypeToPrefabString(" + u.ToString() + ", " + t.ToString() + ") ERROR: Unknown UnitType. Defaulting to cargobox!");
                     s += "Cargo";
                     break;
             }
@@ -303,7 +303,7 @@ namespace Com.Wulfram3
                 PhotonView pv = PhotonView.Find(senderID);
                 if (pv == null)
                 {
-                    Debug.Log("GameManager.cs --- RPC --- RequestDropCargo() Failed to find Photon View with ID: " + senderID);
+                    Logger.Log("GameManager.cs --- RPC --- RequestDropCargo() Failed to find Photon View with ID: " + senderID);
                     return;
                 }
                 CargoManager cargoManager = pv.transform.GetComponent<CargoManager>();

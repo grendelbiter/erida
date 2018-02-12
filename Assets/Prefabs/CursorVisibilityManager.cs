@@ -17,11 +17,11 @@ namespace Com.Wulfram3 {
             if (Input.GetKeyDown(KeyCode.Escape)) {
                 Cursor.visible = !Cursor.visible;
                 UpdateLockMode();
-				Debug.Log("ESC was pressed");
+                Logger.Log("ESC was pressed");
             }
 			if (Input.GetMouseButtonDown(0)){
 				UpdateLockMode();
-				Debug.Log("Cursor locked!");
+                Logger.Log("Cursor locked!");
 			}
 		
         }

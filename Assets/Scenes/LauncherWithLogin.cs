@@ -240,7 +240,7 @@ namespace Com.Wulfram3 {
         public override void OnConnectedToMaster() {
 
 
-            Debug.Log("OnConnectedToMaster() called by PUN (LauncherWithLogin/OnConnectedToMaster:255)");
+            Logger.Log("OnConnectedToMaster() called by PUN (LauncherWithLogin/OnConnectedToMaster:255)");
             // we don't want to do anything if we are not attempting to join a room. 
             // this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
             // we don't want to do anything.
@@ -253,44 +253,44 @@ namespace Com.Wulfram3 {
 
 
         public override void OnDisconnectedFromPhoton() {
-            //Debug.Log("DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
+            //Logger.Log("DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
             //string discordURI = "https://discordapp.com/api/webhooks/389264790230532107/LgvTNdOLb28JQmtTpK1yBzam-CMAnEhDqLkmXT4CqAyP-8id8ydWisx2yz8Ga6fQ5wX2";
 
 
             //string greetdiscord = string.Format ("{0} has disconnected from Wulfram 3!", PhotonNetwork.playerName);
             //string postdiscord = "{ \"content\": \"" + greetdiscord + "\" } ";
-            //Debug.Log (postdiscord);
-            
-            //Debug.LogWarning("DemoAnimator/Launcher: OnDisconnectedFromPhoton() was called by PUN");
+            //Logger.Log (postdiscord);
+
+            //Logger.Warning("DemoAnimator/Launcher: OnDisconnectedFromPhoton() was called by PUN");
         }
 
         public override void OnPhotonRandomJoinFailed(object[] codeAndMsg) {
-            // Debug.Log("DemoAnimator/Launcher:OnPhotonRandomJoinFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom(null, new RoomOptions() {maxPlayers = 4}, null);");
-            Debug.Log("Creating Room. Max Players: " + MaxPlayersPerRoom + " (LauncherWithLogin/OnPhotonRandomJoinFailed:218)");
+            // Logger.Log("DemoAnimator/Launcher:OnPhotonRandomJoinFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom(null, new RoomOptions() {maxPlayers = 4}, null);");
+            Logger.Log("Creating Room. Max Players: " + MaxPlayersPerRoom + " (LauncherWithLogin/OnPhotonRandomJoinFailed:218)");
             // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
             PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
         }
 
 
         public override void OnJoinedRoom() {
-          
 
-            Debug.Log("Room Joined. (LauncherWithLogin/OnJoinedRoom:290)");
+
+            Logger.Log("Room Joined. (LauncherWithLogin/OnJoinedRoom:290)");
             // #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.automaticallySyncScene to sync our instance scene.
             if (PhotonNetwork.room.PlayerCount == 1) {
-                Debug.Log("Loading 'Playground'. (LauncherWithLogin/OnJoinedRoom:293)");
+                Logger.Log("Loading 'Playground'. (LauncherWithLogin/OnJoinedRoom:293)");
                 // #Critical
                 // Load the Room Level. 
                 PhotonNetwork.LoadLevel("Playground");
             } else
             {
-                Debug.Log("Syncing 'Playground'. (LauncherWithLogin/OnJoinedRoom:299)");
+                Logger.Log("Syncing 'Playground'. (LauncherWithLogin/OnJoinedRoom:299)");
             }
         }
 
         public override void OnLeftRoom()
         {
-            Debug.Log("OnLeftRoom! (LauncherWithLogin/OnLeftRoom:305)");
+            Logger.Log("OnLeftRoom! (LauncherWithLogin/OnLeftRoom:305)");
             base.OnLeftRoom();
         }
 

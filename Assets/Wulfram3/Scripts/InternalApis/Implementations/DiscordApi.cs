@@ -45,7 +45,7 @@ public class DiscordApi : IDiscordApi
 
             yield return request.Send();
 
-            Debug.Log("Status Code: " + request.responseCode);
+            Logger.Log("Status Code: " + request.responseCode);
         }
     }
 
@@ -60,7 +60,7 @@ public class DiscordApi : IDiscordApi
 
             yield return request.Send();
 
-            Debug.Log("Status Code: " + request.responseCode);
+            Logger.Log("Status Code: " + request.responseCode);
         }
     }
 }    */

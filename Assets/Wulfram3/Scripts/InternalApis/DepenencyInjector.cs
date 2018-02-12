@@ -32,12 +32,12 @@ namespace Assets.Wulfram3.Scripts.InternalApis
         {
             if (typeInstances.ContainsKey(contract))
             {
-                //Debug.Log("Resolve Instance:" + contract.Name);
+                //Logger.Log("Resolve Instance:" + contract.Name);
                 return typeInstances[contract];
             }
             else
             {
-                //Debug.Log("Resolve New:" + contract.Name);
+                //Logger.Log("Resolve New:" + contract.Name);
                 Type implementation = types[contract];
                 ConstructorInfo constructor = implementation.GetConstructors().ToList()[0];
                 ParameterInfo[] constructorParameters = constructor.GetParameters();

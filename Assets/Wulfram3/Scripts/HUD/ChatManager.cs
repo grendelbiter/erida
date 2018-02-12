@@ -27,7 +27,7 @@ namespace Assets.Wulfram3.Scripts.HUD
                 //GetChatPanelUI().Toggle();
                 isChatOpen = !isChatOpen;
 
-                Debug.Log("Return Hit:" + isChatOpen);
+                Logger.Log("Return Hit:" + isChatOpen);
                 if(isChatOpen)
                 {
                     messageBox.ActivateInputField();

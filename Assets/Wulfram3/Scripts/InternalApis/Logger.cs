@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Analytics;
@@ -18,9 +19,13 @@ public enum LogLevel
 
 public class Logger
 {
+    private static string localFolder = Path.GetDirectoryName(Application.dataPath) + @"\";
+
     private static bool consoleLog = true;
 
     private static bool analyticsLog = false;
+
+    private static bool fileLog = true;
 
     public static void ActivateConsoleLog(bool isOn)
     {
@@ -30,6 +35,11 @@ public class Logger
     public static void ActivateAnalyticsLog(bool isOn)
     {
         analyticsLog = isOn;
+    }
+
+    public static void ActivateFileLog(bool isOn)
+    {
+        fileLog = isOn;
     }
 
     public static bool Log(string message, [CallerMemberName] string callerMethodName = "", [CallerFilePath]string callerType = "", string callerMethodParameters = "")
@@ -137,6 +147,11 @@ public class Logger
             }
         }
 
+        if(fileLog)
+        {
+            var filename = GetFileName(DateTime.Now);
+            AppendToFile(msg, filename);
+        }
 
         return true;
     }
@@ -167,7 +182,38 @@ public class Logger
             });
         }
 
+        if (fileLog)
+        {
+            var filename = GetFileName(DateTime.Now);
+            AppendToFile(msg, filename);
+        }
 
         return true;
+    }
+
+    private static string GetFileName(DateTime dateTime)
+    {
+        return string.Format("{0}_{1}.{2}", "log", dateTime.ToString("yyyy_MM_dd"), "txt");
+    }
+
+    private static bool DoesFileExist(string filename)
+    {
+        return File.Exists(localFolder + filename);
+    }
+
+    private static bool AppendToFile(string data, string filename)
+    {
+        try
+        {
+            using (StreamWriter writer = File.AppendText(localFolder + filename))
+            {
+                writer.WriteLine(data);
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
     }
 }

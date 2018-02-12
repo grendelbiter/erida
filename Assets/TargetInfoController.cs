@@ -55,7 +55,7 @@ namespace Com.Wulfram3 {
 
                 if (unit == null)
                 {
-                    Debug.LogException(new Exception("GAME OBJECT IS MISSING UNIT"));
+                    Logger.Exception(new Exception("GAME OBJECT IS MISSING UNIT"));
                     TargetChanged(null);
                     return;
                 }

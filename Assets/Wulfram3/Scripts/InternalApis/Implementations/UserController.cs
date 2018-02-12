@@ -87,7 +87,7 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
         {
             PlayerPrefs.DeleteAll();
             string defaultName = "";
-            Debug.Log("defaultName:" + defaultName);
+            Logger.Log("defaultName:" + defaultName);
 
             var userString = this.player.userName;
             if (userString != "null")
@@ -107,23 +107,23 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
                         break;
                 }
 
-                Debug.Log("defaultName:" + defaultName);
+                Logger.Log("defaultName:" + defaultName);
             }
             else
             {
                 if (PlayerPrefs.HasKey("PlayerName"))
                 {
                     defaultName = PlayerPrefs.GetString("PlayerName");
-                    Debug.Log("defaultName:" + defaultName);
+                    Logger.Log("defaultName:" + defaultName);
                 }
                 else
                 {
                     defaultName = "GuestUser#" + new System.Random().Next(1, 9000);
-                    Debug.Log("defaultName:" + defaultName);
+                    Logger.Log("defaultName:" + defaultName);
                 }
             }
 
-            Debug.Log("defaultName:" + defaultName);
+            Logger.Log("defaultName:" + defaultName);
             PhotonNetwork.playerName = defaultName;
             return defaultName;
         }
@@ -133,7 +133,7 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
             socketServer = Socket.Connect(this.api.Url);
 
             socketServer.On(SystemEvents.connect, () => {
-                Debug.Log("Hello, Socket.io~");
+                Logger.Log("Hello, Socket.io~");
                 socketServer.EmitJson("handshake", JsonConvert.SerializeObject(this.player));
             });
 
@@ -142,11 +142,11 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
             });
 
             socketServer.On(SystemEvents.reconnect, (int reconnectAttempt) => {
-                Debug.Log("Hello, Again! " + reconnectAttempt);
+                Logger.Log("Hello, Again! " + reconnectAttempt);
             });
 
             socketServer.On(SystemEvents.disconnect, () => {
-                Debug.Log("Bye~");
+                Logger.Log("Bye~");
             });
         }
 

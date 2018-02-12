@@ -98,12 +98,12 @@ public class Api
             using (var client = this.CreateClient())
             {
                 var json = JsonConvert.SerializeObject(obj);
-                Debug.Log(json);
+                Logger.Log(json);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(requestUri, content);
-                Debug.Log(response.RequestMessage.RequestUri.ToString());
-                Debug.Log(response.IsSuccessStatusCode);
-                Debug.Log(response.StatusCode.ToString());
+                Logger.Log(response.RequestMessage.RequestUri.ToString());
+                Logger.Log(response.IsSuccessStatusCode.ToString());
+                Logger.Log(response.StatusCode.ToString());
                 if (response.IsSuccessStatusCode)
                 {
                     var s = await response.Content.ReadAsStringAsync();

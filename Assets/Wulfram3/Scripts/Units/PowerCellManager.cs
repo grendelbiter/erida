@@ -55,7 +55,7 @@ namespace Com.Wulfram3 {
                             if (u.needsPower && !u.hasPower && poweredObjects.Count < maxEnergy)
                             {
                                 PhotonView pv = u.transform.GetComponent<PhotonView>();
-                                //Debug.Log(transform.name + " powering " + u.transform.name + ". Units Powered: " + (poweredObjects.Count + 1));
+                                //Logger.Log(transform.name + " powering " + u.transform.name + ". Units Powered: " + (poweredObjects.Count + 1));
                                 //u.hasPower = true; // RPC should cover this line
                                 poweredObjects.Add(powerableObjects[i]);
                                 object[] o = new object[1];

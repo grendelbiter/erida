@@ -199,7 +199,7 @@ public class UnitModuleGenerator
         for (int i = 1; i <= modCount; i++)
         {
             var newItem = new UnitModule((ModuleRarity)Raritys.GetValue(random.Next(Raritys.Length)), (ModuleSlot)Slots.GetValue(random.Next(Slots.Length)));
-            Debug.Log(newItem.ToString());
+            Logger.Log(newItem.ToString());
         }
 
         

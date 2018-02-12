@@ -191,7 +191,7 @@ namespace Com.Wulfram3
                 if (myUnit.unitType == UnitType.Tank && Time.time >= pulseStamp && fuelManager.TakeFuel(fuelPerPulse))
                     CmdFirePulseShell();
                 else if (myUnit.unitType == UnitType.Scout)
-                    Debug.Log("PlayerMovementManager.cs (Line: 309) Scout Secondary Firing Detected.");
+                    Logger.Log("PlayerMovementManager.cs (Line: 309) Scout Secondary Firing Detected.");
             }
         }
 
@@ -254,12 +254,12 @@ namespace Com.Wulfram3
             PhotonView pv = PhotonView.Find(serverShellViewID);
             if (pv != null)
             {
-                Debug.Log("+++++++++++++++++++++ Got server shell photonView +++++++++++++++++++++++++++++++++");
+                Logger.Log("+++++++++++++++++++++ Got server shell photonView +++++++++++++++++++++++++++++++++");
                 serverShell = pv.gameObject;
                 serverShell.GetComponent<SplashProjectileController>().Hide();
             } else
             {
-                Debug.LogError("Failed to find server shell photonView");
+                Logger.Error("Failed to find server shell photonView");
             }
         }
 

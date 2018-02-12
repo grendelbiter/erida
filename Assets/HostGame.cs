@@ -41,14 +41,14 @@ public class HostGame : MonoBehaviour {
     {
         if (success)
         {
-            Debug.Log("Create match succeeded");
+            Logger.Log("Create match succeeded");
             matchCreated = true;
             Utility.SetAccessTokenForNetwork(responseData.networkId, responseData.accessToken);
             NetworkServer.Listen(responseData, 9000);
         }
         else
         {
-            Debug.LogError("Create match failed");
+            Logger.Error("Create match failed");
         }
     }
 
@@ -64,10 +64,10 @@ public class HostGame : MonoBehaviour {
     {
         if (success)
         {
-            Debug.Log("Join match succeeded");
+            Logger.Log("Join match succeeded");
             if (matchCreated)
             {
-                Debug.LogWarning("Match already set up, aborting...");
+                Logger.Warning("Match already set up, aborting...");
                 return;
             }
             Utility.SetAccessTokenForNetwork(responseData.networkId, responseData.accessToken);
@@ -77,18 +77,18 @@ public class HostGame : MonoBehaviour {
         }
         else
         {
-            Debug.LogError("Join match failed");
+            Logger.Error("Join match failed");
         }
     }
 
     //public void OnMatchCreate(CreateMatchResponse matchResponse) {
     //    if (matchResponse.success) {
-    //        Debug.Log("Create match succeeded");
+    //        Logger.Log("Create match succeeded");
     //        matchCreated = true;
     //        Utility.SetAccessTokenForNetwork(matchResponse.networkId, new NetworkAccessToken(matchResponse.accessTokenString));
     //        NetworkServer.Listen(new MatchInfo(matchResponse), 9000);
     //    } else {
-    //        Debug.LogError("Create match failed");
+    //        Logger.Error("Create match failed");
     //    }
     //}
 
@@ -100,7 +100,7 @@ public class HostGame : MonoBehaviour {
 
     //public void OnMatchJoined(JoinMatchResponse matchJoin) {
     //    if (matchJoin.success) {
-    //        Debug.Log("Join match succeeded");
+    //        Logger.Log("Join match succeeded");
     //        if (matchCreated) {
     //            Debug.LogWarning("Match already set up, aborting...");
     //            return;
@@ -110,11 +110,11 @@ public class HostGame : MonoBehaviour {
     //        myClient.RegisterHandler(MsgType.Connect, OnConnected);
     //        myClient.Connect(new MatchInfo(matchJoin));
     //    } else {
-    //        Debug.LogError("Join match failed");
+    //       Logger.Error("Join match failed");
     //    }
     //}
 
     public void OnConnected(NetworkMessage msg) {
-        Debug.Log("Connected!");
+        Logger.Log("Connected!");
     }
 }
