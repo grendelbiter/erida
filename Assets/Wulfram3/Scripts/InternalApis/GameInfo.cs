@@ -10,19 +10,19 @@ public static class GameInfo
 
     public static string Version()
     {
-        clientFile.OpenClientFile(@"client.wyc");
+        clientFile.OpenClientFile(@"../client.wyc");
         return clientFile.InstalledVersion;
     }
 
     public static string CompanyName()
     {
-        clientFile.OpenClientFile(@"client.wyc");
+        clientFile.OpenClientFile(@"../client.wyc");
         return clientFile.CompanyName;
     }
 
     public static string ProductName()
     {
-        clientFile.OpenClientFile(@"client.wyc");
+        clientFile.OpenClientFile(@"../client.wyc");
         return clientFile.ProductName;
     }
 }
