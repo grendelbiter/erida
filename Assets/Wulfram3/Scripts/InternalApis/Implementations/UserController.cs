@@ -41,6 +41,7 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
             if(result.message == "Login Complete!")
             {
                 this.player = result.Result;
+                this.GetWulframPlayerData();
                 SetupSocketConnection();
                 return this.player;
             }
@@ -125,6 +126,7 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
 
             Logger.Log("defaultName:" + defaultName);
             PhotonNetwork.playerName = defaultName;
+            PhotonNetwork.player.NickName = defaultName;
             return defaultName;
         }
 
