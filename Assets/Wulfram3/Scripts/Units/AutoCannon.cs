@@ -170,12 +170,9 @@ namespace Com.Wulfram3 {
                 if (Physics.Linecast(rayOrigin, targetPoint, out hit)) {
                     bulletHitPoint = hit.point;
                     if (hit.transform && ValidTarget(hit.transform))
-                    {
                         AudioSource.PlayClipAtPoint(hitSound, hit.point);
-                    } else
-                    {
+                    else
                         AudioSource.PlayClipAtPoint(missSound, targetPoint);
-                    }
                 }
                 else {
                     bulletHitPoint = targetPoint;

@@ -62,6 +62,9 @@ namespace Com.Wulfram3
 
         private PlayerMotionController PMC;
 
+        private GameObject localShell;
+        private bool gotServerShell = false;
+
         void Start()
         {
         }
@@ -173,7 +176,7 @@ namespace Com.Wulfram3
         {
             if (InputEx.GetAxisRaw("Fire2") != 0)
             {
-                if (myUnit.unitType == UnitType.Tank && Time.time >= pulseStamp && fuelManager.TakeFuel(fuelPerPulse))
+                if (myUnit.unitType == UnitType.Tank && localShell == null && Time.time >= pulseStamp && fuelManager.TakeFuel(fuelPerPulse))
                     CmdFirePulseShell();
                 else if (myUnit.unitType == UnitType.Scout)
                     Logger.Log("PlayerMovementManager.cs (Line: 309) Scout Secondary Firing Detected.");
@@ -183,6 +186,7 @@ namespace Com.Wulfram3
         void Update()
         {
             CheckIsDead();
+
 
             if (!photonView.isMine || PMC == null)
             {
@@ -202,11 +206,16 @@ namespace Com.Wulfram3
                 if (PMC.receiveInput)
                     PMC.receiveInput = false;
             }
+            if (localShell != null && gotServerShell)
+            {
+                Destroy(localShell);
+                localShell = null;
+            }
         }
 
         void CmdFirePulseShell()
         {
-
+            pulseStamp = Time.time + timeBetweenPulse;
             Vector3 v = myRigidbody.velocity + (gunEnd.forward * SplashProjectileController.PulseVelocity);
             object[] args = new object[6];
             args[0] = gunEnd.position;
@@ -215,12 +224,19 @@ namespace Com.Wulfram3
             args[3] = v;
             args[4] = this.photonView.viewID;
             args[5] = Time.time;
-            gameManager.photonView.RPC("SpawnPulseShell", PhotonTargets.All, args);
+            localShell = (GameObject) Instantiate(Resources.Load("Prefabs/Weapons/DummyPulse_" + myUnit.unitTeam), gunEnd.position, gunEnd.rotation);
+            localShell.GetComponent<Rigidbody>().velocity = v;
+            gotServerShell = false;
+            gameManager.photonView.RPC("SpawnPulseShell", PhotonTargets.MasterClient, args);
             if (!PMC.isGrounded)
                 myRigidbody.AddForce(-transform.forward * pulseShellFiringImpulse, ForceMode.Impulse);
-            pulseStamp = Time.time + timeBetweenPulse;
         }
 
+        [PunRPC]
+        public void PulseConfirmed(float t)
+        {
+            gotServerShell = true;
+        }
 
         public void FixedUpdate()
         {

@@ -73,4 +73,5 @@ MonoBehaviour:
   - SyncTeam
   - SyncUnit
   - SpawnPlayer
+  - PulseConfirmed
   DisableAutoOpenWizard: 1

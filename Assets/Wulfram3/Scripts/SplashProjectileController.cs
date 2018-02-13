@@ -105,9 +105,7 @@ namespace Com.Wulfram3 {
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 if (rb.velocity != velocity)
-                {
                     SplashDetonation();
-                }
             }
         }
 

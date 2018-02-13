@@ -12,10 +12,6 @@ namespace Com.Wulfram3
         public float hitpointRegenPerSecond = 0.3f;
         public bool needsPower = false;
 
-        //[HideInInspector]
-        //public float playerLandedBoost = 2.65f;
-        //[HideInInspector]
-        //public float repairPadBoost = 75f;
         [HideInInspector]
         public int health;
         [HideInInspector]
@@ -81,21 +77,6 @@ namespace Com.Wulfram3
                 syncHpStamp = Time.time + 1f;
                 photonView.RPC("UpdateHealth", PhotonTargets.All, health);
             }
-            /*
-            if (PhotonNetwork.isMasterClient)
-            {
-                if (Time.time > syncTeamStamp)
-                {
-                    syncTeamStamp = Time.time + 2f;
-                    SyncTeam(unitTeam);
-                }
-                if (Time.time > syncUnitStamp)
-                {
-                    syncUnitStamp = Time.time + 5f;
-                    SyncUnit(unitType);
-                }
-            }
-            */
         }
 
         [PunRPC]

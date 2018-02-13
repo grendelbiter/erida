@@ -28,10 +28,11 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
 
         public WulframPlayer GetWulframPlayerData()
         {
-            if(string.IsNullOrEmpty(player.userName))
-            {
+            //Logger.Log("==========================" + player.userName);
+            //if(string.IsNullOrEmpty(player.userName))
+            //{
                 this.player.userName = GetUsername();
-            }
+            //}
             return player;
         }
 
@@ -88,7 +89,7 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
         {
             PlayerPrefs.DeleteAll();
             string defaultName = "";
-            Logger.Log("defaultName:" + defaultName);
+            //Logger.Log("defaultName:" + defaultName);
 
             var userString = this.player.userName;
             if (userString != "null")
@@ -108,19 +109,19 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
                         break;
                 }
 
-                Logger.Log("defaultName:" + defaultName);
+                Logger.Log("userString NOT Null. defaultName:" + defaultName + " userString: " + userString);
             }
             else
             {
                 if (PlayerPrefs.HasKey("PlayerName"))
                 {
                     defaultName = PlayerPrefs.GetString("PlayerName");
-                    Logger.Log("defaultName:" + defaultName);
+                    Logger.Log("userString is null. Found player prefs. defaultName:" + defaultName);
                 }
                 else
                 {
                     defaultName = "GuestUser#" + new System.Random().Next(1, 9000);
-                    Logger.Log("defaultName:" + defaultName);
+                    Logger.Log("userString is null. Did not find player prefs. defaultName:" + defaultName);
                 }
             }
 
