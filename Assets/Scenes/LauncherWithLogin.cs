@@ -101,21 +101,12 @@ namespace Com.Wulfram3 {
         /// </summary>
         void Start() {
             DepenencyInjector.SetupInjection();
-            this.SetUserName();
-            //discordApi = DepenencyInjector.Resolve<IDiscordApi>();
             progressLabel.SetActive(false);
             loadingSpinner.SetActive(false);
             controlPanel.SetActive(true);
             registrationPanel.SetActive(false);
             errorLabel.SetActive(false);
 			versionLabel.GetComponent<UnityEngine.UI.Text>().text = "Version " + GameInfo.Version();
-        }
-
-
-        private void SetUserName()
-        {
-            var userController = DepenencyInjector.Resolve<IUserController>();
-            PhotonNetwork.playerName = userController.GetWulframPlayerData().userName;
         }
 
         #endregion
@@ -135,7 +126,6 @@ namespace Com.Wulfram3 {
             progressLabel.SetActive(true);
             loadingSpinner.SetActive(true);
             controlPanel.SetActive(true);
-            //StartCoroutine(discordApi.PlayerJoined(PhotonNetwork.playerName));
             
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
             if (PhotonNetwork.connected) {
@@ -220,12 +210,6 @@ namespace Com.Wulfram3 {
             //Get the GUIText Component attached to that GameObject named Best
             errorLabel.GetComponent<UnityEngine.UI.Text>().text = message;
         }
-
-        ////private void RegisterUserCompleted(string obj)
-        ////{
-        ////    DepenencyInjector.Resolve<IUserController>().RegisterUserCompleted -= RegisterUserCompleted;
-            
-        ////}
 
         public void Quit() {
             Application.Quit();

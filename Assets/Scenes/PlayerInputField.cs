@@ -30,17 +30,17 @@ namespace Com.Wulfram3 {
         void Start() {
 
 
-            string defaultName = "";
-            InputField _inputField = this.GetComponent<InputField>();
-            if (_inputField != null) {
-                if (PlayerPrefs.HasKey(playerNamePrefKey)) {
-                    defaultName = PlayerPrefs.GetString(playerNamePrefKey);
-                    _inputField.text = defaultName;
-                }
-            }
+            //string defaultName = "";
+            //InputField _inputField = this.GetComponent<InputField>();
+            //if (_inputField != null) {
+            //    if (PlayerPrefs.HasKey(playerNamePrefKey)) {
+            //        defaultName = PlayerPrefs.GetString(playerNamePrefKey);
+            //        _inputField.text = defaultName;
+            //    }
+            //}
 
 
-            PhotonNetwork.playerName = defaultName;
+            //PhotonNetwork.playerName = defaultName;
         }
 
 
@@ -55,11 +55,11 @@ namespace Com.Wulfram3 {
         /// </summary>
         /// <param name="value">The name of the Player</param>
         public void SetPlayerName(string value) {
-            // #Important
-            PhotonNetwork.playerName = value + " "; // force a trailing space string in case value is an empty string, else playerName would not be updated.
+            //// #Important
+            //PhotonNetwork.playerName = value + " "; // force a trailing space string in case value is an empty string, else playerName would not be updated.
 
 
-            PlayerPrefs.SetString(playerNamePrefKey, value);
+            //PlayerPrefs.SetString(playerNamePrefKey, value);
         }
 
 
