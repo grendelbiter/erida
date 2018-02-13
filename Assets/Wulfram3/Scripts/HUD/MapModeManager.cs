@@ -10,9 +10,7 @@ using UnityEngine;
 public class MapModeManager : MonoBehaviour {
 
     public GameObject MasterHUD;
-
     public GameObject MapModeHUD;
-
     public GameObject SpawnModeHUD;
 
     public GameObject MapCenter;
@@ -20,12 +18,10 @@ public class MapModeManager : MonoBehaviour {
 
     public KGFMapSystem itsMapSystem;
 
-
-
     private MapType currentMapType;
     // Use this for initialization
     void Start () {
-        //this.ActivateMapMode(MapType.Mini);
+        this.ActivateMapMode(MapType.Spawn);
         itsMapSystem.EventMouseMapIconClicked += OnMapMarkerClicked;
     }
 	
