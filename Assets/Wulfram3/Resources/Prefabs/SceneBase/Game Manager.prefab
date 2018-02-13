@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1236896065373562}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 190.72533, y: 136.1713, z: 300.61142}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownText: {fileID: 0}
+  countdownPanel: {fileID: 0}
 --- !u!114 &114862974064839530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,6 +123,8 @@ MonoBehaviour:
   MasterHUD: {fileID: 0}
   MapModeHUD: {fileID: 0}
   SpawnModeHUD: {fileID: 0}
+  MapCenter: {fileID: 0}
+  SpawnCenter: {fileID: 0}
   itsMapSystem: {fileID: 0}
 --- !u!114 &114920981723957040
 MonoBehaviour:

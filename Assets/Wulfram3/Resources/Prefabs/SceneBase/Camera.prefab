@@ -21,10 +21,7 @@ GameObject:
   - component: {fileID: 4424874314559852}
   - component: {fileID: 20577728397901006}
   - component: {fileID: 124591334287169702}
-  - component: {fileID: 92119831654878524}
   - component: {fileID: 81328418897381164}
-  - component: {fileID: 45079840609718236}
-  - component: {fileID: 114782673776407830}
   - component: {fileID: 114469507755975574}
   m_Layer: 0
   m_Name: Camera
@@ -71,7 +68,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294966239
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -82,23 +79,8 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!45 &45079840609718236
-Skybox:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1538391925533822}
-  m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: a4f78a684965a2d4bbc20a4b86231606, type: 2}
 --- !u!81 &81328418897381164
 AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1538391925533822}
-  m_Enabled: 1
---- !u!92 &92119831654878524
-Behaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -116,20 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 99347d157434e234abae9f083b57fd22, type: 2}
---- !u!114 &114782673776407830
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1538391925533822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e23c6dd63ee3df746907c41141f3bfaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lineMaterial: {fileID: 2100000, guid: 982b0c6dd4bcd894b9576f123b17edd3, type: 2}
-  lColor: {r: 0.11724138, g: 1, b: 0, a: 1}
-  colors: []
 --- !u!124 &124591334287169702
 Behaviour:
   m_ObjectHideFlags: 1

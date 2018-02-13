@@ -57,7 +57,7 @@ namespace Com.Wulfram3
 
         public void Start()
         {
-            Logger.Log("Starting GameManager.  (GameManager.cs / Start:60)");
+            //Logger.Log("Starting GameManager.  (GameManager.cs / Start:60)");
             if (PlayerManager.LocalPlayerInstance == null)
             {
                 Logger.Log("Assigning Team. Active scene name: " + SceneManager.GetActiveScene().name + ". (GameManager.cs / Start:63)");
@@ -79,12 +79,12 @@ namespace Com.Wulfram3
                 GameObject g = Instantiate(Resources.Load("Prefabs/SceneBase/VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
                 unitSelector = g.GetComponent<VehicleSelector>();
                 unitSelector.SetAvailableModels(availableUnits);
-                Logger.Log("Assigned to " + PhotonNetwork.player.GetTeam() + " team. Awaiting first spawn. (GameManager.cs / Start:82)");
+                Logger.Log(PhotonNetwork.player.NickName + " assigned to " + PhotonNetwork.player.GetTeam() + " team. Awaiting first spawn. (GameManager.cs / Start:82)");
                 GetComponent<PlayerSpawnManager>().StartSpawn();
             }
             else
             {
-                Logger.Log("Local Player Was Not Null.... Investigate. (GameManager.cs / Start:87)" + SceneManager.GetActiveScene().name);
+                Logger.Log("Local Player Was Not Null.... Investigate. (GameManager.cs / Start:87) " + SceneManager.GetActiveScene().name);
             }
         }
 
@@ -96,21 +96,27 @@ namespace Com.Wulfram3
             o[0] = ownerID;
             o[1] = PhotonNetwork.player.GetTeam();
             o[2] = meshID;
-            GameObject player = PhotonNetwork.Instantiate("Prefabs/Player/Player", pos, rot, 0, o);
+            PhotonNetwork.Instantiate("Prefabs/Player/Player", pos, rot, 0, o);
         }
 
         [PunRPC]
-        public void SpawnPulseShell(Vector3 pos, Quaternion rot, PunTeams.Team team, Vector3 vel, int senderID, PhotonMessageInfo info)
+        public void SpawnPulseShell(Vector3 pos, Quaternion rot, PunTeams.Team team, Vector3 vel, int senderID, float fireTime, PhotonMessageInfo info)
         {
+            PhotonView senderPV = PhotonView.Find(senderID);
+            if (senderPV == null)
+            {
+                Logger.Log("SpawnPulseShell could not find photonView for senderID.");
+                return;
+            }
             if (PhotonNetwork.isMasterClient)
             {
-                object[] instanceData = new object[3];
+                pos = pos + (vel * (Time.time - fireTime));
+                object[] instanceData = new object[4];
                 instanceData[0] = team;
                 instanceData[1] = UnitType.Tank;
                 instanceData[2] = vel;
-                PhotonView senderPV = PhotonView.Find(senderID);
-                GameObject shell = PhotonNetwork.InstantiateSceneObject("Prefabs/Weapons/PulseShell", pos, rot, 0, instanceData);
-                senderPV.RPC("DestroyLocalShell", info.sender, shell.GetPhotonView().viewID);
+                instanceData[3] = Time.time;
+                PhotonNetwork.Instantiate("Prefabs/Weapons/PulseShell", pos, rot, 0, instanceData);
             }
         }
 
@@ -118,10 +124,11 @@ namespace Com.Wulfram3
         {
             if (PhotonNetwork.isMasterClient)
             {
-                object[] instanceData = new object[3];
+                object[] instanceData = new object[4];
                 instanceData[0] = team;
                 instanceData[1] = UnitType.FlakTurret;
                 instanceData[2] = fuse;
+                instanceData[3] = Time.time;
                 PhotonNetwork.InstantiateSceneObject("Prefabs/Weapons/PulseShell", pos, rotation, 0, instanceData);
             }
         }
@@ -277,7 +284,7 @@ namespace Com.Wulfram3
                 case UnitType.Scout: s += "Scout"; break;
                 case UnitType.Uplink: s += "Uplink"; break;
                 default:
-                    Logger.Log("UnitTypeToPrefabString(" + u.ToString() + ", " + t.ToString() + ") ERROR: Unknown UnitType. Defaulting to cargobox!");
+                    Debug.Log("UnitTypeToPrefabString(" + u.ToString() + ", " + t.ToString() + ") ERROR: Unknown UnitType. Defaulting to cargobox!");
                     s += "Cargo";
                     break;
             }
