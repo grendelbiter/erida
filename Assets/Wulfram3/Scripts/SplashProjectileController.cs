@@ -60,7 +60,6 @@ namespace Com.Wulfram3 {
             else
             {
                 velocity = (Vector3)instanceData[2];
-                transform.position = transform.position + (velocity * (Time.time - (float)instanceData[3]));
                 directDamage = PulseDirectDamage;
                 splashRadius = PulseSplashRadius;
                 flakShell.gameObject.SetActive(false);

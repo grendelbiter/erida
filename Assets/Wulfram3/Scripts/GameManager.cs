@@ -100,31 +100,23 @@ namespace Com.Wulfram3
         }
 
         [PunRPC]
-        public void SpawnPulseShell(Vector3 pos, Quaternion rot, PunTeams.Team team, Vector3 vel, int senderID, float fireTime, PhotonMessageInfo info)
+        public void SpawnPulseShell(Vector3 pos, Quaternion rot, PunTeams.Team team, Vector3 vel, int senderID, double fireTime, PhotonMessageInfo info)
         {
             PhotonView senderPV = PhotonView.Find(senderID);
             if (senderPV == null)
             {
                 Logger.Log("SpawnPulseShell could not find photonView for senderID.");
                 return;
-            } else
-            {
-                Logger.Log(info.sender.NickName + " sent request for pulse from photon view ID: " + senderID);
             }
             if (PhotonNetwork.isMasterClient)
             {
-                //PlayerManager senderManager = senderPV.GetComponent<PlayerManager>();
-                //pos = senderManager.gunEnd.position;
-                //rot = senderManager.gunEnd.rotation;
-                //Logger.Log(pos + " " + (Time.time - fireTime) + " " + vel + " " + (vel * (Time.time - fireTime)));
-                pos = pos + (vel * ((Time.time - fireTime)/1000f));
-                object[] instanceData = new object[4];
+                float delay = (float) (PhotonNetwork.time - fireTime);
+                pos = pos + (vel * delay);
+                object[] instanceData = new object[3];
                 instanceData[0] = team;
                 instanceData[1] = UnitType.Tank;
                 instanceData[2] = vel;
-                instanceData[3] = Time.time;
                 PhotonNetwork.Instantiate("Prefabs/Weapons/PulseShell", pos, rot, 0, instanceData);
-                Logger.Log("Created Network Pulse Shell: " + team);
                 senderPV.RPC("PulseConfirmed", info.sender, Time.time);
             }
         }

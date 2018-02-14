@@ -223,7 +223,7 @@ namespace Com.Wulfram3
             args[2] = myUnit.unitTeam;
             args[3] = v;
             args[4] = this.photonView.viewID;
-            args[5] = Time.time;
+            args[5] = PhotonNetwork.time;
             localShell = (GameObject) Instantiate(Resources.Load("Prefabs/Weapons/DummyPulse_" + myUnit.unitTeam), gunEnd.position, gunEnd.rotation);
             localShell.GetComponent<Rigidbody>().velocity = v;
             gotServerShell = false;
