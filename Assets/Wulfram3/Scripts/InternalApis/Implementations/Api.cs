@@ -16,6 +16,30 @@ public class Api
 
     //public string Url { get { return "http://localhost:8080"; } }
 
+    public async Task<bool> Startup()
+    {
+        try
+        {
+            using (var client = this.CreateClient())
+            {
+                var response = await client.GetAsync("/");
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        catch (Exception)
+        {
+
+            return false;
+        }
+    }
+
     public async Task<ApiResult<WulframPlayer>> Login(string username, string password)
     {
         var result = await this.MakePostRequest<WulframPlayer>("/api/v1/player/login", new { username = username, password = password });
@@ -44,7 +68,7 @@ public class Api
         return client;
     }
 
-    private async Task<ApiResult<T>> MakeGetRequest<T>(string requestUri, bool sendPlainToken = false)
+    private async Task<ApiResult<T>> MakeGetRequest<T>(string requestUri)
     {
         var endResult = new ApiResult<T>();
         try

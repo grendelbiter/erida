@@ -99,7 +99,9 @@ namespace Com.Wulfram3 {
         /// <summary>
         /// MonoBehaviour method called on GameObject by Unity during initialization phase.
         /// </summary>
-        void Start() {
+        async void Start() {
+            var api = new Api();
+            await api.Startup();
             DepenencyInjector.SetupInjection();
             progressLabel.SetActive(false);
             loadingSpinner.SetActive(false);
