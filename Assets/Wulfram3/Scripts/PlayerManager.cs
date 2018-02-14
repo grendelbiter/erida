@@ -166,7 +166,7 @@ namespace Com.Wulfram3
                 {
                     GetComponent<CameraManager>().Detach();
                     gameManager.GetComponent<PlayerSpawnManager>().StartSpawn();
-                    gameManager.SpawnExplosion(transform.position);
+                    gameManager.SpawnExplosion(transform.position, myUnit.unitType);
                     PhotonNetwork.Destroy(gameObject);
                 }
             }

@@ -39,6 +39,8 @@ namespace Com.Wulfram3 {
 
         private Vector3 parentVelocity = Vector3.zero;
 
+        private bool Collided = false;
+
         // Use this for initialization
         void Start() {
             object[] instanceData = transform.GetComponent<PhotonView>().instantiationData;
@@ -88,7 +90,7 @@ namespace Com.Wulfram3 {
 
         // Update is called once per frame
         void Update() {
-            if (PhotonNetwork.isMasterClient) // Force masterclient control of time based detonation
+            if (PhotonNetwork.isMasterClient && !Collided) // Force masterclient control of time based detonation
             {
                 lifetimer += Time.deltaTime;
                 if (lifetimer >= lifetime)
@@ -100,7 +102,7 @@ namespace Com.Wulfram3 {
 
         private void FixedUpdate()
         {
-            if (PhotonNetwork.isMasterClient) // Force masterclient control of velocity base detonation
+            if (PhotonNetwork.isMasterClient && !Collided) // Force masterclient control of velocity base detonation
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 if (rb.velocity != velocity)
@@ -111,7 +113,7 @@ namespace Com.Wulfram3 {
         void DoEffects(Vector3 pos)
         {
             // We should not get here unless we are masterclient (See Update(), OnCollisionEnter())
-            gameManager.SpawnExplosion(pos);
+            gameManager.SpawnExplosion(pos, UnitType.Other);
             PhotonNetwork.Destroy(gameObject);
         }
 
@@ -148,7 +150,8 @@ namespace Com.Wulfram3 {
         }
 
         void OnCollisionEnter(Collision col) {
-            if (PhotonNetwork.isMasterClient) { // Force masterclient handling of damage and effects
+            if (PhotonNetwork.isMasterClient && !Collided) { // Force masterclient handling of damage and effects
+                Collided = true;
                 Vector3 hitPosition = col.contacts[0].point;
                 Collider[] splashedObjects = Physics.OverlapSphere(hitPosition, splashRadius);
                 DoEffects(hitPosition);

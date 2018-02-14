@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4158791956363240}
   - component: {fileID: 54016539532244002}
   - component: {fileID: 64042466283334094}
+  - component: {fileID: 135175813000817284}
   - component: {fileID: 114615072362485038}
   - component: {fileID: 114962400409728516}
   - component: {fileID: 114785928969885974}
@@ -45,7 +46,6 @@ GameObject:
   - component: {fileID: 114326209272873272}
   - component: {fileID: 114565071399756858}
   - component: {fileID: 114505290726133816}
-  - component: {fileID: 135175813000817284}
   - component: {fileID: 114929038044930590}
   m_Layer: 12
   m_Name: Blue_FlakTurret
@@ -105,22 +105,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1905362117030096
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4256304017170262}
-  - component: {fileID: 108218754846850432}
-  m_Layer: 12
-  m_Name: Spotlight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1994935625663766
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +143,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4256304017170262}
   - {fileID: 4598439745738284}
   - {fileID: 4267394043282246}
   m_Father: {fileID: 4158791956363240}
@@ -172,7 +155,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1218067634496980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.605549, y: 35.48461, z: 27.835062}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4044621858681710}
@@ -181,19 +164,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4256304017170262
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1905362117030096}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 1.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4089589337933548}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4267394043282246
 Transform:
   m_ObjectHideFlags: 1
@@ -205,7 +175,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.19999999}
   m_Children: []
   m_Father: {fileID: 4089589337933548}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4575732443432028
 Transform:
@@ -231,7 +201,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4089589337933548}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23392909733682922
 MeshRenderer:
@@ -413,42 +383,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!108 &108218754846850432
-Light:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1905362117030096}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 0
-  m_Color: {r: 0.27450982, g: 0.39215687, b: 1, a: 1}
-  m_Intensity: 3
-  m_Range: 100
-  m_SpotAngle: 20
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 2
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 0.3
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 2800000, guid: c3b58c87744e708488243a9c886be559, type: 3}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!114 &114326209272873272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -542,10 +476,10 @@ MonoBehaviour:
   maxHealth: 550
   hitpointRegenPerSecond: 0.3
   needsPower: 1
-  playerLandedBoost: 2.65
-  repairPadBoost: 75
   health: 0
   hasPower: 0
+  isDead: 0
+  needsUpdate: 1
 --- !u!114 &114785928969885974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -660,5 +594,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 250
+  m_Radius: 100
   m_Center: {x: 0, y: 0, z: 0}

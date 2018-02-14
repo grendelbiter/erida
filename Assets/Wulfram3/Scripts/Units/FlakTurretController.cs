@@ -8,8 +8,8 @@ namespace Com.Wulfram3 {
 
         // Settings
         public Transform gunEnd;  // Needs to be set in inspector, empty transform, where projectiles spawn
-        private float rangeMax = 250f; // Targets beyond this range will be discarded (Note: FlakTurret prefabs also employ a sphere trigger to track targetList)
-        private float rangeMin = 25f;  // Targets below this range will be ignored
+        private float rangeMax = 100f; // Targets beyond this range will be discarded (Note: FlakTurret prefabs also employ a sphere trigger to track targetList)
+        private float rangeMin = 10f;  // Targets below this range will be ignored
         private float fireDelay = 1.8f; // Delay between each three round burst
         private float shellDelay = 0.4f; // Delay between shells
         private float turnSpeed = 60; // This value should be high to make sure turrets can intercept fast moving targets
@@ -18,7 +18,6 @@ namespace Com.Wulfram3 {
         // Internal vars
         private List<GameObject> targetList = new List<GameObject>();
         private int shellCountCurrent = 0;
-        private int shellVelocity = 0;
         private float fireStamp;
         private GameManager gameManager;
         private Transform currentTarget = null;
@@ -33,7 +32,6 @@ namespace Com.Wulfram3 {
         // Use this for initialization
         private void Awake()
         {
-            shellVelocity = SplashProjectileController.FlakVelocity;
             gameManager = FindObjectOfType<GameManager>();
             myUnit = GetComponent<Unit>();
             team = transform.GetComponent<Unit>().unitTeam;
@@ -48,9 +46,7 @@ namespace Com.Wulfram3 {
         void Update() {
             if (myUnit.hasPower)
             {
-                if (currentTarget == null)
-                    FindTarget();
-                // In case target is found above
+                FindTarget();
                 if (currentTarget != null)
                 {
                     TurnTowardsCurrentTarget();
@@ -70,76 +66,52 @@ namespace Com.Wulfram3 {
         }
 
         private void FindTarget() {
+            if (currentTarget != null && shellCountCurrent > 0)
+                return;
             // Clean target list, find new nearest target
-            Transform closestTarget = null;
+            Transform closestVisibleTarget = null;
             Unit closestType = null;
-            float minDistance       = rangeMax;
+            float minDistance = rangeMax * rangeMax; // We'll save some overhead comparing square distance instead of true distance
             for (int i = targetList.Count-1; i>=0; i--) {
-                if (targetList[i] == null)
+                float tgtSqrDistance = (targetList[i].transform.position - transform.position).sqrMagnitude;
+                if (targetList[i] == null || !ValidTarget(targetList[i].transform) || tgtSqrDistance > minDistance)
                 {
                     targetList.RemoveAt(i);
                 }
                 else
                 {
-                    float distance = Vector3.Distance(transform.position, targetList[i].transform.position);
-                    if (distance < rangeMax && distance > rangeMin)
+                    RaycastHit hit;
+                    Physics.Raycast(gunEnd.position, gunEnd.forward, out hit, rangeMax);
+                    if (hit.transform != null && ValidTarget(hit.transform))
                     {
-                        if (closestTarget != null && closestType != null && targetList[i].transform.GetComponent<Unit>() == null)
+                        tgtSqrDistance = (hit.transform.position - transform.position).sqrMagnitude;
+                        if (tgtSqrDistance > (rangeMin * rangeMin) && tgtSqrDistance < minDistance)
                         {
-                            closestTarget = targetList[i].transform;
-                            minDistance = distance;
-                        }
-                        else if (distance < minDistance)
-                        {
-                            minDistance = distance;
-                            closestTarget = targetList[i].transform;
+                            minDistance = tgtSqrDistance;
+                            closestVisibleTarget = targetList[i].transform;
                         }
                     }
                 }
             }
-            currentTarget = closestTarget;
+            currentTarget = closestVisibleTarget;
         }
 
         private void TurnTowardsCurrentTarget()
         {
-            currentIntercept = getInterceptPoint(gunEnd.position, GetComponent<Rigidbody>().velocity, shellVelocity, currentTarget.position, currentTarget.GetComponent<Rigidbody>().velocity);
+            currentIntercept = getInterceptPoint(gunEnd.position, GetComponent<Rigidbody>().velocity, SplashProjectileController.FlakVelocity, currentTarget.position, currentTarget.GetComponent<Rigidbody>().velocity);
             Vector3 lookPos = currentIntercept - transform.position;
             Quaternion rotation = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * turnSpeed);
         }
 
-        private bool CheckTargetOnSight(Transform t)
-        {
-            RaycastHit hit;
-            Physics.Raycast(gunEnd.position, gunEnd.transform.forward, out hit);
-            if (hit.transform == null) // Air, good to fire
-            {
-                return true;
-            }
-            float diff = Vector3.Distance(hit.transform.position, getInterceptPoint(gunEnd.position, GetComponent<Rigidbody>().velocity, shellVelocity, t.position, t.GetComponent<Rigidbody>().velocity));
-            if (diff < (SplashProjectileController.FlakSplashRadius-2) && diff > -(SplashProjectileController.FlakSplashRadius-2)) // Close enough, fire
-            {
-                return true;
-            }
-            if (hit.transform && ValidTarget(hit.transform)) // It might not be our target, but it is a valid target, fire
-            {
-                return true;
-            }
-            ResetTarget(); // Drop target
-            return false;
-        }
-
         private void FireAtTarget()
         {
-            // If we have a target and see intercept point, or have already started firing a salvo
-            if ((currentTarget != null && CheckTargetOnSight(currentTarget)) || shellCountCurrent > 0)
+            if (currentTarget != null && shellCountCurrent > 0)
             {
                 if (Time.time > fireStamp) // And have "reloaded"
                 {
                     if (interceptTime <= 0.01f)
-                    {
                         interceptTime = 12f;
-                    }
                     if (shellCountCurrent < shellCount) // And have ammo
                     {
                         gameManager.SpawnFlakShell(gunEnd.position, gunEnd.rotation, team, interceptTime);
@@ -161,15 +133,9 @@ namespace Com.Wulfram3 {
             // Check for both units and projectiles, further checks will probably be needed for other projectiles
             // Does not affect target priority
             Unit u = t.GetComponent<Unit>();
-            if (u != null && u.unitTeam != team)
-            {
-                return true;
-            }
             SplashProjectileController p = t.GetComponent<SplashProjectileController>();
-            if (p != null && p.team != team)
-            {
+            if ((u != null && u.unitTeam != team) || (p != null && p.team != team))
                 return true;
-            }
             return false;
         }
 
@@ -201,13 +167,9 @@ namespace Com.Wulfram3 {
                 if (t1 > 0f)
                 {
                     if (t2 > 0f)
-                    {
                         return Mathf.Min(t1, t2);
-                    }
                     else
-                    {
                         return t1;
-                    }
                 }
                 else
                 {
@@ -227,28 +189,19 @@ namespace Com.Wulfram3 {
         void OnTriggerEnter(Collider other)
         {
             if (PhotonNetwork.isMasterClient && started && !targetList.Contains(other.gameObject) && ValidTarget(other.gameObject.transform))
-            {
                 targetList.Add(other.gameObject);
-            }
         }
 
         void OnTriggerStay(Collider other)
         {
             if (PhotonNetwork.isMasterClient && started && !targetList.Contains(other.gameObject) && ValidTarget(other.gameObject.transform))
-            {
                 targetList.Add(other.gameObject);
-            }
         }
 
         void OnTriggerLeave(Collider other)
         {
             if (PhotonNetwork.isMasterClient && targetList.Contains(other.gameObject))
-            {
                 targetList.Remove(other.gameObject);
-            }
         }
-
-
-
     }
 }

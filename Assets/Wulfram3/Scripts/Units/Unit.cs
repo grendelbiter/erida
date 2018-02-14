@@ -212,7 +212,7 @@ namespace Com.Wulfram3
                 isDead = true;
                 if (playerManager == null && PhotonNetwork.isMasterClient)
                 {
-                    gameManager.SpawnExplosion(transform.position);
+                    gameManager.SpawnExplosion(transform.position, unitType);
                     PhotonNetwork.Destroy(gameObject);
                 }
             }

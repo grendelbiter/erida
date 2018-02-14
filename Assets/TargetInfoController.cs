@@ -14,7 +14,7 @@ namespace Com.Wulfram3 {
         public GameObject targetInfoPanel;
         public Text hitpoints;
         public Text myName;
-        public Text team;
+        public Text distance;
         public Text user;
 
         [HideInInspector]
@@ -33,6 +33,12 @@ namespace Com.Wulfram3 {
             TargetChanged(null);
         }
 
+        public Vector3 CalculatePanelPosition()
+        {
+            Vector3 r = Camera.main.WorldToScreenPoint(target.transform.position);
+            return new Vector3(r.x, r.y - 20f, 0f);
+        }
+
         // Update is called once per frame
         void LateUpdate() {
             //if (target != null && target.GetComponentInChildren<MeshRenderer>().isVisible && Camera.main != null)
@@ -40,16 +46,12 @@ namespace Com.Wulfram3 {
 
             if (target != null  && Camera.main != null) {
                 targetInfoPanel.SetActive(true);
-                pos = Camera.main.WorldToScreenPoint(target.transform.position);
-                pos.z = 0;
                 RectTransform rectTransform = GetComponent<RectTransform>();
-                pos.y -= 20;
-                //rectTransform.localPosition = new Vector2(0, 100);
+                PlayerManager player = PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>();
+                pos = CalculatePanelPosition();
                 rectTransform.SetPositionAndRotation(pos, rectTransform.rotation);
 
-                PlayerManager player = PlayerManager.LocalPlayerInstance.GetComponent<PlayerManager>();
                 float dist = (float) Math.Round(Vector3.Distance(target.transform.position, player.transform.position), 0);
-
 
                 Unit unit = target.GetComponent<Unit>();
 
@@ -66,9 +68,10 @@ namespace Com.Wulfram3 {
                     return;
                 }
 
-                hitpoints.text = dist + "M " + unit.health + "HP";
+                hitpoints.text = unit.health + " HP";
+                distance.text = (dist * 4f) + "M";
                 myName.text = unit.unitType.ToString();
-                team.text = unit.unitTeam.ToString();
+                //team.text = unit.unitTeam.ToString();
 
                 //[ASSIGNED NEVER USED] var panel = targetInfoPanel.GetComponent<Image>();
                 switch (unit.unitTeam)

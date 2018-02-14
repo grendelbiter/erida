@@ -134,10 +134,19 @@ namespace Com.Wulfram3
             }
         }
 
-        public void SpawnExplosion(Vector3 pos)
+        public void SpawnExplosion(Vector3 pos, UnitType t)
         {
             if (PhotonNetwork.isMasterClient)
-                PhotonNetwork.InstantiateSceneObject("Effects/Explosion_01", pos, Quaternion.identity, 0, null);
+            {
+                string explosionPrefab = "Effects/Explosion_01";
+                //if (t == UnitType.Other)
+                //    explosionPrefab = "Effects/SmallExplosionEffect";
+                //else if (t == UnitType.PowerCell)
+                //    explosionPrefab = "Effects/PlasmaExplosionEffect";
+                //else
+                //    explosionPrefab = "Effects/SmallExplosionEffect";
+                PhotonNetwork.InstantiateSceneObject(explosionPrefab, pos, Quaternion.identity, 0, null);
+            }
         }
 
         public void SetHullBar(float level)
@@ -166,15 +175,6 @@ namespace Com.Wulfram3
         public void AddTargetChangeListener(TargetInfoController tic)
         {
             targetChangeListener = tic;
-        }
-
-        public void DestroyNow(GameObject go)
-        {
-            if (PhotonNetwork.isMasterClient)
-            {
-                PhotonNetwork.Destroy(go);
-                SpawnExplosion(go.transform.position);
-            }
         }
 
         public string GetColoredPlayerName(string name, bool isMaster, bool colorFull = false, PunTeams.Team team = PunTeams.Team.none)

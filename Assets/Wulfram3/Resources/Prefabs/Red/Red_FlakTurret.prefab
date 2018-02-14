@@ -202,10 +202,10 @@ MonoBehaviour:
   maxHealth: 550
   hitpointRegenPerSecond: 0.3
   needsPower: 0
-  playerLandedBoost: 2.65
-  repairPadBoost: 75
   health: 0
   hasPower: 0
+  isDead: 0
+  needsUpdate: 1
 --- !u!114 &114410057546528018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -397,5 +397,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 250
+  m_Radius: 100
   m_Center: {x: 0, y: 0, z: 0}
