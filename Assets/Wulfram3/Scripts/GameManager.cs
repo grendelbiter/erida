@@ -113,11 +113,11 @@ namespace Com.Wulfram3
             }
             if (PhotonNetwork.isMasterClient)
             {
-                PlayerManager senderManager = senderPV.GetComponent<PlayerManager>();
-                pos = senderManager.gunEnd.position;
-                rot = senderManager.gunEnd.rotation;
-                Logger.Log(pos + " " + (Time.time - fireTime) + " " + vel);
-                //pos = pos + (vel * (Time.time - fireTime));
+                //PlayerManager senderManager = senderPV.GetComponent<PlayerManager>();
+                //pos = senderManager.gunEnd.position;
+                //rot = senderManager.gunEnd.rotation;
+                //Logger.Log(pos + " " + (Time.time - fireTime) + " " + vel + " " + (vel * (Time.time - fireTime)));
+                pos = pos + (vel * ((Time.time - fireTime)/1000f));
                 object[] instanceData = new object[4];
                 instanceData[0] = team;
                 instanceData[1] = UnitType.Tank;
