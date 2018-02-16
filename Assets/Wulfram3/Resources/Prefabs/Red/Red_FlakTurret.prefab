@@ -206,6 +206,7 @@ MonoBehaviour:
   hasPower: 0
   isDead: 0
   needsUpdate: 1
+  targetPriority: 0
 --- !u!114 &114410057546528018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -387,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunEnd: {fileID: 4273169719954494}
+  rangeTrigger: {fileID: 135199149365943010}
 --- !u!135 &135199149365943010
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -397,5 +399,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 100
+  m_Radius: 260
   m_Center: {x: 0, y: 0, z: 0}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Com.Wulfram3
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class Unit : Photon.PunBehaviour {
 
         public PunTeams.Team unitTeam;
@@ -30,10 +31,13 @@ namespace Com.Wulfram3
 
         public bool needsUpdate = true;
 
+        public int targetPriority = 0;
 
         void Start() {
             if (unitType == UnitType.RepairPad || unitType == UnitType.RefuelPad || unitType == UnitType.GunTurret || unitType == UnitType.FlakTurret || unitType == UnitType.MissleLauncher)
                 needsPower = true;
+            if (unitType == UnitType.Tank || unitType == UnitType.Scout || unitType == UnitType.Other || unitType == UnitType.None)
+                targetPriority = 1;
         }
 
         private void Awake()

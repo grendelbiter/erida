@@ -19,6 +19,15 @@ namespace Assets.Wulfram3.Scripts.Units
 
         private float defaultSpawnTime = 30f;
 
+        private void Start()
+        {
+            if (PhotonNetwork.player.NickName.Contains("[DEV]"))
+            {
+                currentSpawnTime = 3f;
+                defaultSpawnTime = 3f;
+            }
+        }
+
         public void StartSpawn()
         {
             status = SpawnStatus.IsSpawning;

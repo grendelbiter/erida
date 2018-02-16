@@ -2152,22 +2152,22 @@ Prefab:
     - target: {fileID: 114591220925405806, guid: c2f16df1a8b58094c984d126bf43d85e,
         type: 2}
       propertyPath: itsDataModuleMinimap.itsAppearanceMiniMap.itsMarginHorizontal
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 114591220925405806, guid: c2f16df1a8b58094c984d126bf43d85e,
         type: 2}
       propertyPath: itsDataModuleMinimap.itsAppearanceMiniMap.itsMarginVertical
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 114591220925405806, guid: c2f16df1a8b58094c984d126bf43d85e,
         type: 2}
       propertyPath: itsDataModuleMinimap.itsAppearanceMiniMap.itsRotation.x
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114591220925405806, guid: c2f16df1a8b58094c984d126bf43d85e,
         type: 2}
       propertyPath: itsDataModuleMinimap.itsAppearanceMiniMap.itsRotation.y
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2f16df1a8b58094c984d126bf43d85e, type: 2}

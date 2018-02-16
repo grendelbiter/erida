@@ -8,11 +8,12 @@ namespace Com.Wulfram3 {
 
         // Settings
         public Transform gunEnd;  // Needs to be set in inspector, empty transform, where projectiles spawn
-        private float rangeMax = 100f; // Targets beyond this range will be discarded (Note: FlakTurret prefabs also employ a sphere trigger to track targetList)
-        private float rangeMin = 10f;  // Targets below this range will be ignored
-        private float fireDelay = 1.8f; // Delay between each three round burst
-        private float shellDelay = 0.4f; // Delay between shells
-        private float turnSpeed = 60; // This value should be high to make sure turrets can intercept fast moving targets
+        public SphereCollider rangeTrigger;
+        private float rangeMax; // Set by sphere collider attached to turret
+        private float rangeMin = 18f;  // Targets below this range will be ignored
+        private float fireDelay = 2.4f; // Delay between each three round burst
+        private float shellDelay = 0.45f; // Delay between shells
+        private float turnSpeed = 80; // This value should be high to make sure turrets can intercept fast moving targets
         private int shellCount = 3; // Shells per burst
 
         // Internal vars
@@ -20,8 +21,8 @@ namespace Com.Wulfram3 {
         private int shellCountCurrent = 0;
         private float fireStamp;
         private GameManager gameManager;
-        private Transform currentTarget = null;
-        private Vector3 currentIntercept = new Vector3(99999f, 99999f, 99999f);
+        private Quaternion currentTargetRotation;
+        private Vector3 currentIntercept;
         private float interceptTime;
         //private bool targetOnSight = false;
         private PunTeams.Team team;
@@ -35,94 +36,96 @@ namespace Com.Wulfram3 {
             gameManager = FindObjectOfType<GameManager>();
             myUnit = GetComponent<Unit>();
             team = transform.GetComponent<Unit>().unitTeam;
+            rangeMax = rangeTrigger.radius;
         }
 
         void Start() {
             fireStamp = Time.time;
             started = true;
+            currentTargetRotation = transform.rotation;
         }
 
         // Update is called once per frame
         void Update() {
-            if (myUnit.hasPower)
+            if (PhotonNetwork.isMasterClient && myUnit.hasPower)
             {
-                FindTarget();
-                if (currentTarget != null)
+                Transform closestVisibleTarget = null;
+                int currentTargetPriority = 0;
+                float minDistance = rangeMax * rangeMax; // We'll save some overhead comparing square distance instead of true distance
+                for (int i = targetList.Count - 1; i >= 0; i--)
                 {
-                    TurnTowardsCurrentTarget();
-                    if (PhotonNetwork.isMasterClient)
-                        FireAtTarget();
-                }
-            }
-        }
+                    if (targetList[i] == null || targetList[i].transform == null || !ValidTarget(targetList[i].transform))
+                    {
+                        targetList.RemoveAt(i);
+                        continue;
+                    }
 
-        private void ResetTarget()
-        {
-            currentIntercept = new Vector3(99999f, 99999f, 99999f);
-            interceptTime = -1f;
-            currentTarget = null;
-            //targetOnSight = false;
-
-        }
-
-        private void FindTarget() {
-            if (currentTarget != null && shellCountCurrent > 0)
-                return;
-            // Clean target list, find new nearest target
-            Transform closestVisibleTarget = null;
-            Unit closestType = null;
-            float minDistance = rangeMax * rangeMax; // We'll save some overhead comparing square distance instead of true distance
-            for (int i = targetList.Count-1; i>=0; i--) {
-                float tgtSqrDistance = (targetList[i].transform.position - transform.position).sqrMagnitude;
-                if (targetList[i] == null || !ValidTarget(targetList[i].transform) || tgtSqrDistance > minDistance)
-                {
-                    targetList.RemoveAt(i);
-                }
-                else
-                {
+                    float tgtSqrDistance = (targetList[i].transform.position - transform.position).sqrMagnitude;
+                    if (tgtSqrDistance > rangeMax * rangeMax)
+                    {
+                        targetList.RemoveAt(i);
+                        continue;
+                    }
                     RaycastHit hit;
-                    Physics.Raycast(gunEnd.position, gunEnd.forward, out hit, rangeMax);
+                    Physics.Raycast(transform.position, targetList[i].transform.position - transform.position, out hit, rangeMax);
                     if (hit.transform != null && ValidTarget(hit.transform))
                     {
                         tgtSqrDistance = (hit.transform.position - transform.position).sqrMagnitude;
-                        if (tgtSqrDistance > (rangeMin * rangeMin) && tgtSqrDistance < minDistance)
+                        int tgtPriority = GetTargetPriority(hit.transform);
+                        if (tgtSqrDistance > (rangeMin * rangeMin) && (tgtSqrDistance < minDistance || tgtPriority > currentTargetPriority))
                         {
+                            currentTargetPriority = tgtPriority;
                             minDistance = tgtSqrDistance;
                             closestVisibleTarget = targetList[i].transform;
+                            Debug.Log(closestVisibleTarget.name + " " + currentTargetPriority);
                         }
                     }
                 }
+                if (closestVisibleTarget != null)
+                {
+                    currentIntercept = getInterceptPoint(gunEnd.position, GetComponent<Rigidbody>().velocity, SplashProjectileController.FlakVelocity, closestVisibleTarget.position, closestVisibleTarget.GetComponent<Rigidbody>().velocity);
+                    currentTargetRotation = Quaternion.LookRotation(currentIntercept - transform.position);
+                }
+                else
+                {
+                    currentTargetRotation = transform.rotation;
+                }
+                transform.rotation = Quaternion.Slerp(transform.rotation, currentTargetRotation, Time.deltaTime * turnSpeed);
+                if (Quaternion.Angle(currentTargetRotation, transform.rotation) < 3f && (closestVisibleTarget != null || shellCountCurrent > 0))
+                {
+                    FireAtTarget();
+                }
             }
-            currentTarget = closestVisibleTarget;
         }
 
-        private void TurnTowardsCurrentTarget()
+        private int GetTargetPriority(Transform t)
         {
-            currentIntercept = getInterceptPoint(gunEnd.position, GetComponent<Rigidbody>().velocity, SplashProjectileController.FlakVelocity, currentTarget.position, currentTarget.GetComponent<Rigidbody>().velocity);
-            Vector3 lookPos = currentIntercept - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(lookPos);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * turnSpeed);
+            int rv = 2;
+            Unit u = t.GetComponent<Unit>();
+            if (u != null)
+            {
+                rv = u.targetPriority;
+            }
+            return rv;
         }
+
 
         private void FireAtTarget()
         {
-            if (currentTarget != null && shellCountCurrent > 0)
+            if (Time.time > fireStamp) // "Loaded"
             {
-                if (Time.time > fireStamp) // And have "reloaded"
+                if (interceptTime <= 0.01f)
+                    interceptTime = 12f;
+                if (shellCountCurrent < shellCount) // And have ammo
                 {
-                    if (interceptTime <= 0.01f)
-                        interceptTime = 12f;
-                    if (shellCountCurrent < shellCount) // And have ammo
-                    {
-                        gameManager.SpawnFlakShell(gunEnd.position, gunEnd.rotation, team, interceptTime);
-                        shellCountCurrent += 1;
-                        fireStamp = Time.time + shellDelay;
-                    }
-                    else if (shellCountCurrent == shellCount) // End of salvo, reset
-                    {
-                        fireStamp = Time.time + fireDelay;
-                        shellCountCurrent = 0;
-                    }
+                    gameManager.SpawnFlakShell(gunEnd.position, gunEnd.rotation, team, interceptTime);
+                    shellCountCurrent += 1;
+                    fireStamp = Time.time + shellDelay;
+                }
+                else if (shellCountCurrent == shellCount) // End of salvo, reset
+                {
+                    fireStamp = Time.time + fireDelay;
+                    shellCountCurrent = 0;
                 }
             }
         }

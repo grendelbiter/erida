@@ -11,7 +11,7 @@ namespace Com.Wulfram3 {
 		public AudioSource audioSource;
         public int bulletDamageinHitpoints = 1;
         public float bulletsPerSecond = 16; // Changed from 10 in Pre-Alpha Planning Iteration
-        private float range = 60;
+        private float range = 125; // * 4 = 500m
         public float deviationConeRadius = 1;
         public float maximumDConeRadius = 12f;
         public int fuelPerBullet = 1;

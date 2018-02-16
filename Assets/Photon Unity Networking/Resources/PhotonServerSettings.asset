@@ -29,49 +29,34 @@ MonoBehaviour:
   RpcList:
   - Chat
   - ColorRpc
+  - DeployedCargo
   - DestroyRpc
   - DoJump
+  - DroppedCargo
   - Flash
+  - GetCargo
   - InstantiateRpc
+  - KickPlayer
+  - LosePower
+  - MapSetup
   - Marco
   - PickupItemInit
   - Polo
+  - PulseConfirmed
   - PunPickup
   - PunPickupSimple
   - PunRespawn
+  - RecievePower
+  - RequestDeployCargo
+  - RequestDropCargo
   - RequestForPickupItems
   - RequestForPickupTimes
-  - TaggedPlayer
-  - SpawnPulseShell
-  - UpdateHealth
-  - Reset
-  - SetPosAndRotation
-  - SetHealthFromClient
-  - TakeDamage
   - SetShooting
-  - RequestPickUpCargo
-  - SetPickedUpCargo
-  - RequestDropCargo
-  - SetContent
-  - playParticles
-  - MapSetup
-  - DroppedCargo
-  - GetCargo
-  - PickedUp
-  - DeployedCargo
-  - RequestDeployCargo
-  - LosePower
-  - RecievePower
-  - KickPlayer
-  - SpawnEffectRpc
-  - SetSelectedVehicle
   - SetTeam
-  - SendMeshToNewPlayer
-  - GetDataFromMaster
-  - ReceiveDataFromMaster
-  - DestroyLocalShell
+  - SpawnPulseShell
   - SyncTeam
   - SyncUnit
-  - SpawnPlayer
-  - PulseConfirmed
+  - TaggedPlayer
+  - TakeDamage
+  - UpdateHealth
   DisableAutoOpenWizard: 1
