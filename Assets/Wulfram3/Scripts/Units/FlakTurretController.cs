@@ -77,7 +77,6 @@ namespace Com.Wulfram3 {
                             currentTargetPriority = tgtPriority;
                             minDistance = tgtSqrDistance;
                             closestVisibleTarget = targetList[i].transform;
-                            Debug.Log(closestVisibleTarget.name + " " + currentTargetPriority);
                         }
                     }
                 }

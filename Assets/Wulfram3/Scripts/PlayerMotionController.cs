@@ -126,8 +126,6 @@ namespace Com.Wulfram3
                 AddHoverForce();
             if (jump)
                 AddJumpForce();
-            //if (isLanding && (inputX != 0f || inputZ != 0f))
-            //    TakeOff();
             Vector3 localVelocity = transform.InverseTransformDirection(rigidBody.velocity);
             Vector3 relativeFwd = Vector3.Cross(Vector3.up, transform.right);
             float lVX = Mathf.Abs(localVelocity.x);
