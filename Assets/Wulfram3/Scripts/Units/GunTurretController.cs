@@ -32,14 +32,9 @@ namespace Com.Wulfram3
 
         void Start()
         {
-
             timeBetweenShots = 1f / bulletsPerSecond;
             laserLine = GetComponent<LineRenderer>();
-            //if (PhotonNetwork.isMasterClient)
-            //{
-                //gameManager = FindObjectOfType<GameManager>();
-                myUnit = GetComponent<Unit>();
-            //}
+            myUnit = GetComponent<Unit>();
         }
 
         private IEnumerator ShotEffect()

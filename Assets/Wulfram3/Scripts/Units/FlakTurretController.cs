@@ -82,7 +82,7 @@ namespace Com.Wulfram3 {
                 }
                 if (closestVisibleTarget != null)
                 {
-                    currentIntercept = getInterceptPoint(gunEnd.position, GetComponent<Rigidbody>().velocity, SplashProjectileController.FlakVelocity, closestVisibleTarget.position, closestVisibleTarget.GetComponent<Rigidbody>().velocity);
+                    currentIntercept = GetInterceptPoint(closestVisibleTarget);
                     currentTargetRotation = Quaternion.LookRotation(currentIntercept - transform.position);
                 }
                 else
@@ -141,21 +141,23 @@ namespace Com.Wulfram3 {
             return false;
         }
 
-        Vector3 getInterceptPoint(Vector3 turretPos, Vector3 turretVel, float pSpeed, Vector3 targetPos, Vector3 targetVel)
+        private Vector3 GetInterceptPoint(Transform t)
         {
-            Vector3 targetRPos = targetPos - turretPos; // Relative position
-            Vector3 targetRVel = targetVel - turretVel; // Relative velocity
-            interceptTime = getInterceptTime(pSpeed, targetRPos, targetRVel); // Find best intercept time / path
-            return targetPos + targetRVel * interceptTime; // Current position + Velocity * Time = Predicted future position
+            Vector3 targetRPos = t.position - gunEnd.position;
+            Vector3 targetRVel = t.GetComponent<Rigidbody>().velocity - GetComponent<Rigidbody>().velocity; // Relative velocity
+            interceptTime = GetInterceptTime(t);
+            return t.position + targetRVel * interceptTime; // Current position + Velocity * Time = Predicted future position
         }
 
-        float getInterceptTime(float pSpeed, Vector3 targetRPos, Vector3 targetRVel)
+        private float GetInterceptTime(Transform tgt)
         {
+            Vector3 targetRPos = tgt.position - gunEnd.position;
+            Vector3 targetRVel = tgt.GetComponent<Rigidbody>().velocity - GetComponent<Rigidbody>().velocity; // Relative velocity
             float targetSVel = targetRVel.sqrMagnitude;
             float targetSPos = targetRPos.sqrMagnitude;
             if (targetSVel < 0.001f)
                 return 0f;
-            float a = targetSVel - pSpeed * pSpeed;
+            float a = targetSVel - SplashProjectileController.FlakVelocity * SplashProjectileController.FlakVelocity;
             if (Mathf.Abs(a) < 0.001f)
             {
                 float t = -targetSPos / (2f * Vector3.Dot(targetRVel, targetRPos));

@@ -7,36 +7,34 @@ namespace Com.Wulfram3
     [RequireComponent(typeof(Rigidbody))]
     public class Unit : Photon.PunBehaviour {
 
-        public PunTeams.Team unitTeam;
-        public UnitType unitType;
-        public int maxHealth;
-        public float hitpointRegenPerSecond = 0.3f;
-        public bool needsPower = false;
+        public PunTeams.Team unitTeam; // Set in inspector
+        public UnitType unitType; // Set in inspector
+        public int maxHealth; // Set in inspector (Ensure teams match)
+        public float hitpointRegenPerSecond = 0.3f; // Set in inspector (Ensure teams match)
+        public int targetPriority = 0; // Can be set in inspector, will be overridden by Start() for many units
 
+        // Internal vars
+        public bool needsPower = false; // Set by Start(), Unit.cs controls gaining and losing power, "external" functions should go in another script that uses this bool to control Update()
         [HideInInspector]
         public int health;
         [HideInInspector]
         public bool hasPower = false;
         [HideInInspector]
         public bool isDead = false;
-
-        private float currentBoost = 1f;
-        private float healthCollected = 0;
         private GameManager gameManager;
         private PlayerManager playerManager;
-
-        private float syncTeamStamp;
-        private float syncUnitStamp;
-        private float syncHpStamp;
-
-        public bool needsUpdate = true;
-
-        public int targetPriority = 0;
+        private float currentBoost = 1f; // Multiplier. Grabs bonuses for landed and repair pad from PlayerMotionController
+        private float healthCollected = 0f; // Accumulator for regeneration
+        private float damageToTake = 0f;    // ref needed by SmoothDamp used in health display
+        private float displayHealth; // Smoothed value used for display
+        private float syncHpStamp; // "Timer" for masterclient health updates, default 1 per second
 
         void Start() {
+            // Force these units to require power
             if (unitType == UnitType.RepairPad || unitType == UnitType.RefuelPad || unitType == UnitType.GunTurret || unitType == UnitType.FlakTurret || unitType == UnitType.MissleLauncher)
                 needsPower = true;
-            if (unitType == UnitType.Tank || unitType == UnitType.Scout || unitType == UnitType.Other || unitType == UnitType.None)
+            // Force these units to target priority 1, 2 = projectiles, 3 = flares (flares not implemented as of 2/16/2018)
+            if (unitType == UnitType.Tank || unitType == UnitType.Scout || unitType == UnitType.GunTurret || unitType == UnitType.FlakTurret || unitType == UnitType.Other || unitType == UnitType.None)
                 targetPriority = 1;
         }
 
@@ -44,21 +42,23 @@ namespace Com.Wulfram3
         {
             gameManager = FindObjectOfType<GameManager>();
             playerManager = GetComponent<PlayerManager>();
+            // No team means we are a player, team will in the args passed with PhotonNetwork.Instantiate() See: PlayerSpawnManager.SpawnPlayer
             if (unitTeam == PunTeams.Team.none)
                 unitTeam = (PunTeams.Team)photonView.instantiationData[1];
-            if (playerManager != null)
+            if (playerManager != null) // Make really sure we're a player
             {
-                int receivedIdx = (int)photonView.instantiationData[2];
+                int receivedIdx = (int)photonView.instantiationData[2]; // This will be the mesh index, PlayerManager will do the rest
                 if (unitType == UnitType.None)
                     unitType = PlayerManager.GetPlayerTypeFromMeshIndex(receivedIdx);
-
                 playerManager.SetMesh(unitTeam, unitType);
-                maxHealth = playerManager.mySettings.MaxHitPoints;
+                maxHealth = playerManager.mySettings.MaxHitPoints; // Make sure we use hit points set by the vehicle interface
+                displayHealth = maxHealth;
+                gameManager.SetHullBar(1f);
             }
             if (PhotonNetwork.isMasterClient)
-                SetHealth(maxHealth);
+                SetHealth(maxHealth); // Masterclient has health and damage authority, for the most part
             SyncTeam(unitTeam);
-            SyncUnit(unitType);
+            SyncUnit(unitType); 
         }
 
         void Update() {
@@ -66,17 +66,21 @@ namespace Com.Wulfram3
             {
                 currentBoost = 1f;
                 if (playerManager != null)
-                    currentBoost = GetComponent<PlayerMotionController>().healingBoost;
+                    currentBoost = GetComponent<PlayerMotionController>().healingBoost; // Landed and repair pad boosts
                 float tickHealth = hitpointRegenPerSecond * currentBoost * Time.deltaTime;
                 healthCollected += tickHealth;
                 if (healthCollected >= 1f)
                 {
                     healthCollected--;
-                    if (playerManager == null || !isDead)
-                        TellServerTakeDamage(-1);
+                    TellServerTakeDamage(-1);
                 }
             }
-            if (PhotonNetwork.isMasterClient && Time.time > syncHpStamp)
+            if (photonView.isMine && playerManager != null && displayHealth != health) // HUD update needs to happen even when dead, only on change, and only for players
+            {
+                displayHealth = Mathf.SmoothDamp(displayHealth, health, ref damageToTake, 5f * Time.deltaTime);
+                gameManager.SetHullBar((float)displayHealth / (float)maxHealth);
+            }
+            if (PhotonNetwork.isMasterClient && Time.time > syncHpStamp) // Masterclient will sync health across the network 1 time per second
             {
                 syncHpStamp = Time.time + 1f;
                 photonView.RPC("UpdateHealth", PhotonTargets.All, health);
@@ -195,6 +199,8 @@ namespace Com.Wulfram3
         {
             hasPower = true;
             unitTeam = t;
+            if (PhotonNetwork.isMasterClient)
+                SyncTeam(unitTeam);
         }
 
         [PunRPC]
@@ -202,6 +208,8 @@ namespace Com.Wulfram3
         {
             hasPower = false;
             unitTeam = PunTeams.Team.none;
+            if (PhotonNetwork.isMasterClient)
+                SyncTeam(unitTeam);
         }
 
         [PunRPC]
@@ -209,8 +217,6 @@ namespace Com.Wulfram3
         {
             int newHealth = Mathf.Clamp(amount, 0, maxHealth);
             health = newHealth;
-            if (playerManager != null && photonView.isMine)
-                gameManager.SetHullBar((float)health / (float)maxHealth);
             if ((maxHealth != 0 && health <= 0) && !isDead)
             {
                 isDead = true;
