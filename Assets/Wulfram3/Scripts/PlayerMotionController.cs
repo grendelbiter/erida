@@ -153,11 +153,12 @@ namespace Com.Wulfram3
             {
                 if (lowHit.distance < currentHeight)
                 {
-                    float gravityCancel = Physics.gravity.y * rigidBody.mass;
+                    float gravityCancel = -Physics.gravity.y * rigidBody.mass;
                     float velocityCancel = rigidBody.velocity.y * rigidBody.mass;
                     float heightMultiplier = (currentHeight - lowHit.distance) / currentHeight;
                     float totalForce = (gravityCancel + velocityCancel) * (heightMultiplier * rigidBody.mass);
-                    rigidBody.AddForce(new Vector3(0f, -totalForce, 0f));
+                    if (totalForce > 0f)
+                        rigidBody.AddForce(new Vector3(0f, totalForce, 0f));
                 }
             }
         }

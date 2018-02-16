@@ -14,6 +14,9 @@ namespace Assets.Wulfram3.Scripts.Units
         public static SpawnStatus status;
         public static float currentSpawnTime = 30f; // in seconds
 
+        public static float spawnRandomnessX = 6f;
+        public static float spawnRandomnessZ = 9f;
+
         public Text countdownText;
         public GameObject countdownPanel;
 
@@ -46,7 +49,10 @@ namespace Assets.Wulfram3.Scripts.Units
         {
             GameManager g = FindObjectOfType<GameManager>();
             g.unitSelector.gameObject.SetActive(false);
-            g.SpawnPlayer(spawnPoint + new Vector3(UnityEngine.Random.Range(-6f, 6f), 50, UnityEngine.Random.Range(-9f, 9f)), Quaternion.identity, PhotonNetwork.player.GetTeam(), g.unitSelector.SelectedIndex(), PhotonNetwork.player.ID);
+            float randomSpawnX = UnityEngine.Random.Range(-spawnRandomnessX, spawnRandomnessX);
+            float randomSpawnZ = UnityEngine.Random.Range(-spawnRandomnessZ, spawnRandomnessZ);
+            Vector3 randomSpawnPosition = spawnPoint + new Vector3(randomSpawnX, 50f, randomSpawnZ);
+            g.SpawnPlayer(randomSpawnPosition, Quaternion.identity, PhotonNetwork.player.GetTeam(), g.unitSelector.SelectedIndex(), PhotonNetwork.player.ID);
             //g.photonView.RPC("SpawnPlayer", PhotonTargets.MasterClient, spawnPoint + new Vector3(UnityEngine.Random.Range(-6f, 6f), 50, UnityEngine.Random.Range(-9f, 9f)), Quaternion.identity, PhotonNetwork.player.GetTeam(), g.unitSelector.SelectedIndex(), PhotonNetwork.player.ID);
         }
 
