@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Com.Wulfram3
 {
@@ -15,6 +16,8 @@ namespace Com.Wulfram3
         public GameObject hullBar;
 
         public GameObject fuelBar;
+
+        public RawImage hudImage;
 
         public Material redcolor;
         public Material bluecolor;
@@ -67,6 +70,7 @@ namespace Com.Wulfram3
                     availableUnits.Add(0);
                     availableUnits.Add(1);
                 }
+                this.hudImage.color = PhotonNetwork.player.GetTeam().TeamColor();
                 GameObject g = Instantiate(Resources.Load("Prefabs/SceneBase/VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
                 unitSelector = g.GetComponent<VehicleSelector>();
                 unitSelector.SetAvailableModels(availableUnits);

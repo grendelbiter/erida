@@ -178,4 +178,26 @@ public static class TeamExtensions
         var hex = string.Format("#{0:X2}{1:X2}{2:X2}{3:X2}", c.r, c.g, c.b, c.a);
         return hex;
     }
+
+    public static Color TeamColor(this PunTeams.Team team)
+    {
+        Color newCol = Color.grey;
+        switch (team)
+        {
+            case PunTeams.Team.none:
+                break;
+            case PunTeams.Team.Red:
+                ColorUtility.TryParseHtmlString("#C52727FF", out newCol);
+                break;
+            case PunTeams.Team.Blue:
+                ColorUtility.TryParseHtmlString("#0E3196FF", out newCol);
+                break;
+            case PunTeams.Team.Grey:
+                break;
+            default:
+                break;
+        }
+
+        return newCol;
+    }
 }
