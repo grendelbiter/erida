@@ -35,7 +35,7 @@ namespace Com.Wulfram3
         private float takeoffBumpForce = 0.25f;
 
         private float boost = 1f;
-        private float boostMultiplier = 2.1f;
+        private float boostMultiplier = 2.8f;
         private float thrustMultiplier = 0.5f;
 
         public float healingBoost = 1f;
@@ -49,8 +49,8 @@ namespace Com.Wulfram3
         public float currentHeight = 1.2f;
         private float defaultHeight = 1.2f;
         private float maximumHeight = 4f;
-        private float riseSpeed = 0.055f;
-        private float sinkSpeed = 0.022f;
+        private float riseSpeed = 0.075f;
+        private float sinkSpeed = 0.03f;
 
 
         private bool isLanding = false;
@@ -58,8 +58,8 @@ namespace Com.Wulfram3
         public bool isGrounded = false;
         private bool jump = false;
 
-        public float xSens = 0.2f;
-        public float ySens = 0.22f;
+        public float xSens = 0.4f;//0.2f;
+        public float ySens = 0.5f;//0.22f;
 
         private float minXAngle = -360f;
         private float maxXAngle = 360f;
@@ -98,8 +98,8 @@ namespace Com.Wulfram3
                     rigidBody.isKinematic = false;
                     rigidBody.freezeRotation = false;
                 }
-                HandleMouseMotion(); // Mouse controls first, can cause liftoff from landed
                 HandleSpeedControls(); // Boost is calculated here, as well as user set thrust control
+                HandleMouseMotion(); // Mouse controls first, can cause liftoff from landed
                 HandleDriveControls(); // This method sets the "drive" forces
                 HandleAltitudeControls(); // Must be after "drive" forces to allow landing to cancel motion
                 if (myUnitType == UnitType.Tank)
@@ -130,9 +130,9 @@ namespace Com.Wulfram3
             float lVZ = Mathf.Abs(localVelocity.z);
             float limitX = vehicleSettings.MaxVelocityX * thrustMultiplier;
             float limitZ = vehicleSettings.MaxVelocityZ * thrustMultiplier;
-            if (lVX > limitX)
+            if (lVX > (limitX * boost))
                 inputX = 0;
-            if (lVZ > limitZ)
+            if (lVZ > (limitZ * boost))
                 inputZ = 0;
             Vector3 totalSidewaysForce = transform.right * inputX * (vehicleSettings.BaseThrust * vehicleSettings.StrafePercent) * rigidBody.mass * boost;
             Vector3 totalForwardForce = relativeFwd * inputZ * vehicleSettings.BaseThrust * rigidBody.mass * boost;
@@ -177,8 +177,8 @@ namespace Com.Wulfram3
                 TakeOff();
                 return;
             }
-            rX = AngleClamp(rX + (mx * xSens), minXAngle, maxXAngle);
-            rY = AngleClamp(rY + (my * ySens), minYAngle, maxYAngle);
+            rX = AngleClamp(rX + (mx * (xSens * boost)), minXAngle, maxXAngle);
+            rY = AngleClamp(rY + (my * (ySens * boost)), minYAngle, maxYAngle);
             Quaternion xQuaternion = Quaternion.AngleAxis(rX, Vector3.up);
             Quaternion yQuaternion = Quaternion.AngleAxis(rY, -Vector3.right);
             transform.localRotation = oRot * xQuaternion * yQuaternion;
@@ -255,9 +255,9 @@ namespace Com.Wulfram3
         private void HandleAltitudeControls()
         {
             if (InputEx.GetAxisRaw("ChangeAltitude") > 0)
-                currentHeight = Mathf.Min(currentHeight + riseSpeed, maximumHeight);
+                currentHeight = Mathf.Min(currentHeight + (riseSpeed * boost), maximumHeight);
             else if (InputEx.GetAxisRaw("ChangeAltitude") < 0 && !isLanding && !isGrounded)
-                currentHeight = Mathf.Max(currentHeight - sinkSpeed, 0.2f);
+                currentHeight = Mathf.Max(currentHeight - (sinkSpeed * boost), 0.2f);
             if (currentHeight > 0.2f && (isLanding || isGrounded))
                 TakeOff();
             else if (currentHeight <= 0.2f && !isLanding)
