@@ -5,18 +5,16 @@ using UnityEngine;
 namespace Com.Wulfram3 {
     public class AutoDestroy : Photon.PunBehaviour {
         public float maxLifeTime = 5;
-        private float lifeTime = 0;
+        private float destroyTime;
 
-        // Use this for initialization
         void Start() {
-
+            destroyTime = Time.time + maxLifeTime;
         }
 
-        // Update is called once per frame
         void Update() {
             if (photonView.isMine) {
-                lifeTime += Time.deltaTime;
-                if (lifeTime >= maxLifeTime) {
+                if (Time.time >= destroyTime)
+                {
                     PhotonNetwork.Destroy(gameObject);
                 }
             }

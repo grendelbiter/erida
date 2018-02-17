@@ -1,6 +1,4 @@
 ﻿using Assets.Wulfram3.Scripts.InternalApis.Classes;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Com.Wulfram3 {
@@ -10,14 +8,14 @@ namespace Com.Wulfram3 {
          * Static variables are used in Start() to initialize each projectile with the proper
          * information and mesh     */
 
-        public static int PulseVelocity = 30;
+        public static int PulseVelocity = 45;
         public static int FlakVelocity = 60; // To intercept, flak must be faster than pulse
 
         public static int PulseDirectDamage = 300;
-        public static int FlakDirectDamage = 75;
+        public static int FlakDirectDamage = 120;
 
         public static int PulseSplashRadius = 12;
-        public static int FlakSplashRadius = 7;
+        public static int FlakSplashRadius = 8;
 
         public float lifetime = 12f; // This is used by pulse shells to control self detonation. Flak turret pass a "fuse" time when creating shells
 
@@ -31,7 +29,6 @@ namespace Com.Wulfram3 {
         private int directDamage = 100;
         private int splashRadius = 6;
         private GameManager gameManager;
-        private float lifetimer = 0f;
         [HideInInspector]
         public PunTeams.Team team;
 
@@ -52,18 +49,17 @@ namespace Com.Wulfram3 {
                 velocity = FlakVelocity * transform.forward;
                 directDamage = FlakDirectDamage;
                 splashRadius = FlakSplashRadius;
-                lifetime = (float) instanceData[2]; // This value is determined by the turret
-                // These lines turn the meshes on and off
+                lifetime = Time.time + (float) instanceData[2]; // This value is determined by the turret
                 redPulse.gameObject.SetActive(false);
                 bluePulse.gameObject.SetActive(false);
                 flakShell.gameObject.SetActive(true);
-
             }
             else
             {
                 velocity = (Vector3)instanceData[2];
                 directDamage = PulseDirectDamage;
                 splashRadius = PulseSplashRadius;
+                lifetime = Time.time + (1050f / velocity.magnitude);
                 flakShell.gameObject.SetActive(false);
                 if (team == PunTeams.Team.Blue)
                 {
@@ -79,24 +75,14 @@ namespace Com.Wulfram3 {
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.velocity = velocity;
             if (PhotonNetwork.isMasterClient)
-            {
                 gameManager = FindObjectOfType<GameManager>();
-            }
-            else
-            {
-
-            }
         }
 
-        // Update is called once per frame
         void Update() {
             if (PhotonNetwork.isMasterClient && !Collided) // Force masterclient control of time based detonation
             {
-                lifetimer += Time.deltaTime;
-                if (lifetimer >= lifetime)
-                {
+                if (Time.time >= lifetime)
                     DoEffects(transform.position);
-                }
             }
         }
 
@@ -122,9 +108,7 @@ namespace Com.Wulfram3 {
             // We should not get here unless we are masterclient (See OnCollisionEnter())
             Unit unit = target.GetComponent<Unit>();
             if (unit != null && unit.unitTeam != team)
-            {
                 unit.TellServerTakeDamage(amount);
-            }
         }
 
         void SplashDetonation()

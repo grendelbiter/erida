@@ -73,8 +73,8 @@ GameObject:
   - component: {fileID: 198000012942003240}
   - component: {fileID: 199000010939959374}
   - component: {fileID: 114417145260880896}
-  - component: {fileID: 114161249223661290}
   - component: {fileID: 114253804607445612}
+  - component: {fileID: 114514896362914250}
   m_Layer: 0
   m_Name: SmallExplosionEffect
   m_TagString: Untagged
@@ -89,7 +89,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013462590818}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -3.57, y: 2.67, z: 8.71}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4000014291108156}
@@ -137,19 +137,6 @@ Transform:
   m_Father: {fileID: 4000011428506136}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114161249223661290
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013462590818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29014cd42b6d273408e0ceefd336c0b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minDuration: 3
-  maxDuration: 4
 --- !u!114 &114253804607445612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -188,6 +175,18 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114514896362914250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013462590818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0d99b7a78a784449f52c0a0fce547e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLifeTime: 1.8
 --- !u!198 &198000010217891986
 ParticleSystem:
   m_ObjectHideFlags: 1

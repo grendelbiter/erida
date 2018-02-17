@@ -1,9 +1,6 @@
 ﻿using Assets.Wulfram3.Scripts.InternalApis.Classes;
 using Com.Wulfram3;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,7 +50,6 @@ namespace Assets.Wulfram3.Scripts.Units
             float randomSpawnZ = UnityEngine.Random.Range(-spawnRandomnessZ, spawnRandomnessZ);
             Vector3 randomSpawnPosition = spawnPoint + new Vector3(randomSpawnX, 50f, randomSpawnZ);
             g.SpawnPlayer(randomSpawnPosition, Quaternion.identity, PhotonNetwork.player.GetTeam(), g.unitSelector.SelectedIndex(), PhotonNetwork.player.ID);
-            //g.photonView.RPC("SpawnPlayer", PhotonTargets.MasterClient, spawnPoint + new Vector3(UnityEngine.Random.Range(-6f, 6f), 50, UnityEngine.Random.Range(-9f, 9f)), Quaternion.identity, PhotonNetwork.player.GetTeam(), g.unitSelector.SelectedIndex(), PhotonNetwork.player.ID);
         }
 
         void Update()

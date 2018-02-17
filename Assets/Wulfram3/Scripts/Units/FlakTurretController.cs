@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Com.Wulfram3 {
@@ -114,7 +113,7 @@ namespace Com.Wulfram3 {
             if (Time.time > fireStamp) // "Loaded"
             {
                 if (interceptTime <= 0.01f)
-                    interceptTime = 12f;
+                    interceptTime = 3f;
                 if (shellCountCurrent < shellCount) // And have ammo
                 {
                     gameManager.SpawnFlakShell(gunEnd.position, gunEnd.rotation, team, interceptTime);

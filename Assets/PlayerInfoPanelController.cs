@@ -27,22 +27,15 @@ namespace Com.Wulfram3 {
                 var isMeshVisable = target.GetComponentInChildren<MeshRenderer>().isVisible;
                 var isMapIconVisable = target.GetComponentInChildren<KGFMapIcon>().GetIsVisible();
 
-
-
                 if (isMeshVisable && isMapIconVisable) // target != null was here
                 {
                     playerNameText.gameObject.SetActive(false);
                     pos = Camera.main.WorldToScreenPoint(target.transform.position);
                     pos.z = 0;
-                    RectTransform rectTransform = GetComponent<RectTransform>();
                     pos.y += 50;
-
+                    RectTransform rectTransform = GetComponent<RectTransform>();
                     string playerName = target.GetComponent<PhotonView>().owner.NickName;
-                    // [ASSIGNED NEVER USED] string hitpoints = target.GetComponent<Unit>().health + "/" + target.GetComponent<Unit>().maxHealth;
-
-                    var name = gameManager.GetColoredPlayerName(playerName, target.GetComponent<PhotonView>().owner.IsMasterClient, true, target.GetComponent<Unit>().unitTeam);
-                    playerNameText.text = name;
-
+                    playerNameText.text = gameManager.GetColoredPlayerName(playerName, target.GetComponent<PhotonView>().owner.IsMasterClient, true, target.GetComponent<Unit>().unitTeam);
                     rectTransform.SetPositionAndRotation(pos, rectTransform.rotation);
                 }
                 else

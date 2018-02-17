@@ -1,6 +1,4 @@
 ﻿using Assets.Wulfram3.Scripts.InternalApis.Classes;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Com.Wulfram3
@@ -122,7 +120,7 @@ namespace Com.Wulfram3
                 return;
             if (unitManager.isDead)
                 return;
-            if (!isLanding && !isGrounded)
+            if (!isLanding && !isGrounded && !jump)
                 AddHoverForce();
             if (jump)
                 AddJumpForce();
@@ -153,12 +151,11 @@ namespace Com.Wulfram3
             {
                 if (lowHit.distance < currentHeight)
                 {
-                    float gravityCancel = -Physics.gravity.y * rigidBody.mass;
+                    float gravityCancel = Physics.gravity.y * rigidBody.mass;
                     float velocityCancel = rigidBody.velocity.y * rigidBody.mass;
                     float heightMultiplier = (currentHeight - lowHit.distance) / currentHeight;
                     float totalForce = (gravityCancel + velocityCancel) * (heightMultiplier * rigidBody.mass);
-                    if (totalForce > 0f)
-                        rigidBody.AddForce(new Vector3(0f, totalForce, 0f));
+                    rigidBody.AddForce(new Vector3(0f, -totalForce, 0f));
                 }
             }
         }

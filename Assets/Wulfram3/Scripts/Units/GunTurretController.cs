@@ -7,7 +7,6 @@ namespace Com.Wulfram3
     [RequireComponent(typeof(Unit))]
     public class GunTurretController : Photon.PunBehaviour
     {
-
         public Transform gunEnd;
         public int bulletDamageinHitpoints = 1;
         public float scanInterval = 2;
@@ -16,7 +15,6 @@ namespace Com.Wulfram3
         public float turnSpeed = 12;
         public float bulletsPerSecond = 4;
 
-        //private GameManager gameManager;
         private LineRenderer laserLine;
         private Transform currentTarget = null;
         private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
@@ -57,18 +55,14 @@ namespace Com.Wulfram3
         public void SetShooting(bool newShootingValue)
         {
             if (!photonView.isMine)
-            {
                 shooting = newShootingValue;
-            }
         }
 
 
         private void SyncShooting()
         {
             if (PhotonNetwork.isMasterClient)
-            {
                 photonView.RPC("SetShooting", PhotonTargets.All, shooting);
-            }
         }
 
         private void ShowFeedback()
@@ -123,16 +117,13 @@ namespace Com.Wulfram3
             {
                 Vector3 pos = transform.position + (transform.forward * 3.0f + transform.up * 0.2f);
                 Quaternion rotation = transform.rotation;
-
                 RaycastHit objectHit;
                 targetOnSight = Physics.Raycast(pos, transform.forward, out objectHit, scanRadius) && ValidTarget(objectHit.collider.transform);
                 if (objectHit.transform != null)
                 {
                     Unit hitUnit = objectHit.transform.GetComponent<Unit>();
                     if (targetOnSight && hitUnit.unitTeam != this.gameObject.GetComponent<Unit>().unitTeam)
-                    {
                         hitUnit.TellServerTakeDamage((int)Mathf.Ceil(bulletDamageinHitpoints * bulletsPerSecond));
-                    }
                     timeSinceLastDamage = 0;
                 }
             }

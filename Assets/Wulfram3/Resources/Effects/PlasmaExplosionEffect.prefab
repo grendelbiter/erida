@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 199000012270651464}
   - component: {fileID: 114759965817769480}
   - component: {fileID: 114045467197671322}
-  - component: {fileID: 114047881953928294}
+  - component: {fileID: 114059430430417582}
   m_Layer: 0
   m_Name: PlasmaExplosionEffect
   m_TagString: Untagged
@@ -106,7 +106,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011128802252}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.9006801, y: 2.58, z: 4.910924}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000012936488424}
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionForce: 5
---- !u!114 &114047881953928294
+--- !u!114 &114059430430417582
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -188,11 +188,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011128802252}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29014cd42b6d273408e0ceefd336c0b3, type: 3}
+  m_Script: {fileID: 11500000, guid: ec0d99b7a78a784449f52c0a0fce547e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDuration: 5
-  maxDuration: 12
+  maxLifeTime: 2
 --- !u!114 &114759965817769480
 MonoBehaviour:
   m_ObjectHideFlags: 1

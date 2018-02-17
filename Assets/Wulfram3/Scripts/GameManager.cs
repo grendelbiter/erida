@@ -31,18 +31,10 @@ namespace Com.Wulfram3
 
         public VehicleSelector unitSelector;
 
-        /*
-        public override void OnLeftRoom()
-        {
-            SceneManager.LoadScene(0);
-        }
-        */
-
         public override void OnPhotonPlayerConnected(PhotonPlayer other)
         {
             Logger.Log(other.NickName + " has connected. (GameManager.cs / OnPhotonPlayerConnected:43)");
         }
-
 
         public override void OnPhotonPlayerDisconnected(PhotonPlayer other)
         {
@@ -61,7 +53,6 @@ namespace Com.Wulfram3
             if (PlayerManager.LocalPlayerInstance == null)
             {
                 Logger.Log("Assigning Team. Active scene name: " + SceneManager.GetActiveScene().name + ". (GameManager.cs / Start:63)");
-
                 PunTeams.UpdateTeamsNow();
                 List<int> availableUnits = new List<int>();
                 if (PunTeams.PlayersPerTeam[PunTeams.Team.Blue].Count > PunTeams.PlayersPerTeam[PunTeams.Team.Red].Count)
@@ -139,12 +130,12 @@ namespace Com.Wulfram3
             if (PhotonNetwork.isMasterClient)
             {
                 string explosionPrefab = "Effects/Explosion_01";
-                //if (t == UnitType.Other)
-                //    explosionPrefab = "Effects/SmallExplosionEffect";
-                //else if (t == UnitType.PowerCell)
-                //    explosionPrefab = "Effects/PlasmaExplosionEffect";
-                //else
-                //    explosionPrefab = "Effects/SmallExplosionEffect";
+                if (t == UnitType.Other)
+                    explosionPrefab = "Effects/SmallExplosionEffect";
+                else if (t == UnitType.PowerCell)
+                    explosionPrefab = "Effects/PlasmaExplosionEffect";
+                else
+                    explosionPrefab = "Effects/SmallExplosionEffect";
                 PhotonNetwork.InstantiateSceneObject(explosionPrefab, pos, Quaternion.identity, 0, null);
             }
         }
