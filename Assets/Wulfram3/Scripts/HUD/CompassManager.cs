@@ -8,12 +8,12 @@ using UnityEngine.UI;
 public class CompassManager : MonoBehaviour {
 
     public RawImage compass;
-    public Transform player;
 
     void Update()
     {
-        
-        compass.uvRect = new Rect(PlayerManager.LocalPlayerInstance.transform.localEulerAngles.y / 360f, 0, 1, 1);
-
+        var degree = PlayerManager.LocalPlayerInstance.transform.localEulerAngles.y / 360f;
+        compass.uvRect = new Rect(degree, 0, 1, 1);
+       //Logger.Log("Player Pointing at " + degree);
+        Logger.Log("Player Pointing at " + PlayerManager.LocalPlayerInstance.transform.localEulerAngles.y);
     }
 }

@@ -56,11 +56,11 @@ public class GridDetectionManager : MonoBehaviour {
         {
             result.HorizontalSector = "B";
         }
-        else if (roundedX.IsWithin(0.36, 0.51))
+        else if (roundedX.IsWithin(0.35, 0.51))
         {
             result.HorizontalSector = "C";
         }
-        else if (roundedX.IsWithin(0.52, 0.68))
+        else if (roundedX.IsWithin(0.52, 0.67))
         {
             result.HorizontalSector = "D";
         }
@@ -83,11 +83,11 @@ public class GridDetectionManager : MonoBehaviour {
         {
             result.VerticalSector = "2";
         }
-        else if (roundedY.IsWithin(0.36, 0.51))
+        else if (roundedY.IsWithin(0.35, 0.51))
         {
             result.VerticalSector = "3";
         }
-        else if (roundedY.IsWithin(0.52, 0.68))
+        else if (roundedY.IsWithin(0.52, 0.67))
         {
             result.VerticalSector = "4";
         }
