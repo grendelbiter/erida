@@ -382,7 +382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   compass: {fileID: 137058489}
-  player: {fileID: 0}
 --- !u!1 &182550284
 GameObject:
   m_ObjectHideFlags: 0
@@ -3210,8 +3209,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1, y: 0.2}
   m_AnchorMax: {x: 0.9, y: 0.85}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -1.1, y: 0}
+  m_SizeDelta: {x: 2.2, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1117406499
 MonoBehaviour:
