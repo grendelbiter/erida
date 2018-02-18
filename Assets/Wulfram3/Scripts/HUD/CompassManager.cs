@@ -12,6 +12,9 @@ public class CompassManager : MonoBehaviour {
     void Update()
     {
         var degree = PlayerManager.LocalPlayerInstance.transform.localEulerAngles.y / 360f;
+        degree = degree - 0.5f;
+        if (degree < 0)
+            degree++;
         compass.uvRect = new Rect(degree, 0, 1, 1);
        //Logger.Log("Player Pointing at " + degree);
         Logger.Log("Player Pointing at " + PlayerManager.LocalPlayerInstance.transform.localEulerAngles.y);

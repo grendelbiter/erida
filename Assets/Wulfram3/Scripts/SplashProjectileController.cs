@@ -8,16 +8,16 @@ namespace Com.Wulfram3 {
          * Static variables are used in Start() to initialize each projectile with the proper
          * information and mesh     */
 
-        public static int PulseVelocity = 45;
-        public static int FlakVelocity = 60; // To intercept, flak must be faster than pulse
+        public static int PulseVelocity = 50;
+        public static int FlakVelocity = 75; // To intercept, flak must be faster than pulse
 
         public static int PulseDirectDamage = 300;
         public static int FlakDirectDamage = 120;
 
-        public static int PulseSplashRadius = 12;
-        public static int FlakSplashRadius = 8;
+        public static int PulseSplashRadius = 14;
+        public static int FlakSplashRadius = 12;
 
-        public float lifetime = 12f; // This is used by pulse shells to control self detonation. Flak turret pass a "fuse" time when creating shells
+        public float lifetime; // This is used by pulse shells to control self detonation. Flak turret pass a "fuse" time when creating shells
 
         // Each projectile mesh should be a child transform of the main projectile and linked to these vars in the inspector.
         public Transform redPulse;
