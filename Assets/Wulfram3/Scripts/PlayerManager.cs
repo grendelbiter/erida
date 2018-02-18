@@ -164,9 +164,9 @@ namespace Com.Wulfram3
                 timeSinceDead += Time.deltaTime;
                 if (timeSinceDead >= destroyDelayWhenDead && photonView.isMine)
                 {
+                    gameManager.SpawnExplosion(transform.position, myUnit.unitType);
                     GetComponent<CameraManager>().Detach();
                     gameManager.GetComponent<PlayerSpawnManager>().StartSpawn();
-                    gameManager.SpawnExplosion(transform.position, myUnit.unitType);
                     PhotonNetwork.Destroy(gameObject);
                 }
             }

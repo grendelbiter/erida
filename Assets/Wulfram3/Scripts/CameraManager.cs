@@ -19,7 +19,6 @@ namespace Com.Wulfram3 {
             if (photonView.isMine) {
                 targetPos = firstPersonPos;
                 currentPos = targetPos;
-                //Logger.Log(currentPos);
                 cam = Camera.main;
                 cam.transform.SetParent(transform);
                 cam.transform.localPosition = currentPos;
@@ -27,9 +26,13 @@ namespace Com.Wulfram3 {
             }
         }
 
-		public void Detach(){
-            cam.transform.SetParent(null);
+        private void Awake()
+        {
+            LocalPlayerVisible(false);
+        }
 
+        public void Detach(){
+            cam.transform.SetParent(null);
 		}
 
         public void SetFirstPersonPosition(Transform t)
@@ -73,11 +76,20 @@ namespace Com.Wulfram3 {
             }
         }
 
+        private void LocalPlayerVisible(bool b)
+        {
+            PlayerManager p = GetComponent<PlayerManager>();
+            if (p != null)
+                p.myMesh.GetComponent<MeshRenderer>().enabled = b;
+        }
+
         private void SwapTargetpos() {
             if (targetPos.Equals(thirdPersonPos)) {
                 targetPos = firstPersonPos;
+                LocalPlayerVisible(false);
             } else {
                 targetPos = thirdPersonPos;
+                LocalPlayerVisible(true);
             }
         }
     }
