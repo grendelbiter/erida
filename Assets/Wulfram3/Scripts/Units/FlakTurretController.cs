@@ -92,7 +92,7 @@ namespace Com.Wulfram3 {
                     currentTargetRotation = transform.rotation;
                 }
                 transform.rotation = Quaternion.Slerp(transform.rotation, currentTargetRotation, Time.deltaTime * turnSpeed);
-                if (Quaternion.Angle(currentTargetRotation, transform.rotation) < 3f && (closestVisibleTarget != null || shellCountCurrent > 0))
+                if (Quaternion.Angle(currentTargetRotation, transform.rotation) < 2f && (closestVisibleTarget != null || shellCountCurrent > 0))
                 {
                     FireAtTarget();
                 }
