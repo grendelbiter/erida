@@ -29,6 +29,8 @@ namespace Com.Wulfram3 {
         private Unit myUnit;
         private bool started = false;
 
+        private float defaultInterceptTime;
+
         // Use this for initialization
         private void Awake()
         {
@@ -36,6 +38,7 @@ namespace Com.Wulfram3 {
             myUnit = GetComponent<Unit>();
             team = transform.GetComponent<Unit>().unitTeam;
             rangeMax = rangeTrigger.radius;
+            defaultInterceptTime = rangeMax / SplashProjectileController.FlakVelocity;
         }
 
         void Start() {
@@ -113,7 +116,7 @@ namespace Com.Wulfram3 {
             if (Time.time > fireStamp) // "Loaded"
             {
                 if (interceptTime <= 0.01f)
-                    interceptTime = 3f;
+                    interceptTime = defaultInterceptTime;
                 if (shellCountCurrent < shellCount) // And have ammo
                 {
                     gameManager.SpawnFlakShell(gunEnd.position, gunEnd.rotation, team, interceptTime);

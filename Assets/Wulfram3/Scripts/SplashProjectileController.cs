@@ -59,7 +59,7 @@ namespace Com.Wulfram3 {
                 velocity = (Vector3)instanceData[2];
                 directDamage = PulseDirectDamage;
                 splashRadius = PulseSplashRadius;
-                lifetime = Time.time + (1050f / velocity.magnitude);
+                lifetime = Time.time + (262.5f / velocity.magnitude);
                 flakShell.gameObject.SetActive(false);
                 if (team == PunTeams.Team.Blue)
                 {

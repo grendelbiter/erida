@@ -67,7 +67,7 @@ namespace Com.Wulfram3
 
         private void ShowFeedback()
         {
-            if (currentTarget.transform != null)
+            if (currentTarget != null && currentTarget.transform != null)
             {
                 StartCoroutine(ShotEffect());
                 laserLine.SetPosition(0, gunEnd.position);
