@@ -218,6 +218,7 @@ namespace Com.Wulfram3
             if ((maxHealth != 0 && health <= 0) && !isDead)
             {
                 isDead = true;
+                gameManager.SetCurrentTarget(null);
                 if (playerManager == null && PhotonNetwork.isMasterClient)
                 {
                     gameManager.SpawnExplosion(transform.position, unitType);
