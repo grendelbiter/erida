@@ -560,7 +560,7 @@ GameObject:
   - component: {fileID: 258348641}
   - component: {fileID: 258348640}
   m_Layer: 5
-  m_Name: Text
+  m_Name: RegisterName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -649,15 +649,14 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1279273115}
+  m_Children: []
   m_Father: {fileID: 443488034}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.38}
   m_AnchorMax: {x: 0.5, y: 0.38}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &260111231
 MonoBehaviour:
@@ -679,12 +678,12 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 23cd507d8fc91dc4bbd684c241e8e988, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
+  m_Type: 3
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.479
-  m_FillClockwise: 1
+  m_FillAmount: 1
+  m_FillClockwise: 0
   m_FillOrigin: 2
 --- !u!222 &260111232
 CanvasRenderer:
@@ -1431,6 +1430,7 @@ RectTransform:
   m_Children:
   - {fileID: 362468271}
   - {fileID: 1493169227}
+  - {fileID: 1279273115}
   - {fileID: 260111230}
   m_Father: {fileID: 1935842334}
   m_RootOrder: 4
@@ -2005,7 +2005,7 @@ GameObject:
   - component: {fileID: 682074282}
   - component: {fileID: 682074281}
   m_Layer: 5
-  m_Name: Text
+  m_Name: RegisterPassword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3229,6 +3229,7 @@ GameObject:
   - component: {fileID: 1263373844}
   - component: {fileID: 1263373846}
   - component: {fileID: 1263373845}
+  - component: {fileID: 1263373847}
   m_Layer: 5
   m_Name: Error Label
   m_TagString: Untagged
@@ -3249,10 +3250,10 @@ RectTransform:
   m_Father: {fileID: 1935842334}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.12}
-  m_AnchoredPosition: {x: 489.6001, y: 225.22}
-  m_SizeDelta: {x: -1006.4, y: -58.752}
+  m_AnchorMin: {x: 0.73, y: 0.275}
+  m_AnchorMax: {x: 0.99, y: 0.375}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1263373845
 MonoBehaviour:
@@ -3278,8 +3279,8 @@ MonoBehaviour:
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 1
-    m_MaxSize: 40
+    m_MinSize: 12
+    m_MaxSize: 22
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3293,6 +3294,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1263373843}
+--- !u!114 &1263373847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1263373843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1279273114
 GameObject:
   m_ObjectHideFlags: 0
@@ -3316,17 +3331,17 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1279273114}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 260111230}
-  m_RootOrder: 0
+  m_Father: {fileID: 443488034}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.38}
+  m_AnchorMax: {x: 0.5, y: 0.38}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1279273117
 MonoBehaviour:
@@ -3348,12 +3363,12 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 67127b8dd092d4243a748fcd3ec62679, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
+  m_Type: 3
+  m_PreserveAspect: 1
   m_FillCenter: 1
-  m_FillMethod: 0
-  m_FillAmount: 0.269
-  m_FillClockwise: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 0
   m_FillOrigin: 0
 --- !u!222 &1279273118
 CanvasRenderer:
@@ -3958,10 +3973,10 @@ RectTransform:
   m_Father: {fileID: 443488034}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.65}
+  m_AnchorMin: {x: 0, y: 0.62}
   m_AnchorMax: {x: 1, y: 0.84}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -6}
+  m_AnchoredPosition: {x: 0, y: -2.5}
+  m_SizeDelta: {x: 0, y: -11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1493169228
 MonoBehaviour:
@@ -4284,20 +4299,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Loglevel: 1
   MaxPlayersPerRoom: 40
-  controlPanel: {fileID: 1214332747}
-  loginUsername: {fileID: 1807350618}
-  loginPassword: {fileID: 1761119102}
+  loginPanel: {fileID: 1214332747}
+  loadingPanel: {fileID: 443488033}
   registrationPanel: {fileID: 591660638}
-  registrationUsername: {fileID: 1198416886}
-  registrationPassword: {fileID: 593325919}
-  registrationEmail: {fileID: 331872784}
-  progressLabel: {fileID: 1493169226}
-  versionLabel: {fileID: 1483434167}
-  errorLabel: {fileID: 1263373843}
+  loginUsername: {fileID: 1807350621}
+  loginPassword: {fileID: 1761119105}
+  registrationUsername: {fileID: 1198416889}
+  registrationPassword: {fileID: 593325922}
+  registrationEmail: {fileID: 331872787}
+  progressLabel: {fileID: 1493169228}
+  versionLabel: {fileID: 1483434169}
+  errorLabel: {fileID: 1263373845}
   playername: {fileID: 0}
   clicksound: {fileID: 8300000, guid: 37a08d5f4dad690458f81d7c3c99ae5d, type: 3}
   click: {fileID: 1583400316}
-  loadingSpinner: {fileID: 260111229}
+  loadingSpinner: {fileID: 1279273114}
 --- !u!4 &1583400315
 Transform:
   m_ObjectHideFlags: 0
@@ -4912,7 +4928,7 @@ GameObject:
   - component: {fileID: 1794976000}
   - component: {fileID: 1794975999}
   m_Layer: 5
-  m_Name: Text
+  m_Name: RegisterMail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5329,7 +5345,7 @@ GameObject:
   - component: {fileID: 1863382865}
   - component: {fileID: 1863382864}
   m_Layer: 5
-  m_Name: Text
+  m_Name: PlayerName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5422,7 +5438,7 @@ GameObject:
   - component: {fileID: 1897280149}
   - component: {fileID: 1897280148}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Password
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -16,7 +16,5 @@ public class CompassManager : MonoBehaviour {
         if (degree < 0)
             degree++;
         compass.uvRect = new Rect(degree, 0, 1, 1);
-       //Logger.Log("Player Pointing at " + degree);
-        Logger.Log("Player Pointing at " + PlayerManager.LocalPlayerInstance.transform.localEulerAngles.y);
     }
 }
