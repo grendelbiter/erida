@@ -21,9 +21,7 @@ namespace Com.Wulfram3 {
         private float fireStamp;
         private GameManager gameManager;
         private Quaternion currentTargetRotation;
-        private Vector3 currentIntercept;
         private float interceptTime;
-        //private bool targetOnSight = false;
         private PunTeams.Team team;
 
         private Unit myUnit;
@@ -51,7 +49,28 @@ namespace Com.Wulfram3 {
         void Update() {
             if (PhotonNetwork.isMasterClient && myUnit.hasPower)
             {
-                Transform closestVisibleTarget = null;
+                Transform closestVisibleTarget = FindClosestVisibleTarget();
+                if (closestVisibleTarget != null)
+                {
+                    currentTargetRotation = Quaternion.LookRotation(GetInterceptPoint(closestVisibleTarget) - transform.position);
+                }
+                else
+                {
+                    currentTargetRotation = transform.rotation;
+                }
+                transform.rotation = Quaternion.Slerp(transform.rotation, currentTargetRotation, Time.deltaTime * turnSpeed);
+                if (Quaternion.Angle(currentTargetRotation, transform.rotation) < 2f && (closestVisibleTarget != null || shellCountCurrent > 0))
+                {
+                    FireAtTarget();
+                }
+            }
+        }
+
+        private Transform FindClosestVisibleTarget()
+        {
+            Transform returnObject = null;
+            if (shellCountCurrent == 0)
+            {
                 int currentTargetPriority = 0;
                 float minDistance = rangeMax * rangeMax; // We'll save some overhead comparing square distance instead of true distance
                 for (int i = targetList.Count - 1; i >= 0; i--)
@@ -78,25 +97,18 @@ namespace Com.Wulfram3 {
                         {
                             currentTargetPriority = tgtPriority;
                             minDistance = tgtSqrDistance;
-                            closestVisibleTarget = targetList[i].transform;
+                            returnObject = targetList[i].transform;
                         }
                     }
                 }
-                if (closestVisibleTarget != null)
-                {
-                    currentIntercept = GetInterceptPoint(closestVisibleTarget);
-                    currentTargetRotation = Quaternion.LookRotation(currentIntercept - transform.position);
-                }
-                else
-                {
-                    currentTargetRotation = transform.rotation;
-                }
-                transform.rotation = Quaternion.Slerp(transform.rotation, currentTargetRotation, Time.deltaTime * turnSpeed);
-                if (Quaternion.Angle(currentTargetRotation, transform.rotation) < 2f && (closestVisibleTarget != null || shellCountCurrent > 0))
-                {
-                    FireAtTarget();
-                }
             }
+            return returnObject;
+        }
+
+        private Vector3 GetRandomPointInCircle()
+        {
+            Vector2 randomPoint = Random.insideUnitCircle * 0.01f;
+            return new Vector3(randomPoint.x, randomPoint.y, 0);
         }
 
         private int GetTargetPriority(Transform t)
@@ -119,7 +131,7 @@ namespace Com.Wulfram3 {
                     interceptTime = defaultInterceptTime;
                 if (shellCountCurrent < shellCount) // And have ammo
                 {
-                    gameManager.SpawnFlakShell(gunEnd.position, gunEnd.rotation, team, interceptTime);
+                    gameManager.SpawnFlakShell(gunEnd.position, Quaternion.LookRotation((gunEnd.rotation * GetRandomPointInCircle()) + gunEnd.forward), team, interceptTime);
                     shellCountCurrent += 1;
                     fireStamp = Time.time + shellDelay;
                 }
@@ -200,8 +212,13 @@ namespace Com.Wulfram3 {
 
         void OnTriggerStay(Collider other)
         {
-            if (PhotonNetwork.isMasterClient && started && !targetList.Contains(other.gameObject) && ValidTarget(other.gameObject.transform))
-                targetList.Add(other.gameObject);
+            if (PhotonNetwork.isMasterClient && started && ValidTarget(other.gameObject.transform))
+            {
+                if (!targetList.Contains(other.gameObject) && (other.transform.position - transform.position).sqrMagnitude > (rangeMin * rangeMin))
+                    targetList.Add(other.gameObject);
+                else if ((other.transform.position - transform.position).sqrMagnitude <= (rangeMin * rangeMin))
+                    targetList.Remove(other.gameObject);
+            }
         }
 
         void OnTriggerLeave(Collider other)

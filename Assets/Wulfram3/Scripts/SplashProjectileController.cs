@@ -15,7 +15,7 @@ namespace Com.Wulfram3 {
         public static int FlakDirectDamage = 120;
 
         public static int PulseSplashRadius = 14;
-        public static int FlakSplashRadius = 12;
+        public static int FlakSplashRadius = 18;
 
         public float lifetime; // This is used by pulse shells to control self detonation. Flak turret pass a "fuse" time when creating shells
 
