@@ -43,7 +43,7 @@ public class UnitModule : IUnitModule
 
     private List<KeyValuePair<ModuleEnchanment, int>> GenerateRandomStats()
     {
-        var statCount = GetStatsCountByRarity();
+        //var statCount = GetStatsCountByRarity();  // Commented to supress warning message (2/19/2018 : Cheebsta)  
         var enchanmentList = GetListOfEnchanmentsBySlot();
         var results = new List<KeyValuePair<ModuleEnchanment, int>>();
         foreach (var item in enchanmentList)

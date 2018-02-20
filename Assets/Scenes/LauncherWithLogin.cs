@@ -196,7 +196,7 @@ namespace Com.Wulfram3 {
         #region Photon.PunBehaviour CallBacks
 
         public override void OnConnectedToMaster() {
-            Logger.Log("Connected to MasterClient. OnConnectedToMaster() attempting to join existing room.");
+            Logger.Log("Connected to MasterServer. OnConnectedToMaster() attempting to join existing room.");
             if (isConnecting)
                 PhotonNetwork.JoinRandomRoom();
         }

@@ -15,7 +15,7 @@ namespace Com.Wulfram3 {
 
 
         // Store the PlayerPref Key to avoid typos
-        static string playerNamePrefKey = "PlayerName";
+        //static string playerNamePrefKey = "PlayerName";  // Commented to supress warning message (2/19/2018 : Cheebsta)  
 
 
         #endregion

@@ -119,6 +119,7 @@ namespace Com.Wulfram3 {
             if (InputEx.GetMouseButton(0) || InputEx.GetAxisRaw("Fire1") != 0) {
                 if (Time.time < nextFireTime)
                     return;
+                GetComponent<FuelManager>().TakeFuel(fuelPerBullet);
                 nextFireTime = Time.time + timeBetweenShots;
                 TargetController targetInfo = GetComponent<TargetController>();
                 if (targetInfo != null && targetInfo.currentPlayerTarget != null)

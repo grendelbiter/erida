@@ -29,7 +29,7 @@ public class GridDetectionManager : MonoBehaviour {
         var terrainLocalPos = worldPos - loadedTerrain.transform.position;
         var normalizedPos = new Vector2(Mathf.InverseLerp(0.0f, loadedTerrain.terrainData.size.x, terrainLocalPos.x),
                                     Mathf.InverseLerp(0.0f, loadedTerrain.terrainData.size.z, terrainLocalPos.z));
-        var terrainNormal = loadedTerrain.terrainData.GetInterpolatedNormal(normalizedPos.x, normalizedPos.y);
+        //var terrainNormal = loadedTerrain.terrainData.GetInterpolatedNormal(normalizedPos.x, normalizedPos.y); // Commented to supress warning message (2/19/2018 : Cheebsta)  
         //Logger.Log(terrainNormal + " " + normalizedPos.x + " " + normalizedPos.y);
         this.currentPlayerSector = this.GetSector(normalizedPos);
         if(!string.IsNullOrEmpty(this.currentPlayerSector.Sector) && locationtext != null)

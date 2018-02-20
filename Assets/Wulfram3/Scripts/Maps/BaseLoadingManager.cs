@@ -249,7 +249,7 @@ namespace Assets.Wulfram3.Scripts.Maps
 
         public BaseSetup GetCurrentMapConfig()
         {
-            var tempTargets = new List<UnitTarget>();
+            //var tempTargets = new List<UnitTarget>(); // Commented to supress warning message (2/19/2018 : Cheebsta)  
             // Get Units on the map as it loads
             var units = ((Unit[])GameObject.FindObjectsOfType(typeof(Unit))).ToList();
             if (units.Count > 0)

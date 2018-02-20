@@ -157,7 +157,6 @@ namespace Com.Wulfram3 {
 
         private Vector3 GetInterceptPoint(Transform t)
         {
-            Vector3 targetRPos = t.position - gunEnd.position;
             Vector3 targetRVel = t.GetComponent<Rigidbody>().velocity - GetComponent<Rigidbody>().velocity; // Relative velocity
             interceptTime = GetInterceptTime(t);
             return t.position + targetRVel * interceptTime; // Current position + Velocity * Time = Predicted future position

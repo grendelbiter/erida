@@ -34,8 +34,6 @@ namespace Com.Wulfram3 {
 
         private UnitType firedBy;
 
-        private Vector3 parentVelocity = Vector3.zero;
-
         private bool Collided = false;
 
         // Use this for initialization

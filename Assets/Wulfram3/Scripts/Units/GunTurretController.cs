@@ -10,13 +10,14 @@ namespace Com.Wulfram3
         public Transform gunEnd;
         public int bulletDamageinHitpoints = 1;
         public float scanInterval = 2;
-        public float scanRadius = 50;
         public float testTargetOnSightInterval = 0.5f;
         public float turnSpeed = 12;
-        public float bulletsPerSecond = 4;
+        public float bulletsPerSecond = 2;
 
         private LineRenderer laserLine;
         private Transform currentTarget = null;
+        private float accumulatedDamage;
+        private float damageSendLimit = 5f;
         private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
         private bool targetOnSight = false;
         private bool shooting = false;
@@ -28,11 +29,126 @@ namespace Com.Wulfram3
 
         private Unit myUnit;
 
+        private List<GameObject> targetList = new List<GameObject>();
+
+        private float rangeMax;
+        public SphereCollider targetTrigger;
+        private bool started = false;
+
         void Start()
         {
             timeBetweenShots = 1f / bulletsPerSecond;
             laserLine = GetComponent<LineRenderer>();
             myUnit = GetComponent<Unit>();
+            rangeMax = targetTrigger.radius;
+            started = true;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (myUnit.hasPower) { 
+                if (shooting)
+                {
+                    timeSinceLastEffect += Time.deltaTime;
+                    if (timeSinceLastEffect >= timeBetweenShots)
+                    {
+                        timeSinceLastEffect = 0f;
+                        ShowFeedback();
+                    }
+                }
+                if (PhotonNetwork.isMasterClient)
+                {
+                    if (currentTarget != null)
+                    {
+                        Vector3 lookPos = currentTarget.transform.position - transform.position;
+                        Quaternion rotation = Quaternion.LookRotation(lookPos);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * turnSpeed);
+                    }
+                    bool hadVisibleTarget = false;
+                    for (int i = targetList.Count - 1; i >= 0; i--)
+                    {
+                        if (targetList[i] == null || targetList[i].transform == null || !ValidTarget(targetList[i].transform))
+                        {
+                            targetList.RemoveAt(i);
+                            continue;
+                        }
+                        float tgtSqrDistance = (targetList[i].transform.position - transform.position).sqrMagnitude;
+                        if (tgtSqrDistance > rangeMax * rangeMax)
+                        {
+                            targetList.RemoveAt(i);
+                            continue;
+                        }
+                        RaycastHit hit;
+                        Physics.Raycast(transform.position, targetList[i].transform.position - transform.position, out hit, rangeMax);
+                        if (hit.transform != null && ValidTarget(hit.transform))
+                        {
+                            if (hit.transform == currentTarget)
+                            {
+                                SetAndSyncShooting(true);
+                                hadVisibleTarget = true;
+                                accumulatedDamage += bulletsPerSecond * bulletDamageinHitpoints * Time.deltaTime;
+                                if (accumulatedDamage >= damageSendLimit)
+                                {
+                                    Unit u = hit.transform.GetComponent<Unit>();
+                                    if (u != null)
+                                    {
+                                        u.TellServerTakeDamage((int) damageSendLimit);
+                                        accumulatedDamage -= damageSendLimit;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                SetAndSyncShooting(true);
+                                hadVisibleTarget = true;
+                                if (accumulatedDamage >= 1f)
+                                {
+                                    Unit u = currentTarget.GetComponent<Unit>();
+                                    if (u != null)
+                                    {
+                                        u.TellServerTakeDamage((int)accumulatedDamage);
+                                        accumulatedDamage = 0f;
+                                    }
+                                }
+                                currentTarget = hit.transform;
+                                accumulatedDamage += bulletsPerSecond * bulletDamageinHitpoints * Time.deltaTime;
+                            }
+                        }
+                    }
+                    if (!hadVisibleTarget && currentTarget != null && accumulatedDamage > 0f)
+                    {
+                        Unit u = currentTarget.GetComponent<Unit>();
+                        if (u != null)
+                        {
+                            u.TellServerTakeDamage((int)accumulatedDamage);
+                            accumulatedDamage = 0f;
+                            currentTarget = null;
+                            SetAndSyncShooting(false);
+                        }
+                    }
+
+
+                    /*
+                    FindTarget();
+                    TurnTowardsCurrentTarget();
+                    if (shooting)
+                    {
+                        timeSinceLastEffect += Time.deltaTime;
+                        if (timeSinceLastEffect >= timeBetweenShots)
+                        {
+                            timeSinceLastEffect = 0f;
+                            ShowFeedback();
+                        }
+                    }
+                    if (PhotonNetwork.isMasterClient)
+                    {
+                        CheckTargetOnSight();
+                        FireAtTarget();
+                    }
+                    */
+                }
+            }
         }
 
         private IEnumerator ShotEffect()
@@ -50,14 +166,6 @@ namespace Com.Wulfram3
                 SyncShooting();
             }
         }
-
-        [PunRPC]
-        public void SetShooting(bool newShootingValue)
-        {
-            if (!photonView.isMine)
-                shooting = newShootingValue;
-        }
-
 
         private void SyncShooting()
         {
@@ -81,30 +189,7 @@ namespace Com.Wulfram3
             return new Vector3(randomPoint.x, randomPoint.y, 0);
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (myUnit.hasPower)
-            {
-                FindTarget();
-                TurnTowardsCurrentTarget();
-                if (shooting)
-                {
-                    timeSinceLastEffect += Time.deltaTime;
-                    if (timeSinceLastEffect >= timeBetweenShots)
-                    {
-                        timeSinceLastEffect = 0f;
-                        ShowFeedback();
-                    }
-                }
-                if (PhotonNetwork.isMasterClient)
-                {
-                    CheckTargetOnSight();
-                    FireAtTarget();
-                }
-            }
-        }
-
+        /*
         private void FireAtTarget()
         {
             if (currentTarget == null || targetOnSight == false)
@@ -118,7 +203,7 @@ namespace Com.Wulfram3
                 Vector3 pos = transform.position + (transform.forward * 3.0f + transform.up * 0.2f);
                 Quaternion rotation = transform.rotation;
                 RaycastHit objectHit;
-                targetOnSight = Physics.Raycast(pos, transform.forward, out objectHit, scanRadius) && ValidTarget(objectHit.collider.transform);
+                targetOnSight = Physics.Raycast(pos, transform.forward, out objectHit, rangeMax) && ValidTarget(objectHit.collider.transform);
                 if (objectHit.transform != null)
                 {
                     Unit hitUnit = objectHit.transform.GetComponent<Unit>();
@@ -127,18 +212,21 @@ namespace Com.Wulfram3
                     timeSinceLastDamage = 0;
                 }
             }
-        }
+        }*/
 
         private bool ValidTarget(Transform t)
         {
-            if (t != null && t.GetComponent<Unit>())
-            {
-                if (t.GetComponent<Unit>().unitTeam != GetComponent<Unit>().unitTeam)
+            if (t != null) {
+                Unit u = t.GetComponent<Unit>();
+                SplashProjectileController spc = t.GetComponent<SplashProjectileController>();
+                if (u != null && u.unitTeam != myUnit.unitTeam)
+                    return true;
+                else if (spc != null && spc.team != myUnit.unitTeam)
                     return true;
             }
             return false;
         }
-
+        /*
         private void CheckTargetOnSight()
         {
             if (currentTarget == null)
@@ -149,7 +237,7 @@ namespace Com.Wulfram3
             }
 
             RaycastHit objectHit;
-            targetOnSight = Physics.Raycast(gunEnd.position, gunEnd.forward, out objectHit, scanRadius) && ValidTarget(objectHit.collider.transform);
+            targetOnSight = Physics.Raycast(gunEnd.position, gunEnd.forward, out objectHit, rangeMax) && ValidTarget(objectHit.collider.transform);
             if (!targetOnSight)
             {
                 SetAndSyncShooting(false);
@@ -157,14 +245,14 @@ namespace Com.Wulfram3
             {
                 SetAndSyncShooting(true);
             }
-        }
-
+        }*/
+        /*
         private void TurnTowardsCurrentTarget()
         {
             if (currentTarget != null)
             {
                 var distance = Vector3.Distance(currentTarget.transform.position, transform.position);
-                if (distance >= scanRadius)
+                if (distance >= rangeMax)
                 {
                     targetOnSight = false;
                     currentTarget = null;
@@ -188,8 +276,8 @@ namespace Com.Wulfram3
             {
                 currentTarget = null;
                 Transform closestTarget = null;
-                float minDistance = scanRadius + 1f;
-                Collider[] cols = Physics.OverlapSphere(transform.position, scanRadius);
+                float minDistance = rangeMax + 1f;
+                Collider[] cols = Physics.OverlapSphere(transform.position, rangeMax);
                 foreach (var col in cols)
                 {
                     if (ValidTarget(col.transform))
@@ -207,6 +295,24 @@ namespace Com.Wulfram3
             }
             if (currentTarget != null && currentTarget.transform == null)
                 currentTarget = null;
+        }*/
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (PhotonNetwork.isMasterClient && started && !targetList.Contains(other.gameObject) && ValidTarget(other.gameObject.transform))
+                targetList.Add(other.gameObject);
+        }
+
+        void OnTriggerStay(Collider other)
+        {
+            if (PhotonNetwork.isMasterClient && started && ValidTarget(other.gameObject.transform) && !targetList.Contains(other.gameObject))
+                targetList.Add(other.gameObject);
+        }
+
+        void OnTriggerLeave(Collider other)
+        {
+            if (PhotonNetwork.isMasterClient && targetList.Contains(other.gameObject))
+                targetList.Remove(other.gameObject);
         }
     }
 }
