@@ -7,33 +7,26 @@ namespace Com.Wulfram3
     [RequireComponent(typeof(Unit))]
     public class GunTurretController : Photon.PunBehaviour
     {
-        public Transform gunEnd;
+
         public int bulletDamageinHitpoints = 1;
-        public float scanInterval = 2;
-        public float testTargetOnSightInterval = 0.5f;
         public float turnSpeed = 12;
         public float bulletsPerSecond = 2;
+        public Transform gunEnd;
+        public SphereCollider targetTrigger;
 
-        private LineRenderer laserLine;
-        private Transform currentTarget = null;
+        private bool started = false;
+        private bool shooting = false;
+        private float rangeMax;
+        private float timeBetweenShots;
         private float accumulatedDamage;
         private float damageSendLimit = 5f;
-        private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
-        private bool targetOnSight = false;
-        private bool shooting = false;
-        private float timeSinceLastScan = 0;
-        private float timeSinceLastDamage = 0;
         private float timeSinceLastEffect = 0;
         private float deviationConeRadius = 1;
-        private float timeBetweenShots;
-
         private Unit myUnit;
-
+        private Transform currentTarget = null;
+        private LineRenderer laserLine;
+        private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
         private List<GameObject> targetList = new List<GameObject>();
-
-        private float rangeMax;
-        public SphereCollider targetTrigger;
-        private bool started = false;
 
         void Start()
         {
