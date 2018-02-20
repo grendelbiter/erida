@@ -53,7 +53,11 @@ public class MapModeManager : MonoBehaviour {
             case MapType.Mini:
                 itsMapSystem.SetTarget(PlayerManager.LocalPlayerInstance);
                 itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(PlayerManager.LocalPlayerInstance.transform.position));
-                if(MasterHUD != null)
+                itsMapSystem.SetIconsVisibleByCategory("Blue_Cargo", true);
+                itsMapSystem.SetIconsVisibleByCategory("Blue_Units", true);
+                itsMapSystem.SetIconsVisibleByCategory("Red_Cargo", true);
+                itsMapSystem.SetIconsVisibleByCategory("Red_Units", true);
+                if (MasterHUD != null)
                 {
                     MasterHUD.SetActive(true); 
                 }
@@ -74,6 +78,10 @@ public class MapModeManager : MonoBehaviour {
             case MapType.Large:
                 itsMapSystem.SetTarget(MapCenter);
                 itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(MapCenter.transform.position));
+                itsMapSystem.SetIconsVisibleByCategory("Blue_Cargo", true);
+                itsMapSystem.SetIconsVisibleByCategory("Blue_Units", true);
+                itsMapSystem.SetIconsVisibleByCategory("Red_Cargo", true);
+                itsMapSystem.SetIconsVisibleByCategory("Red_Units", true);
                 if (MasterHUD != null)
                 {
                     MasterHUD.SetActive(false);
@@ -94,6 +102,10 @@ public class MapModeManager : MonoBehaviour {
             case MapType.Spawn:
                 itsMapSystem.SetTarget(SpawnCenter);
                 itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(SpawnCenter.transform.position));
+                itsMapSystem.SetIconsVisibleByCategory("Blue_Cargo", false);
+                itsMapSystem.SetIconsVisibleByCategory("Blue_Units", false);
+                itsMapSystem.SetIconsVisibleByCategory("Red_Cargo", false);
+                itsMapSystem.SetIconsVisibleByCategory("Red_Units", false);
                 if (MasterHUD != null)
                 {
                     MasterHUD.SetActive(false);

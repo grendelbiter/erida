@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itsDataMapIcon:
-    itsCategory: Red_Units
+    itsCategory: Red_RepairPad
     itsTextureIcon: {fileID: 2800000, guid: 985d3b8e0aa6eba42aa86f0d227645aa, type: 3}
     itsTextureArrow: {fileID: 0}
     itsRotate: 0

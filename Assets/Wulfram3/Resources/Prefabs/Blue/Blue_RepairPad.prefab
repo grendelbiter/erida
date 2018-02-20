@@ -298,11 +298,11 @@ MonoBehaviour:
   unitType: 5
   maxHealth: 1000
   hitpointRegenPerSecond: 0.3
+  targetPriority: 0
   needsPower: 0
-  playerLandedBoost: 2.65
-  repairPadBoost: 75
   health: 1000
   hasPower: 0
+  isDead: 0
 --- !u!114 &114151487558388334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itsDataMapIcon:
-    itsCategory: Blue_Units
+    itsCategory: Blue_RepairPads
     itsTextureIcon: {fileID: 2800000, guid: f27b7611c7599c24596f273ef2fb22c9, type: 3}
     itsTextureArrow: {fileID: 0}
     itsRotate: 0
