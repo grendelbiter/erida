@@ -3,15 +3,16 @@ using UnityEngine;
 
 namespace Com.Wulfram3
 {
+    [RequireComponent(typeof(Unit))]
+    [RequireComponent(typeof(PlayerManager))]
+    [RequireComponent(typeof(PlayerMotionController))]
     public class CargoManager : Photon.PunBehaviour {
 
         private GameManager gameManager;
         private Transform currentPlaceableObject;
-        private float maxPlaceDistance;
-        private float minPlaceDistance;
-
-        private float mouseWheelRotation = 0f;
-        private float rotationSpeed = 10f;
+        private float maxPlaceDistance = 24f;
+        private float minPlaceDistance = 8f;
+        private float currentPlaceDistance = 12f;
 
         private float dropDelay = 0f;
         private float deployDelay = 0f;
@@ -32,12 +33,11 @@ namespace Com.Wulfram3
 
         void Start() {
             gameManager = FindObjectOfType<GameManager>();
-            maxPlaceDistance = Vector3.Distance(transform.position, placeObjectPoint.position);
             myTeam = GetComponent<Unit>().unitTeam;
         }
 
         void Update() {
-            if (photonView.isMine) {
+            if (photonView.isMine && !Cursor.visible) {
                 if (Input.GetAxisRaw("DropCargo") != 0f && Time.time > dropDelay) {
                     if (currentPlaceableObject != null)
                         CancelDeployCargo();
@@ -52,8 +52,8 @@ namespace Com.Wulfram3
                     }
                     if (currentPlaceableObject != null)
                     {
+                        currentPlaceDistance = Mathf.Clamp(currentPlaceDistance + Input.mouseScrollDelta.y, minPlaceDistance, maxPlaceDistance);
                         currentPlaceableObject.transform.position = GetBestPosition();
-                        RotateFromMouseWheel();
                         if (Input.GetMouseButtonDown(0))
                             CheckFinalPlacement();
                     }
@@ -61,9 +61,7 @@ namespace Com.Wulfram3
                 } else
                 {
                     if (Time.time > deployDelay)
-                    {
                         isDeploying = false;
-                    }
                 }
             }
 
@@ -81,13 +79,9 @@ namespace Com.Wulfram3
         private void ToggleDeployMode()
         {
             if (currentPlaceableObject == null)
-            {
                 StartDeployCargo();
-            }
             else
-            {
                 CancelDeployCargo();
-            }
         }
 
         [PunRPC]
@@ -98,9 +92,7 @@ namespace Com.Wulfram3
             cargoTeam = t;
             GetComponent<AudioSource>().PlayOneShot(cargoPickupSound, 1.0f);
             if (PhotonNetwork.isMasterClient)
-            {
                 PhotonNetwork.Destroy(PhotonView.Find(viewID).gameObject);
-            }
         }
 
         [PunRPC]
@@ -127,34 +119,30 @@ namespace Com.Wulfram3
             if (Input.GetAxis("DeployCargo") > 0f && hasCargo && currentPlaceableObject == null)
             {
                 isDeploying = true;
-                string prefab = Unit.GetPrefabName(cargoType, myTeam);
+                string prefab = Unit.GetNoScriptUnitName(cargoType, myTeam);
                 GameObject newObject = Instantiate(Resources.Load(prefab), GetBestPosition(), transform.rotation) as GameObject;
-                newObject.GetComponent<Rigidbody>().isKinematic = true;
-                newObject.GetComponent<Collider>().enabled = false;
-                foreach (var script in newObject.GetComponents<MonoBehaviour>())
-                    script.enabled = false;
-                foreach (var script in newObject.GetComponentsInChildren<MonoBehaviour>())
-                    script.enabled = false;
                 currentPlaceableObject = newObject.transform;
                 ChangeMaterial(ghostObjectMaterial);
-                minPlaceDistance = Mathf.Max(currentPlaceableObject.GetComponent<Collider>().bounds.size.x, currentPlaceableObject.GetComponent<Collider>().bounds.size.z, 2.0f);
-                maxPlaceDistance += minPlaceDistance;
             }
         }
 
         private Vector3 GetBestPosition()
         {
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxPlaceDistance,~LayerMask.GetMask("Units")))
-                return new Vector3(hit.point.x, hit.point.y + (minPlaceDistance * 0.5f), hit.point.z);
-            return new Vector3(placeObjectPoint.position.x, placeObjectPoint.position.y + (minPlaceDistance * 0.85f), placeObjectPoint.position.z);
-        }
-
-
-        public void RotateFromMouseWheel()
-        {
-            mouseWheelRotation += Input.mouseScrollDelta.y;
-            currentPlaceableObject.transform.Rotate(Vector3.up, mouseWheelRotation * rotationSpeed);
+            Vector3 bestPlacePosition = transform.position + (transform.forward * currentPlaceDistance);
+            if (currentPlaceableObject != null)
+            {
+                Terrain terrain = Terrain.activeTerrain;
+                Vector3 terrainRelativePosition = bestPlacePosition - terrain.transform.position;
+                Vector2 normalizedPosition = new Vector2(terrainRelativePosition.x / terrain.terrainData.size.x, terrainRelativePosition.z / terrain.terrainData.size.z);
+                float tHeight = terrain.terrainData.GetInterpolatedHeight(normalizedPosition.x, normalizedPosition.y);
+                Vector3 tNormal = terrain.terrainData.GetInterpolatedNormal(normalizedPosition.x, normalizedPosition.y);
+                if (Vector3.Angle(transform.up, tNormal) < 23f)
+                    currentPlaceableObject.up = tNormal;
+                else
+                    currentPlaceableObject.up = transform.up;
+                bestPlacePosition = new Vector3(bestPlacePosition.x, tHeight, bestPlacePosition.z);
+            }
+            return bestPlacePosition;
         }
 
         public void ChangeMaterial(Material newMat)
@@ -163,9 +151,7 @@ namespace Com.Wulfram3
             {
                 var mats = new Material[rend.materials.Length];
                 for (var j = 0; j < rend.materials.Length; j++)
-                {
                     mats[j] = newMat;
-                }
                 rend.materials = mats;
             }
         }

@@ -113,7 +113,17 @@ namespace Com.Wulfram3
         public static string GetPrefabName(UnitType u, PunTeams.Team t)
         {
             string tf = PunTeamToTeamString(t);
-            string s = "Prefabs/" + tf + "/" + tf + "_";
+            return "Prefabs/" + tf + "/" + tf + "_" + GetUnitName(u);
+        }
+
+        public static string GetNoScriptUnitName(UnitType u, PunTeams.Team t)
+        {
+            return "Prefabs/NoScriptUnits/" + PunTeamToTeamString(t) + "_" + GetUnitName(u);
+        }
+
+        public static string GetUnitName(UnitType u)
+        {
+            string s = "";
             switch (u)
             {
                 case UnitType.Cargo: s += "Cargo"; break;
@@ -128,7 +138,7 @@ namespace Com.Wulfram3
                 case UnitType.Scout: s += "Scout"; break;
                 case UnitType.Uplink: s += "Uplink"; break;
                 default:
-                    Logger.Log("UnitTypeToPrefabString(" + u.ToString() + ", " + t.ToString() + ") ERROR: Unknown UnitType. Defaulting to cargobox!");
+                    Logger.Log("UnitTypeToPrefabString(" + u.ToString() + ") ERROR: Unknown UnitType. Defaulting to cargobox!");
                     s += "Cargo";
                     break;
             }

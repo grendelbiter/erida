@@ -103,15 +103,16 @@ namespace Com.Wulfram3
             CameraManager cm = GetComponent<CameraManager>();
             cm.SetFirstPersonPosition(firstPersonCameraPositions[i]);
             cm.SetThirdPersonPosition(thirdPersonCameraPositions[i]);
+            CargoManager cargoManager = GetComponent<CargoManager>();
             if (i == 0)
             {
-                dropPosition = cargoDropPositions[0];
-                placePosition = unitPlacePositions[0];
+                cargoManager.dropPosition = cargoDropPositions[0];
+                cargoManager.placeObjectPoint = unitPlacePositions[0];
             }
             else if (i == 2)
             {
-                dropPosition = cargoDropPositions[1];
-                placePosition = unitPlacePositions[1];
+                cargoManager.dropPosition = cargoDropPositions[1];
+                cargoManager.placeObjectPoint = unitPlacePositions[1];
             }
         }
 
