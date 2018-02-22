@@ -39,6 +39,8 @@ GameObject:
   - component: {fileID: 82697566235769494}
   - component: {fileID: 114623170500528722}
   - component: {fileID: 114546244985890074}
+  - component: {fileID: 114119007385663178}
+  - component: {fileID: 114254791665349732}
   m_Layer: 0
   m_Name: PulseShell
   m_TagString: Untagged
@@ -760,6 +762,58 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114119007385663178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1111220902952704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02254739a0001f849982520e1f08344c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itsDataMapIcon:
+    itsCategory: Projectile
+    itsTextureIcon: {fileID: 2800000, guid: 6c340a4c326487044af33952520ad848, type: 3}
+    itsTextureArrow: {fileID: 0}
+    itsRotate: 0
+    itsColor: {r: 1, g: 1, b: 1, a: 1}
+    itsIsVisible: 1
+    itsUseArrow: 0
+    itsRevealFogOfWar: 0
+    itsShowToolTip: 0
+    itsToolTip: 
+    itsIconScale: 0.2
+    itsBlinking: 0
+    itsDepth: 0
+    itsRepresentation: {fileID: 0}
+--- !u!114 &114254791665349732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1111220902952704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02254739a0001f849982520e1f08344c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itsDataMapIcon:
+    itsCategory: Projectile
+    itsTextureIcon: {fileID: 2800000, guid: b2596a39343407d49b621638daa82ecf, type: 3}
+    itsTextureArrow: {fileID: 0}
+    itsRotate: 0
+    itsColor: {r: 1, g: 1, b: 1, a: 1}
+    itsIsVisible: 1
+    itsUseArrow: 0
+    itsRevealFogOfWar: 0
+    itsShowToolTip: 0
+    itsToolTip: 
+    itsIconScale: 0.2
+    itsBlinking: 1
+    itsDepth: 1
+    itsRepresentation: {fileID: 0}
 --- !u!114 &114546244985890074
 MonoBehaviour:
   m_ObjectHideFlags: 1
