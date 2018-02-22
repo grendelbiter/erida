@@ -19,6 +19,8 @@ namespace Com.Wulfram3
 
         public RawImage hudImage;
 
+        public GameObject hitPanel;
+
         public Material redcolor;
         public Material bluecolor;
         public Material graycolor;
@@ -76,6 +78,7 @@ namespace Com.Wulfram3
                 unitSelector.SetAvailableModels(availableUnits);
                 Logger.Log(PhotonNetwork.player.NickName + " assigned to " + PhotonNetwork.player.GetTeam() + " team. Awaiting first spawn. (GameManager.cs / Start:82)");
                 GetComponent<PlayerSpawnManager>().StartSpawn();
+                hitPanel.SetActive(false);
             }
             else
             {

@@ -1,5 +1,6 @@
 ﻿using Assets.Wulfram3.Scripts.InternalApis.Classes;
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Com.Wulfram3
@@ -221,11 +222,18 @@ namespace Com.Wulfram3
         }
 
         [PunRPC]
-        public void UpdateHealth(int amount)
+        public async void UpdateHealth(int amount)
         {
-            int newHealth = Mathf.Clamp(amount, 0, maxHealth);
-            health = newHealth;
-            if ((maxHealth != 0 && health <= 0) && !isDead)
+            int newHealth = Mathf.Clamp(amount, 0, maxHealth);        
+            if (photonView.isMine && (health - amount) > 0)
+            {
+                // Hit flash
+                gameManager.hitPanel.SetActive(true);
+                await Task.Delay(200);
+                gameManager.hitPanel.SetActive(false);
+            }
+            this.health = newHealth;
+            if ((maxHealth != 0 && this.health <= 0) && !isDead)
             {
                 isDead = true;
                 gameManager.SetCurrentTarget(null);
