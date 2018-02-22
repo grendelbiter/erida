@@ -38,12 +38,14 @@ namespace Assets.Wulfram3.Scripts.Maps
             ""unitType"": 3,
             ""posX"": 317,
             ""posY"": 17,
-            ""posZ"": 692
+            ""posZ"": 692,
+            ""cargoType"": 5
         }, {
             ""unitType"": 3,
             ""posX"": 346,
             ""posY"": 27,
-            ""posZ"": 675
+            ""posZ"": 675,
+            ""cargoType"": 4
         }, {
             ""unitType"": 9,
             ""posX"": 324,
@@ -63,12 +65,14 @@ namespace Assets.Wulfram3.Scripts.Maps
             ""unitType"": 3,
             ""posX"": 348,
             ""posY"": 28,
-            ""posZ"": 676
+            ""posZ"": 676,
+            ""cargoType"": 8
         }, {
             ""unitType"": 3,
             ""posX"": 319,
             ""posY"": 18,
-            ""posZ"": 692
+            ""posZ"": 692,
+            ""cargoType"": 7
         }, {
             ""unitType"": 5,
             ""posX"": 301,
@@ -98,22 +102,26 @@ namespace Assets.Wulfram3.Scripts.Maps
             ""unitType"": 3,
             ""posX"": 356,
             ""posY"": 46,
-            ""posZ"": 666
+            ""posZ"": 666,
+            ""cargoType"": 8
         }, {
             ""unitType"": 3,
             ""posX"": 319,
             ""posY"": 17,
-            ""posZ"": 693
+            ""posZ"": 693,
+            ""cargoType"": 8
         }, {
             ""unitType"": 3,
             ""posX"": 322,
             ""posY"": 17,
-            ""posZ"": 692
+            ""posZ"": 692,
+            ""cargoType"": 7
         }, {
             ""unitType"": 3,
             ""posX"": 337,
             ""posY"": 28,
-            ""posZ"": 674
+            ""posZ"": 674,
+            ""cargoType"": 4
         }, {
             ""unitType"": 10,
             ""posX"": 332,
@@ -142,7 +150,8 @@ namespace Assets.Wulfram3.Scripts.Maps
             ""unitType"": 3,
             ""posX"": 66,
             ""posY"": 21,
-            ""posZ"": 17
+            ""posZ"": 17,
+            ""cargoType"": 4
         }, {
             ""unitType"": 7,
             ""posX"": 78,
@@ -157,12 +166,14 @@ namespace Assets.Wulfram3.Scripts.Maps
             ""unitType"": 3,
             ""posX"": 64,
             ""posY"": 21,
-            ""posZ"": 14
+            ""posZ"": 14,
+            ""cargoType"": 5
         }, {
             ""unitType"": 3,
             ""posX"": 73,
             ""posY"": 20,
-            ""posZ"": 15
+            ""posZ"": 15,
+            ""cargoType"": 4
         }, {
             ""unitType"": 12,
             ""posX"": 66,
@@ -172,12 +183,14 @@ namespace Assets.Wulfram3.Scripts.Maps
             ""unitType"": 3,
             ""posX"": 74,
             ""posY"": 20,
-            ""posZ"": 18
+            ""posZ"": 18,
+            ""cargoType"": 8
         }, {
             ""unitType"": 3,
             ""posX"": 75,
             ""posY"": 20,
-            ""posZ"": 16
+            ""posZ"": 16,
+            ""cargoType"": 7
         }, {
             ""unitType"": 8,
             ""posX"": 85,
@@ -192,7 +205,8 @@ namespace Assets.Wulfram3.Scripts.Maps
             ""unitType"": 3,
             ""posX"": 68,
             ""posY"": 21,
-            ""posZ"": 15
+            ""posZ"": 15,
+            ""cargoType"": 8
         }, {
             ""unitType"": 5,
             ""posX"": 66,
@@ -207,7 +221,8 @@ namespace Assets.Wulfram3.Scripts.Maps
             ""unitType"": 3,
             ""posX"": 71,
             ""posY"": 20,
-            ""posZ"": 17
+            ""posZ"": 17,
+            ""cargoType"": 7
         }, {
             ""unitType"": 9,
             ""posX"": 70,
@@ -227,7 +242,8 @@ namespace Assets.Wulfram3.Scripts.Maps
             ""unitType"": 3,
             ""posX"": 63,
             ""posY"": 21,
-            ""posZ"": 18
+            ""posZ"": 18,
+            ""cargoType"": 4
         }]
     }]
 }";
@@ -243,7 +259,12 @@ namespace Assets.Wulfram3.Scripts.Maps
         {
             foreach (var unit in singleBase.units)
             {
-                 PhotonNetwork.InstantiateSceneObject(Unit.GetPrefabName(unit.unitType,singleBase.team), new Vector3(unit.posX, unit.posY, unit.posZ), Quaternion.identity,0, null);
+                var obj = PhotonNetwork.InstantiateSceneObject(Unit.GetPrefabName(unit.unitType,singleBase.team), new Vector3(unit.posX, unit.posY, unit.posZ), Quaternion.identity,0, null);
+                if(unit.unitType == UnitType.Cargo)
+                {
+                    obj.GetComponent<Cargo>().team = singleBase.team;
+                    obj.GetComponent<Cargo>().content = unit.cargoType;
+                }
             }
         }
 
@@ -272,7 +293,8 @@ namespace Assets.Wulfram3.Scripts.Maps
                                 unitType = unit.unitType,
                                 posX = (int)unit.gameObject.transform.position.x,
                                 posY = (int)unit.gameObject.transform.position.y,
-                                posZ = (int)unit.gameObject.transform.position.z
+                                posZ = (int)unit.gameObject.transform.position.z,
+                                cargoType = unit.unitType == UnitType.Cargo ? unit.GetComponentInParent<Cargo>().content : UnitType.None
                             });
                     }
 

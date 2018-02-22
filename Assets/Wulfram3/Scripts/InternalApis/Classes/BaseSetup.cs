@@ -32,6 +32,8 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Classes
 
         public int posZ { get; set; }
 
+        public UnitType cargoType { get; set; }
+
         public string GetPrefabNameFromUnitType(PunTeams.Team team)
         {
             switch (team)
