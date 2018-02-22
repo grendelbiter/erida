@@ -784,7 +784,7 @@ MonoBehaviour:
     itsRevealFogOfWar: 0
     itsShowToolTip: 0
     itsToolTip: 
-    itsIconScale: 0.2
+    itsIconScale: 0.6
     itsBlinking: 0
     itsDepth: 0
     itsRepresentation: {fileID: 0}
@@ -810,7 +810,7 @@ MonoBehaviour:
     itsRevealFogOfWar: 0
     itsShowToolTip: 0
     itsToolTip: 
-    itsIconScale: 0.2
+    itsIconScale: 0.6
     itsBlinking: 1
     itsDepth: 1
     itsRepresentation: {fileID: 0}
