@@ -43,6 +43,10 @@ public class MapModeManager : MonoBehaviour {
                 ActivateMapMode(MapType.Mini);
             }
         }
+        if (this.currentMapType == MapType.Spawn)
+        {
+            ShowUnitIcons(false);
+        }
     }
 
     public void ActivateMapMode(MapType map)
@@ -53,10 +57,7 @@ public class MapModeManager : MonoBehaviour {
             case MapType.Mini:
                 itsMapSystem.SetTarget(PlayerManager.LocalPlayerInstance);
                 itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(PlayerManager.LocalPlayerInstance.transform.position));
-                itsMapSystem.SetIconsVisibleByCategory("Blue_Cargo", true);
-                itsMapSystem.SetIconsVisibleByCategory("Blue_Units", true);
-                itsMapSystem.SetIconsVisibleByCategory("Red_Cargo", true);
-                itsMapSystem.SetIconsVisibleByCategory("Red_Units", true);
+                ShowUnitIcons(true);
                 if (MasterHUD != null)
                 {
                     MasterHUD.SetActive(true); 
@@ -78,10 +79,7 @@ public class MapModeManager : MonoBehaviour {
             case MapType.Large:
                 itsMapSystem.SetTarget(MapCenter);
                 itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(MapCenter.transform.position));
-                itsMapSystem.SetIconsVisibleByCategory("Blue_Cargo", true);
-                itsMapSystem.SetIconsVisibleByCategory("Blue_Units", true);
-                itsMapSystem.SetIconsVisibleByCategory("Red_Cargo", true);
-                itsMapSystem.SetIconsVisibleByCategory("Red_Units", true);
+                ShowUnitIcons(true);
                 if (MasterHUD != null)
                 {
                     MasterHUD.SetActive(false);
@@ -102,10 +100,7 @@ public class MapModeManager : MonoBehaviour {
             case MapType.Spawn:
                 itsMapSystem.SetTarget(SpawnCenter);
                 itsMapSystem.EventClickedOnMinimap.Trigger(itsMapSystem, new KGFMapSystem.KGFClickEventArgs(SpawnCenter.transform.position));
-                itsMapSystem.SetIconsVisibleByCategory("Blue_Cargo", false);
-                itsMapSystem.SetIconsVisibleByCategory("Blue_Units", false);
-                itsMapSystem.SetIconsVisibleByCategory("Red_Cargo", false);
-                itsMapSystem.SetIconsVisibleByCategory("Red_Units", false);
+                ShowUnitIcons(false);
                 if (MasterHUD != null)
                 {
                     MasterHUD.SetActive(false);
@@ -130,6 +125,19 @@ public class MapModeManager : MonoBehaviour {
 
         UpdateLockMode();
     }
+
+
+    private void ShowUnitIcons(bool b)
+    {
+        itsMapSystem.SetIconsVisibleByCategory("Blue_Cargo", b);
+        itsMapSystem.SetIconsVisibleByCategory("Blue_Units", b);
+        itsMapSystem.SetIconsVisibleByCategory("Red_Cargo", b);
+        itsMapSystem.SetIconsVisibleByCategory("Red_Units", b);
+        itsMapSystem.SetIconsVisibleByCategory("Projectiles", b);
+        itsMapSystem.SetIconsVisibleByCategory("Blue_RepairPads", !b);
+        itsMapSystem.SetIconsVisibleByCategory("Red_RepairPads", !b);
+    }
+
 
     void OnMapMarkerClicked(object theSender, EventArgs theArgs)
 	{
