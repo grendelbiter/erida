@@ -225,7 +225,7 @@ namespace Com.Wulfram3
         public async void UpdateHealth(int amount)
         {
             int newHealth = Mathf.Clamp(amount, 0, maxHealth);        
-            if (photonView.isMine && (health - amount) > 0)
+            if (playerManager != null && photonView.isMine && (health - amount) > 0)
             {
                 // Hit flash
                 gameManager.hitPanel.SetActive(true);

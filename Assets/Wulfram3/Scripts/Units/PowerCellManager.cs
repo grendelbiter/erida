@@ -19,10 +19,7 @@ namespace Com.Wulfram3 {
 
         void Awake()
         {
-            if (PhotonNetwork.isMasterClient)
-            {
-                myUnit = GetComponent<Unit>();
-            }
+            myUnit = GetComponent<Unit>();
         }
 
         private void Start()
@@ -75,7 +72,8 @@ namespace Com.Wulfram3 {
                 if (poweredObjects[i] != null)
                 {
                     PhotonView pv = poweredObjects[i].GetComponent<PhotonView>();
-                    pv.RPC("LosePower", PhotonTargets.All);
+                    if (pv != null)
+                        pv.RPC("LosePower", PhotonTargets.All);
                 }
             }
         }

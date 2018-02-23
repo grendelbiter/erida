@@ -28,7 +28,8 @@ namespace Com.Wulfram3 {
 
         private void Awake()
         {
-            LocalPlayerVisible(false);
+            if (photonView.isMine)
+                LocalPlayerVisible(false);
         }
 
         public void Detach(){
