@@ -140,7 +140,12 @@ namespace Com.Wulfram3
                     currentPlaceableObject.up = tNormal;
                 else
                     currentPlaceableObject.up = transform.up;
-                bestPlacePosition = new Vector3(bestPlacePosition.x, tHeight, bestPlacePosition.z);
+                if (cargoType == UnitType.GunTurret)
+                    bestPlacePosition = new Vector3(bestPlacePosition.x, tHeight + 4f, bestPlacePosition.z);
+                else if (cargoType == UnitType.FlakTurret)
+                    bestPlacePosition = new Vector3(bestPlacePosition.x, tHeight + 6f, bestPlacePosition.z);
+                else
+                    bestPlacePosition = new Vector3(bestPlacePosition.x, tHeight, bestPlacePosition.z);
             }
             return bestPlacePosition;
         }
