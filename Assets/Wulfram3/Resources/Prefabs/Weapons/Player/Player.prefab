@@ -2021,6 +2021,7 @@ MonoBehaviour:
   health: 0
   hasPower: 0
   isDead: 0
+  PowerEffects: {fileID: 0}
 --- !u!114 &114621915073000352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2278,8 +2279,7 @@ LineRenderer:
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 111300000, guid: a7e836aefad7d664aa2b8b8b63b87ee5,
-    type: 2}
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
