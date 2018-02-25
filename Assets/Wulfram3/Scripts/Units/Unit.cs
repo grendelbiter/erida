@@ -30,6 +30,7 @@ namespace Com.Wulfram3
         private float damageToTake = 0f;    // ref needed by SmoothDamp used in health display
         private float displayHealth; // Smoothed value used for display
         private float syncHpStamp; // "Timer" for masterclient health updates, default 1 per second
+        private List<UnitDamage> DamagedBy;
 
         public GameObject PowerEffects;
 
@@ -62,7 +63,8 @@ namespace Com.Wulfram3
             if (PhotonNetwork.isMasterClient)
                 SetHealth(maxHealth); // Masterclient has health and damage authority, for the most part
             SyncTeam(unitTeam);
-            SyncUnit(unitType); 
+            SyncUnit(unitType);
+            DamagedBy = new List<UnitDamage>();
         }
 
         void Update() {
