@@ -774,7 +774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itsDataMapIcon:
-    itsCategory: Projectile
+    itsCategory: Projectiles
     itsTextureIcon: {fileID: 2800000, guid: 6c340a4c326487044af33952520ad848, type: 3}
     itsTextureArrow: {fileID: 0}
     itsRotate: 0
@@ -800,7 +800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itsDataMapIcon:
-    itsCategory: Projectile
+    itsCategory: Projectiles
     itsTextureIcon: {fileID: 2800000, guid: b2596a39343407d49b621638daa82ecf, type: 3}
     itsTextureArrow: {fileID: 0}
     itsRotate: 0
