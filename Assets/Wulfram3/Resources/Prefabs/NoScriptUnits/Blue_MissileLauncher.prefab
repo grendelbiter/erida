@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33229841995416134}
   - component: {fileID: 23422864817184640}
   m_Layer: 0
-  m_Name: Blue_Launcher
+  m_Name: Blue_MissileLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

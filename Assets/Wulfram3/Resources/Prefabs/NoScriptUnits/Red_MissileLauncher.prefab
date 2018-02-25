@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33756726867062394}
   - component: {fileID: 23587029895052698}
   m_Layer: 0
-  m_Name: Red__Launcher
+  m_Name: Red_MissileLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

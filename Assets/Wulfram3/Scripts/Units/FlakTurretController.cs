@@ -205,13 +205,13 @@ namespace Com.Wulfram3 {
 
         void OnTriggerEnter(Collider other)
         {
-            if (PhotonNetwork.isMasterClient && started && !targetList.Contains(other.gameObject) && ValidTarget(other.gameObject.transform))
+            if (PhotonNetwork.isMasterClient && started && !targetList.Contains(other.gameObject) && ValidTarget(other.gameObject.transform) && !other.isTrigger)
                 targetList.Add(other.gameObject);
         }
 
         void OnTriggerStay(Collider other)
         {
-            if (PhotonNetwork.isMasterClient && started && ValidTarget(other.gameObject.transform))
+            if (PhotonNetwork.isMasterClient && started && ValidTarget(other.gameObject.transform) && !other.isTrigger)
             {
                 if (!targetList.Contains(other.gameObject) && (other.transform.position - transform.position).sqrMagnitude > (rangeMin * rangeMin))
                     targetList.Add(other.gameObject);

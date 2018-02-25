@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Com.Wulfram3
 {
@@ -29,6 +30,8 @@ namespace Com.Wulfram3
         private float damageToTake = 0f;    // ref needed by SmoothDamp used in health display
         private float displayHealth; // Smoothed value used for display
         private float syncHpStamp; // "Timer" for masterclient health updates, default 1 per second
+
+        public GameObject PowerEffects;
 
         void Start() {
             // Force these units to require power
@@ -63,7 +66,7 @@ namespace Com.Wulfram3
         }
 
         void Update() {
-            if (photonView.isMine && !isDead)
+            if (photonView.isMine && !isDead && (!needsPower || (needsPower && hasPower)))
             {
                 currentBoost = 1f;
                 if (playerManager != null)
@@ -208,6 +211,7 @@ namespace Com.Wulfram3
         {
             hasPower = true;
             unitTeam = t;
+            PowerEffects.SetActive(true);
             if (PhotonNetwork.isMasterClient)
                 SyncTeam(unitTeam);
         }
@@ -217,6 +221,7 @@ namespace Com.Wulfram3
         {
             hasPower = false;
             unitTeam = PunTeams.Team.none;
+            PowerEffects.SetActive(false);
             if (PhotonNetwork.isMasterClient)
                 SyncTeam(unitTeam);
         }

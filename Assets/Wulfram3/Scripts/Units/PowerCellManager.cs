@@ -34,13 +34,9 @@ namespace Com.Wulfram3 {
                 if (Time.time > checkStamp)
                 {
                     checkStamp = Time.time + checkDelay;
-                    for (int i = 0; i < poweredObjects.Count; i++)
-                    {
-                        if (poweredObjects[i] == null)
-                            poweredObjects.RemoveAt(i);
-                    }
+                    CleanUpPoweredObjects();
 
-                    for (int i = 0; i < powerableObjects.Count; i++)
+                    for (int i = powerableObjects.Count-1; i >= 0; i--)
                     {
                         if (powerableObjects[i] == null)
                         {
@@ -52,8 +48,6 @@ namespace Com.Wulfram3 {
                             if (u.needsPower && !u.hasPower && poweredObjects.Count < maxEnergy)
                             {
                                 PhotonView pv = u.transform.GetComponent<PhotonView>();
-                                //Logger.Log(transform.name + " powering " + u.transform.name + ". Units Powered: " + (poweredObjects.Count + 1));
-                                //u.hasPower = true; // RPC should cover this line
                                 poweredObjects.Add(powerableObjects[i]);
                                 object[] o = new object[1];
                                 o[0] = myUnit.unitTeam;
@@ -65,40 +59,48 @@ namespace Com.Wulfram3 {
             }
         }
 
+        private void CleanUpPoweredObjects()
+        {
+            for (int i = poweredObjects.Count - 1; i >= 0; i--)
+            {
+                if (poweredObjects[i] == null)
+                    poweredObjects.RemoveAt(i);
+            }
+        }
+
         private void OnDestroy()
         {
-            for (int i=0; i<poweredObjects.Count; i++)
+            if (PhotonNetwork.connected)
             {
-                if (poweredObjects[i] != null)
+                for (int i = 0; i < poweredObjects.Count; i++)
                 {
-                    PhotonView pv = poweredObjects[i].GetComponent<PhotonView>();
-                    if (pv != null)
-                        pv.RPC("LosePower", PhotonTargets.All);
+                    if (poweredObjects[i] != null)
+                    {
+                        PhotonView pv = poweredObjects[i].GetComponent<PhotonView>();
+                        if (pv != null)
+                            pv.RPC("LosePower", PhotonTargets.All);
+                    }
                 }
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (PhotonNetwork.isMasterClient && started)
+            if (PhotonNetwork.isMasterClient && started && !other.isTrigger)
             {
                 Unit u = other.transform.GetComponent<Unit>();
                 if (u != null && u.needsPower && u.unitTeam == myUnit.unitTeam && !powerableObjects.Contains(other.transform))
-                {
                     powerableObjects.Add(other.transform);
-                }
             }
         }
 
         private void OnTriggerStay(Collider other)
         {
-            if (PhotonNetwork.isMasterClient && started)
+            if (PhotonNetwork.isMasterClient && started && !other.isTrigger)
             {
                 Unit u = other.transform.GetComponent<Unit>();
                 if (u != null && u.needsPower && u.unitTeam == myUnit.unitTeam && !powerableObjects.Contains(other.transform))
-                {
                     powerableObjects.Add(other.transform);
-                }
             }
         }
     }

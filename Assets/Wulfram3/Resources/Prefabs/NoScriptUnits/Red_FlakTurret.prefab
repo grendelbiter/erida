@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33371153384379374}
   - component: {fileID: 23811712500973936}
   m_Layer: 0
-  m_Name: Red_Flak
+  m_Name: Red_FlakTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
