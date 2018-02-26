@@ -317,6 +317,7 @@ namespace Com.Wulfram3
                 Physics.IgnoreCollision(isLandedOnRepairPad.GetComponent<Collider>(), GetComponent<Collider>(), false);
                 isLandedOnRepairPad = null;
             }
+            healingBoost = 1f;
             fuelManager.SetLandedBoost(false);
             rigidBody.isKinematic = false; 
             rigidBody.freezeRotation = false;

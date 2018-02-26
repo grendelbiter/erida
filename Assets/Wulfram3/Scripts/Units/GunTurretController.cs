@@ -8,9 +8,9 @@ namespace Com.Wulfram3
     public class GunTurretController : Photon.PunBehaviour
     {
 
-        public int bulletDamageinHitpoints = 1;
-        public float turnSpeed = 8;
-        public float bulletsPerSecond = 3;
+        private int bulletDamageinHitpoints = 1;
+        private float turnSpeed = 6;
+        private float bulletsPerSecond = 4;
         public Transform gunEnd;
         public SphereCollider targetTrigger;
 

@@ -69,7 +69,7 @@ namespace Com.Wulfram3
         {
         }
 
-            private void Awake()
+        private void Awake()
         {
             myUnit = GetComponent<Unit>();
             gameManager = FindObjectOfType<GameManager>();

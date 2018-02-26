@@ -1578,9 +1578,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648a6173d9456484591fa00c6b59db8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletDamageinHitpoints: 8
-  turnSpeed: 4
-  bulletsPerSecond: 12
   gunEnd: {fileID: 4756326737989038}
   targetTrigger: {fileID: 135940260270404126}
 --- !u!114 &114658991993169106
@@ -1752,7 +1749,7 @@ LineRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 0.27450982}
+      key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
