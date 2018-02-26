@@ -345,6 +345,7 @@ namespace Com.Wulfram3
                 else
                     GetComponent<AudioSource>().clip = scoutExternalSound;
             }
+            GetComponent<AudioSource>().Play();
             rigidBody.drag = vehicleSettings.RigidbodyDrag;
         }
 
