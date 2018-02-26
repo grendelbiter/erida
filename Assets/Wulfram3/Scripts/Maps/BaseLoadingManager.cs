@@ -259,11 +259,16 @@ namespace Assets.Wulfram3.Scripts.Maps
         {
             foreach (var unit in singleBase.units)
             {
-                var obj = PhotonNetwork.InstantiateSceneObject(Unit.GetPrefabName(unit.unitType,singleBase.team), new Vector3(unit.posX, unit.posY, unit.posZ), Quaternion.identity,0, null);
                 if(unit.unitType == UnitType.Cargo)
                 {
-                    obj.GetComponent<Cargo>().team = singleBase.team;
-                    obj.GetComponent<Cargo>().content = unit.cargoType;
+                    object[] o = new object[2];
+                    o[0] = unit.cargoType;
+                    o[1] = singleBase.team;
+                    PhotonNetwork.InstantiateSceneObject(Unit.GetPrefabName(unit.unitType, singleBase.team), new Vector3(unit.posX, unit.posY, unit.posZ), Quaternion.identity, 0, o);
+                }
+                else
+                {
+                    PhotonNetwork.InstantiateSceneObject(Unit.GetPrefabName(unit.unitType, singleBase.team), new Vector3(unit.posX, unit.posY, unit.posZ), Quaternion.identity, 0, null);
                 }
             }
         }
