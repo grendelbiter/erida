@@ -229,7 +229,7 @@ namespace Com.Wulfram3
         }
 
         [PunRPC]
-        public async void UpdateHealth(int amount)
+        public async void UpdateHealth(int amount, PhotonMessageInfo info)
         {
             int newHealth = Mathf.Clamp(amount, 0, maxHealth);        
             if (playerManager != null && photonView.isMine && (health - amount) > 0)
@@ -244,6 +244,7 @@ namespace Com.Wulfram3
             {
                 isDead = true;
                 gameManager.SetCurrentTarget(null);
+                Logger.Log(transform.name + " was destroyed by " + info.sender.NickName);
                 if (playerManager == null && PhotonNetwork.isMasterClient)
                 {
                     gameManager.SpawnExplosion(transform.position, unitType);
