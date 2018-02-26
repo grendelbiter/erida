@@ -58,6 +58,12 @@ public class Api
         return result;
     }
 
+    public async Task<ApiResult<NewsPost>> LatestNewsPost()
+    {
+        var result = await this.MakeGetRequest<NewsPost>("/api/v1/player/latestnews");
+        return result;
+    }
+
     private HttpClient CreateClient()
     {
         var client = new HttpClient();

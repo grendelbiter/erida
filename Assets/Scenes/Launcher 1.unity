@@ -3642,10 +3642,10 @@ RectTransform:
   m_Father: {fileID: 1954578597}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.025, y: 0}
-  m_AnchorMax: {x: 0.975, y: 0.675}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -93.350006}
+  m_SizeDelta: {x: -40, y: -186.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1407379339
 MonoBehaviour:
@@ -4311,6 +4311,9 @@ MonoBehaviour:
   versionLabel: {fileID: 1483434169}
   errorLabel: {fileID: 1263373845}
   playername: {fileID: 0}
+  newsTitle: {fileID: 1839919366}
+  newsAuthor: {fileID: 2015489614}
+  newsContent: {fileID: 1407379339}
   clicksound: {fileID: 8300000, guid: 37a08d5f4dad690458f81d7c3c99ae5d, type: 3}
   click: {fileID: 1583400316}
   loadingSpinner: {fileID: 1279273114}
@@ -5185,10 +5188,10 @@ RectTransform:
   m_Father: {fileID: 1954578597}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.05, y: 0.7}
-  m_AnchorMax: {x: 0.65, y: 0.8}
-  m_AnchoredPosition: {x: 7, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.08000183, y: -116}
+  m_SizeDelta: {x: -40.04001, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1839919365
 MonoBehaviour:
@@ -5919,10 +5922,10 @@ RectTransform:
   m_Father: {fileID: 1954578597}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.65, y: 0.7}
-  m_AnchorMax: {x: 1, y: 0.8}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 401.2, y: -164.8}
+  m_SizeDelta: {x: 762.4, y: 25.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2015489614
 MonoBehaviour:

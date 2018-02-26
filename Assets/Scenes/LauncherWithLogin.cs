@@ -33,7 +33,11 @@ namespace Com.Wulfram3 {
 		public Text errorLabel;
         public Text playername;
 
-		public AudioClip clicksound;
+        public Text newsTitle;
+        public Text newsAuthor;
+        public Text newsContent;
+
+        public AudioClip clicksound;
 		public AudioSource click;
         public GameObject loadingSpinner;
 
@@ -53,7 +57,6 @@ namespace Com.Wulfram3 {
 
         IDiscordApi discordApi;
         #endregion
-
 
         #region MonoBehaviour CallBacks
 
@@ -77,6 +80,11 @@ namespace Com.Wulfram3 {
             DepenencyInjector.SetupInjection();
             SetCurrentPanel(LauncherPanels.Login);
 			versionLabel.text = "Version " + GameInfo.Version();
+
+            var newsPost = await api.LatestNewsPost();
+            this.newsTitle.text = newsPost.Result.Title;
+            this.newsAuthor.text = "By " +newsPost.Result.Author + " on " + newsPost.Result.PostedDate.ToShortDateString();
+            this.newsContent.text = newsPost.Result.Content;
         }
 
         private void Update()
@@ -88,7 +96,6 @@ namespace Com.Wulfram3 {
         }
 
         #endregion
-
 
         #region Public Methods
 
@@ -233,7 +240,5 @@ namespace Com.Wulfram3 {
         }
 
         #endregion
-
-
     }
 }
