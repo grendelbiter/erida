@@ -194,14 +194,17 @@ namespace Com.Wulfram3
                 int newHealth = Mathf.Clamp(health - amount, 0, maxHealth);
                 if(amount < 0) // Heal
                 {
-                    var temp = this.DamagedBy[0].Damage + amount;
-                    if(temp <= 0)// Remove damage from list
+                    if(this.DamagedBy.Count >= 1)
                     {
-                        this.DamagedBy.RemoveAt(0);
-                    } 
-                    else // Update item
-                    {
-                        this.DamagedBy[0].Damage += amount;
+                        var temp = this.DamagedBy[0].Damage + amount;
+                        if (temp <= 0)// Remove damage from list
+                        {
+                            this.DamagedBy.RemoveAt(0);
+                        }
+                        else // Update item
+                        {
+                            this.DamagedBy[0].Damage += amount;
+                        }
                     }
                 }
                 else // Damage
