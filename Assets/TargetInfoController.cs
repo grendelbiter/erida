@@ -94,7 +94,11 @@ namespace Com.Wulfram3 {
                 {
                     user.text = FindObjectOfType<GameManager>().GetColoredPlayerName(target.GetComponent<PhotonView>().owner.NickName, target.GetComponent<PhotonView>().owner.IsMasterClient);
                 }
-                else
+                else if (unit.unitType == UnitType.Cargo)
+                {
+                    Cargo c = unit.GetComponent<Cargo>();
+                    user.text = c.content.ToString();
+                } else
                 {
                     user.text = "";
                 }

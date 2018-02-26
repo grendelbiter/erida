@@ -99,7 +99,7 @@ namespace Com.Wulfram3 {
             if (PhotonNetwork.isMasterClient && started && !other.isTrigger)
             {
                 Unit u = other.transform.GetComponent<Unit>();
-                if (u != null && u.needsPower && u.unitTeam == myUnit.unitTeam && !powerableObjects.Contains(other.transform))
+                if (u != null && u.needsPower && (u.unitTeam == myUnit.unitTeam || !u.hasPower) && !powerableObjects.Contains(other.transform))
                     powerableObjects.Add(other.transform);
             }
         }
