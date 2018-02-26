@@ -83,7 +83,7 @@ namespace Com.Wulfram3 {
 
             var newsPost = await api.LatestNewsPost();
             this.newsTitle.text = newsPost.Result.Title;
-            this.newsAuthor.text = "By " +newsPost.Result.Author + " on " + newsPost.Result.PostedDate.ToShortDateString();
+            this.newsAuthor.text = "By " +newsPost.Result.Author + " on " + newsPost.Result.PostDate.ToShortDateString();
             this.newsContent.text = newsPost.Result.Content;
         }
 

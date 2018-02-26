@@ -9,7 +9,7 @@ public class NewsPost
 
     public string Title { get; set; }
 
-    public DateTime PostedDate { get; set; }
+    public DateTime PostDate { get; set; }
 
     public string Author { get; set; }
 
