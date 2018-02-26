@@ -28,11 +28,8 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
 
         public WulframPlayer GetWulframPlayerData()
         {
-            //Logger.Log("==========================" + player.userName);
-            //if(string.IsNullOrEmpty(player.userName))
-            //{
-                this.player.userName = GetUsername();
-            //}
+            this.player.userName = GetUsername();
+           
             return player;
         }
 
@@ -128,6 +125,11 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
             Logger.Log("defaultName:" + defaultName);
             PhotonNetwork.playerName = defaultName;
             PhotonNetwork.player.NickName = defaultName;
+
+            var properties = new ExitGames.Client.Photon.Hashtable();
+            properties.Add("Id", this.player._id);
+
+            PhotonNetwork.player.SetCustomProperties(properties);
             return defaultName;
         }
 

@@ -187,11 +187,28 @@ namespace Com.Wulfram3
         }
 
         [PunRPC]
-        public void TakeDamage(int amount)
+        public void TakeDamage(int amount, PhotonMessageInfo info)
         {
             if (PhotonNetwork.isMasterClient)
             {
                 int newHealth = Mathf.Clamp(health - amount, 0, maxHealth);
+                if(amount < 0) // Heal
+                {
+                    var temp = this.DamagedBy[0].Damage + amount;
+                    if(temp <= 0)// Remove damage from list
+                    {
+                        this.DamagedBy.RemoveAt(0);
+                    } 
+                    else // Update item
+                    {
+                        this.DamagedBy[0].Damage += amount;
+                    }
+                }
+                else // Damage
+                {
+                    this.DamagedBy.Add(new UnitDamage { UserId = info.sender.CustomProperties["Id"].ToString(), Damage = amount });
+                }
+                
                 photonView.RPC("UpdateHealth", PhotonTargets.All, newHealth);
             }
         }
@@ -244,6 +261,7 @@ namespace Com.Wulfram3
             {
                 isDead = true;
                 gameManager.SetCurrentTarget(null);
+                
                 Logger.Log(transform.name + " was destroyed by " + info.sender.NickName);
                 if (playerManager == null && PhotonNetwork.isMasterClient)
                 {
