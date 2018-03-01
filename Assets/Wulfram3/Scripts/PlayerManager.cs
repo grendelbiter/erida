@@ -22,7 +22,7 @@ namespace Com.Wulfram3
         public List<Transform> firstPersonCameraPositions;
         public List<Transform> thirdPersonCameraPositions;
 
-        private int fuelPerPulse = 135; // Reduced from 180 last
+        private int fuelPerPulse = 80; // Reduced from 135 last
         private float timeBetweenPulse = 3f;
         private float pulseShellFiringImpulse = 8f;
 

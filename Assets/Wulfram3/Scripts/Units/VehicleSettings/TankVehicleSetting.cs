@@ -57,7 +57,7 @@ public class TankVehicleSetting : IVehicleSetting
     {
         get
         {
-            return 3.2f;
+            return 3.6f;
         }
     }
 
@@ -81,7 +81,7 @@ public class TankVehicleSetting : IVehicleSetting
     {
         get
         {
-            return 2.5f;
+            return 2.2f;
         }
     }
 
@@ -113,7 +113,7 @@ public class TankVehicleSetting : IVehicleSetting
     {
         get
         {
-            return 0.05f;
+            return 0.04f;
         }
     }
 
@@ -121,7 +121,7 @@ public class TankVehicleSetting : IVehicleSetting
     {
         get
         {
-            return 0.03f;
+            return 0.02f;
         }
     }
 
