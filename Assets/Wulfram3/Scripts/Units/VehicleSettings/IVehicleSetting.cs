@@ -36,6 +36,12 @@ public interface IVehicleSetting
 
     float LowerSpeed { get; }
 
+    float LandedHealingBoost { get; }
+    
+    float RepairPadHealingBoost { get; }
+
+    float PowerCellHealingMultiplier { get; }
+
     List<WeaponTypes> AvailableWeapons { get; }
 
 }

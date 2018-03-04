@@ -10,8 +10,8 @@ namespace Com.Wulfram3 {
         public SphereCollider rangeTrigger;
         private float rangeMax; // Set by sphere collider attached to turret
         private float rangeMin = 18f;  // Targets below this range will be ignored
-        private float fireDelay = 2.4f; // Delay between each three round burst
-        private float shellDelay = 0.45f; // Delay between shells
+        private float fireDelay = 2.8f; // Delay between each three round burst
+        private float shellDelay = 0.43f; // Delay between shells
         private float turnSpeed = 80; // This value should be high to make sure turrets can intercept fast moving targets
         private int shellCount = 3; // Shells per burst
 

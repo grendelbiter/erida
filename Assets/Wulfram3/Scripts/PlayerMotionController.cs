@@ -34,24 +34,15 @@ namespace Com.Wulfram3
 
         private float takeoffBumpForce = 0.25f;
 
-        private float boost = 1f;
-        private float boostMultiplier = 2.8f;
-        private float thrustMultiplier = 0.5f;
-
-        public float healingBoost = 1f;
-        private float landedBoost = 2.65f;
-        private float repPadBoost = 75f;
+        private float currentBoost = 1f;
+        private float currentThrustMultiplier = 0.5f;
+        public  float healingBoost = 1f;
 
         private float thrustChangedStamp;
         private float jumpjetStamp;
         private float tryLandStamp;
         [HideInInspector]
         public float currentHeight = 1.2f;
-        private float defaultHeight = 1.2f;
-        private float maximumHeight = 4f;
-        private float riseSpeed = 0.075f;
-        private float sinkSpeed = 0.03f;
-
 
         private bool isLanding = false;
         [HideInInspector]
@@ -128,14 +119,14 @@ namespace Com.Wulfram3
             Vector3 relativeFwd = Vector3.Cross(Vector3.up, transform.right);
             float lVX = Mathf.Abs(localVelocity.x);
             float lVZ = Mathf.Abs(localVelocity.z);
-            float limitX = vehicleSettings.MaxVelocityX * thrustMultiplier;
-            float limitZ = vehicleSettings.MaxVelocityZ * thrustMultiplier;
-            if (lVX > (limitX * boost))
+            float limitX = vehicleSettings.MaxVelocityX * currentThrustMultiplier;
+            float limitZ = vehicleSettings.MaxVelocityZ * currentThrustMultiplier;
+            if (lVX > (limitX * currentBoost))
                 inputX = 0;
-            if (lVZ > (limitZ * boost))
+            if (lVZ > (limitZ * currentBoost))
                 inputZ = 0;
-            Vector3 totalSidewaysForce = transform.right * inputX * (vehicleSettings.BaseThrust * vehicleSettings.StrafePercent) * rigidBody.mass * boost;
-            Vector3 totalForwardForce = relativeFwd * inputZ * vehicleSettings.BaseThrust * rigidBody.mass * boost;
+            Vector3 totalSidewaysForce = transform.right * inputX * (vehicleSettings.BaseThrust * vehicleSettings.StrafePercent) * rigidBody.mass * currentBoost;
+            Vector3 totalForwardForce = relativeFwd * inputZ * vehicleSettings.BaseThrust * rigidBody.mass * currentBoost;
             rigidBody.AddForce(-totalForwardForce);
             rigidBody.AddForce(totalSidewaysForce);
         }
@@ -177,71 +168,71 @@ namespace Com.Wulfram3
                 TakeOff();
                 return;
             }
-            rX = AngleClamp(rX + (mx * (xSens * boost)), minXAngle, maxXAngle);
-            rY = AngleClamp(rY + (my * (ySens * boost)), minYAngle, maxYAngle);
+            rX = AngleClamp(rX + (mx * (xSens * currentBoost)), minXAngle, maxXAngle);
+            rY = AngleClamp(rY + (my * (ySens * currentBoost)), minYAngle, maxYAngle);
             Quaternion xQuaternion = Quaternion.AngleAxis(rX, Vector3.up);
             Quaternion yQuaternion = Quaternion.AngleAxis(rY, -Vector3.right);
             transform.localRotation = oRot * xQuaternion * yQuaternion;
         }
 
-        private void HandleSpeedControls() { 
-            boost = Mathf.Clamp(InputEx.GetAxisRaw("Boost") * boostMultiplier, 1f, boostMultiplier);
+        private void HandleSpeedControls() {
+            currentBoost = Mathf.Clamp(InputEx.GetAxisRaw("Boost") * vehicleSettings.BoostMultiplier, 1f, vehicleSettings.BoostMultiplier);
             if (Time.time >= thrustChangedStamp)
             {
                 if (InputEx.GetAxisRaw("ChangeThrust") > 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    thrustMultiplier = Mathf.Clamp(thrustMultiplier + 0.01f, 0.1f, 1f);
+                    currentThrustMultiplier = Mathf.Clamp(currentThrustMultiplier + 0.01f, 0.1f, 1f);
                 }
                 else if (InputEx.GetAxisRaw("ChangeThrust") < 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    thrustMultiplier = Mathf.Clamp(thrustMultiplier - 0.01f, 0.1f, 1f);
+                    currentThrustMultiplier = Mathf.Clamp(currentThrustMultiplier - 0.01f, 0.1f, 1f);
                 }
                 else if (InputEx.GetAxisRaw("SetSpeed1") != 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    thrustMultiplier = 0.1f;
+                    currentThrustMultiplier = 0.1f;
                 }
                 else if (InputEx.GetAxisRaw("SetSpeed2") != 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    thrustMultiplier = 0.2f;
+                    currentThrustMultiplier = 0.2f;
                 }
                 else if (InputEx.GetAxisRaw("SetSpeed3") != 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    thrustMultiplier = 0.3f;
+                    currentThrustMultiplier = 0.3f;
                 }
                 else if (InputEx.GetAxisRaw("SetSpeed4") != 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    thrustMultiplier = 0.4f;
+                    currentThrustMultiplier = 0.4f;
                 }
                 else if (InputEx.GetAxisRaw("SetSpeed5") != 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    thrustMultiplier = 0.5f;
+                    currentThrustMultiplier = 0.5f;
                 }
                 else if (InputEx.GetAxisRaw("SetSpeed6") != 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    thrustMultiplier = 0.6f;
+                    currentThrustMultiplier = 0.6f;
                 }
                 else if (InputEx.GetAxisRaw("SetSpeed7") != 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    thrustMultiplier = 0.7f;
+                    currentThrustMultiplier = 0.7f;
                 }
                 else if (InputEx.GetAxisRaw("SetSpeed8") != 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    thrustMultiplier = 0.8f;
+                    currentThrustMultiplier = 0.8f;
                 }
                 else if (InputEx.GetAxisRaw("SetSpeed9") != 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    thrustMultiplier = 0.9f;
+                    currentThrustMultiplier = 0.9f;
                 }
             }
         }
@@ -255,9 +246,9 @@ namespace Com.Wulfram3
         private void HandleAltitudeControls()
         {
             if (InputEx.GetAxisRaw("ChangeAltitude") > 0)
-                currentHeight = Mathf.Min(currentHeight + (riseSpeed * boost), maximumHeight);
+                currentHeight = Mathf.Min(currentHeight + (vehicleSettings.RiseSpeed * currentBoost), vehicleSettings.MaximumHeight);
             else if (InputEx.GetAxisRaw("ChangeAltitude") < 0 && !isLanding && !isGrounded)
-                currentHeight = Mathf.Max(currentHeight - (sinkSpeed * boost), 0.2f);
+                currentHeight = Mathf.Max(currentHeight - (vehicleSettings.LowerSpeed * currentBoost), 0.2f);
             if (currentHeight > 0.2f && (isLanding || isGrounded))
                 TakeOff();
             else if (currentHeight <= 0.2f && !isLanding)
@@ -285,11 +276,11 @@ namespace Com.Wulfram3
 
         private void Land()
         {
-            tryLandStamp = Time.time + 0.05f;
+            tryLandStamp = Time.time + 0.08f;
             RaycastHit hit;
             if (Physics.Raycast(new Ray(transform.position, Vector3.down), out hit, GetComponent<Collider>().bounds.extents.z * 1.15f))
             {
-                healingBoost = landedBoost;
+                healingBoost = vehicleSettings.LandedHealingBoost;
                 if (hit.transform != null)
                 {
                     Unit u = hit.transform.GetComponent<Unit>();
@@ -297,7 +288,7 @@ namespace Com.Wulfram3
                     {
                         Physics.IgnoreCollision(hit.transform.GetComponent<Collider>(), GetComponent<Collider>(), true);
                         isLandedOnRepairPad = hit.transform;
-                        healingBoost = repPadBoost;
+                        healingBoost = vehicleSettings.RepairPadHealingBoost;
                     }
                 }
                 fuelManager.SetLandedBoost(true);
@@ -323,7 +314,7 @@ namespace Com.Wulfram3
             rigidBody.freezeRotation = false;
             isLanding = false;
             isGrounded = false;
-            currentHeight = defaultHeight;
+            currentHeight = vehicleSettings.DefaultHeight;
             rigidBody.AddForce(Vector3.up * (takeoffBumpForce * rigidBody.mass), ForceMode.Impulse);
             AudioSource.PlayClipAtPoint(takeoffSound, transform.position);
             GetComponent<AudioSource>().Play();

@@ -9,8 +9,8 @@ namespace Com.Wulfram3
     {
 
         private int bulletDamageinHitpoints = 1;
-        private float turnSpeed = 6;
-        private float bulletsPerSecond = 4;
+        private float turnSpeed = 7f;
+        private float bulletsPerSecond = 8f;
         public Transform gunEnd;
         public SphereCollider targetTrigger;
 

@@ -124,6 +124,30 @@ public class ScoutVehicleSettings : IVehicleSetting
         }
     }
 
+    public float LandedHealingBoost
+    {
+        get
+        {
+            return 2.65f;
+        }
+    }
+
+    public float RepairPadHealingBoost
+    {
+        get
+        {
+            return 65f;
+        }
+    }
+
+    public float PowerCellHealingMultiplier
+    {
+        get
+        {
+            return 1.1f;
+        }
+    }
+
     public List<WeaponTypes> AvailableWeapons
     {
         get

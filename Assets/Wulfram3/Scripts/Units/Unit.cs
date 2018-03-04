@@ -265,7 +265,7 @@ namespace Com.Wulfram3
                 isDead = true;
                 gameManager.SetCurrentTarget(null);
                 
-                Logger.Log(transform.name + " was destroyed by " + info.sender.NickName);
+                //Logger.Log(transform.name + " was destroyed by " + info.sender.NickName);
                 if (playerManager == null && PhotonNetwork.isMasterClient)
                 {
                     gameManager.SpawnExplosion(transform.position, unitType);

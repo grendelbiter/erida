@@ -13,6 +13,8 @@ namespace Com.Wulfram3
 {
     public class GameManager : Photon.PunBehaviour
     {
+        public Text tutorialStringsPanel;
+
         public GameObject hullBar;
 
         public GameObject fuelBar;
@@ -36,6 +38,11 @@ namespace Com.Wulfram3
 
         public VehicleSelector unitSelector;
 
+        private List<string> tutorialStringList = new List<string>();
+        private float tutorialStringsDelay;
+        private int tutorialStringIndex = 0;
+        private bool showTips = true;
+
         public override void OnPhotonPlayerConnected(PhotonPlayer other)
         {
             Logger.Log(other.NickName + " has connected. (GameManager.cs / OnPhotonPlayerConnected:43)");
@@ -57,6 +64,21 @@ namespace Com.Wulfram3
             //Logger.Log("Starting GameManager.  (GameManager.cs / Start:60)");
             if (PlayerManager.LocalPlayerInstance == null)
             {
+                tutorialStringsDelay = 0f;
+                tutorialStringList.Add("Welcome to the Erida Alpha.");
+                tutorialStringList.Add("Press 'H' to disable these messages.");
+                tutorialStringList.Add("Press 'F2' to switch cameras.");
+                tutorialStringList.Add("Move your vehicle with 'WASD', 'Q' and 'Z' change your current height.");
+                tutorialStringList.Add("Click the middle mouse button, or press 'space', to jump.");
+                tutorialStringList.Add("Press 'TAB' to target objects under the reticle.");
+                tutorialStringList.Add("Left click fires your autocannon. Right click is secondary fire.");
+                tutorialStringList.Add("Collect cargo by driving into it. Cargo can only be collected by tanks.");
+                tutorialStringList.Add("Deploy units from cargo with '.', drop the box with ','.");
+                tutorialStringList.Add("Some units require a nearby powercell to function.");
+                tutorialStringList.Add("There is a limit to both the area and capacity of power cells.");
+                tutorialStringList.Add("Gun turrets have a short range and rapid fire.");
+                tutorialStringList.Add("Flak turrets accel at intercepting projectiles and destabilizing snipers.");
+
                 Logger.Log("Assigning Team. Active scene name: " + SceneManager.GetActiveScene().name + ". (GameManager.cs / Start:63)");
                 PunTeams.UpdateTeamsNow();
                 List<int> availableUnits = new List<int>();
@@ -72,6 +94,10 @@ namespace Com.Wulfram3
                     availableUnits.Add(0);
                     availableUnits.Add(1);
                 }
+                foreach (PhotonPlayer p in PhotonNetwork.playerList)
+                {
+                    Debug.Log(p.NickName);
+                }
                 this.hudImage.color = PhotonNetwork.player.GetTeam().TeamColor();
                 GameObject g = Instantiate(Resources.Load("Prefabs/SceneBase/VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
                 unitSelector = g.GetComponent<VehicleSelector>();
@@ -86,7 +112,34 @@ namespace Com.Wulfram3
             }
         }
 
-        private void Update() { }
+        private void Update() {
+            if (PlayerManager.LocalPlayerInstance != null && PlayerManager.LocalPlayerInstance.GetComponent<Unit>() != null && !PlayerManager.LocalPlayerInstance.GetComponent<Unit>().isDead)
+            {
+                if (showTips && Time.time > tutorialStringsDelay)
+                {
+                    if (tutorialStringsPanel.text == "")
+                    {
+                        tutorialStringsDelay = Time.time + 7f;
+                        tutorialStringsPanel.text = tutorialStringList[tutorialStringIndex];
+                        tutorialStringIndex++;
+                        if (tutorialStringIndex >= tutorialStringList.Count - 1)
+                            tutorialStringIndex = 0;
+                    }
+                    else
+                    {
+                        tutorialStringsPanel.text = "";
+                        tutorialStringsDelay = Time.time + 2f;
+                    }
+                }
+                else if (!showTips && tutorialStringsPanel.text != "")
+                {
+                    tutorialStringsPanel.text = "";
+                }
+                if (Input.GetKeyDown(KeyCode.H))
+                    showTips = !showTips;
+            }
+
+        }
 
         public void SpawnPlayer(Vector3 pos, Quaternion rot, PunTeams.Team team, int meshID, int ownerID)
         {

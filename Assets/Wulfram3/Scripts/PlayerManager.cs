@@ -13,6 +13,7 @@ namespace Com.Wulfram3
         // Inspector Vars
         [Tooltip("Delay, in seconds, before respawn map appears")]
         public float destroyDelayWhenDead = 3;
+        public Transform cargoInfo;
         public Transform[] meshList;
         public List<Mesh> availableColliders;
         public List<Texture2D> myIconTextures;
@@ -64,6 +65,8 @@ namespace Com.Wulfram3
 
         private GameObject localShell;
         private bool gotServerShell = false;
+        private CargoManager cargoManager;
+        private GameObject cargoModel;
 
         void Start()
         {
@@ -103,7 +106,7 @@ namespace Com.Wulfram3
             CameraManager cm = GetComponent<CameraManager>();
             cm.SetFirstPersonPosition(firstPersonCameraPositions[i]);
             cm.SetThirdPersonPosition(thirdPersonCameraPositions[i]);
-            CargoManager cargoManager = GetComponent<CargoManager>();
+            cargoManager = GetComponent<CargoManager>();
             if (i == 0)
             {
                 cargoManager.dropPosition = cargoDropPositions[0];
@@ -211,6 +214,21 @@ namespace Com.Wulfram3
             {
                 Destroy(localShell);
                 localShell = null;
+            }
+            if (cargoManager.hasCargo && !cargoInfo.gameObject.GetActive())
+            { 
+                cargoInfo.gameObject.SetActive(true);
+                CargoInfoController ci = cargoInfo.GetComponent<CargoInfoController>();
+                if (cargoManager.cargoType.ToString() != ci.cargoName.text)
+                {
+                    ci.cargoName.text = cargoManager.cargoType.ToString();
+                    string prefab = Unit.GetNoScriptUnitName(cargoManager.cargoType, cargoManager.cargoTeam);
+                    cargoModel = (GameObject)Instantiate(Resources.Load(prefab), ci.cargoDisplayTransform);
+                    cargoModel.layer = 13;
+                }
+            } else if (!cargoManager.hasCargo && cargoInfo.gameObject.GetActive())
+            {
+                cargoInfo.gameObject.SetActive(false);
             }
         }
 

@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 namespace Com.Wulfram3 {
     public class CameraManager : Photon.PunBehaviour {
         private Vector3 thirdPersonPos = new Vector3(0, 1.5f, -3.5f);
