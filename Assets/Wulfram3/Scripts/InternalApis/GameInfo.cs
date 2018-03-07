@@ -11,18 +11,21 @@ public static class GameInfo
     public static string Version()
     {
         clientFile.OpenClientFile(@"../client.wyc");
+        Logger.Log(clientFile.InstalledVersion);
         return clientFile.InstalledVersion;
     }
 
     public static string CompanyName()
     {
         clientFile.OpenClientFile(@"../client.wyc");
+        Logger.Log(clientFile.CompanyName);
         return clientFile.CompanyName;
     }
 
     public static string ProductName()
     {
         clientFile.OpenClientFile(@"../client.wyc");
+        Logger.Log(clientFile.ProductName);
         return clientFile.ProductName;
     }
 }

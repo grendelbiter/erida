@@ -68,8 +68,16 @@ namespace Com.Wulfram3 {
             // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
             PhotonNetwork.automaticallySyncScene = true;
             //PhotonNetwork.logLevel = Loglevel; [ This should be set in PhotonServerSettings]
+            Application.logMessageReceived += HandleException;
         }
 
+        void HandleException(string condition, string stackTrace, LogType type)
+        {
+            if (type == LogType.Exception)
+            {
+                Logger.Error(condition + stackTrace);
+            }
+        }
 
         /// <summary>
         /// MonoBehaviour method called on GameObject by Unity during initialization phase.
