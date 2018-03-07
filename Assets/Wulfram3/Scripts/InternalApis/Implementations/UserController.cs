@@ -49,7 +49,7 @@ namespace Assets.Wulfram3.Scripts.InternalApis.Implementations
 
         public async Task<bool> LogoutUser()
         {
-            var result = await api.Logout(this.player._id);
+            var result = await api.Logout(this.player._id, this.player.userName);
             return result.Result;
         }
 
