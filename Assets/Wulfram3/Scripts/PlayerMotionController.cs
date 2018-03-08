@@ -35,8 +35,8 @@ namespace Com.Wulfram3
         private float takeoffBumpForce = 0.25f;
 
         private float currentBoost = 1f;
-        private float currentThrustMultiplier = 0.5f;
-        public  float healingBoost = 1f;
+        public float currentThrustMultiplier = 0.5f;
+        public float healingBoost = 1f;
 
         private float thrustChangedStamp;
         private float jumpjetStamp;
@@ -182,12 +182,12 @@ namespace Com.Wulfram3
                 if (InputEx.GetAxisRaw("ChangeThrust") > 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    currentThrustMultiplier = Mathf.Clamp(currentThrustMultiplier + 0.01f, 0.1f, 1f);
+                    currentThrustMultiplier = Mathf.Clamp(currentThrustMultiplier + 0.01f, 0.01f, 1f);
                 }
                 else if (InputEx.GetAxisRaw("ChangeThrust") < 0)
                 {
                     thrustChangedStamp = Time.time + 0.3f;
-                    currentThrustMultiplier = Mathf.Clamp(currentThrustMultiplier - 0.01f, 0.1f, 1f);
+                    currentThrustMultiplier = Mathf.Clamp(currentThrustMultiplier - 0.01f, 0.01f, 1f);
                 }
                 else if (InputEx.GetAxisRaw("SetSpeed1") != 0)
                 {
