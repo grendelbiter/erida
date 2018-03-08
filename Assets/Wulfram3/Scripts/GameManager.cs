@@ -37,6 +37,10 @@ namespace Com.Wulfram3
         private TargetInfoController targetChangeListener;
 
         public VehicleSelector unitSelector;
+        public SimpleHealthBar altitudeBar;
+        public SimpleHealthBar speedBar;
+        public SimpleHealthBar healthBar;
+        public SimpleHealthBar energyBar;
 
         private List<string> tutorialStringList = new List<string>();
         private float tutorialStringsDelay;
@@ -99,6 +103,8 @@ namespace Com.Wulfram3
                     Debug.Log(p.NickName);
                 }
                 this.hudImage.color = PhotonNetwork.player.GetTeam().TeamColor();
+                altitudeBar.UpdateColor(this.hudImage.color);
+                speedBar.UpdateColor(this.hudImage.color);
                 GameObject g = Instantiate(Resources.Load("Prefabs/SceneBase/VehicleSelector"), new Vector3(-500, -500, -500), Quaternion.identity, transform) as GameObject;
                 unitSelector = g.GetComponent<VehicleSelector>();
                 unitSelector.SetAvailableModels(availableUnits);

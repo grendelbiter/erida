@@ -235,6 +235,8 @@ namespace Com.Wulfram3
                     currentThrustMultiplier = 0.9f;
                 }
             }
+
+            FindObjectOfType<GameManager>().speedBar.UpdateBar(currentThrustMultiplier, 1);
         }
 
         private void HandleDriveControls()
@@ -260,6 +262,8 @@ namespace Com.Wulfram3
                 if (!isGrounded && Time.time > tryLandStamp)
                     Land();
             }
+
+            FindObjectOfType<GameManager>().altitudeBar.UpdateBar(currentHeight, vehicleSettings.MaximumHeight);
         }
 
         private void HandleJumpjetControls()
