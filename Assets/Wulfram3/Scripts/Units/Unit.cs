@@ -58,7 +58,7 @@ namespace Com.Wulfram3
                 playerManager.SetMesh(unitTeam, unitType);
                 maxHealth = playerManager.mySettings.MaxHitPoints; // Make sure we use hit points set by the vehicle interface
                 displayHealth = maxHealth;
-                gameManager.SetHullBar(1f);
+                gameManager.healthBar.UpdateBar(displayHealth, maxHealth);
             }
             if (PhotonNetwork.isMasterClient)
                 SetHealth(maxHealth); // Masterclient has health and damage authority, for the most part
@@ -84,7 +84,7 @@ namespace Com.Wulfram3
             if (photonView.isMine && playerManager != null && displayHealth != health) // HUD update needs to happen even when dead, only on change, and only for players
             {
                 displayHealth = Mathf.SmoothDamp(displayHealth, health, ref damageToTake, 5f * Time.deltaTime);
-                gameManager.SetHullBar((float)displayHealth / (float)maxHealth);
+                gameManager.healthBar.UpdateBar(displayHealth, maxHealth);
             }
             if (PhotonNetwork.isMasterClient && Time.time > syncHpStamp) // Masterclient will sync health across the network 1 time per second
             {

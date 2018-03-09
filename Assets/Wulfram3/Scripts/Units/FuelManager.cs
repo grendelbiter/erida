@@ -59,7 +59,7 @@ namespace Com.Wulfram3 {
             if (CanTakeFuel(amount)) {
                 int newFuel = fuel - amount;
                 fuel = newFuel;
-                GetGameManager().FuelLevelUpdated(this);
+                GetGameManager().energyBar.UpdateBar(this.fuel, this.maxFuel);
                 return true;
             }
             return false;

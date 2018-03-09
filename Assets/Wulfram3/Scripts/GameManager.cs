@@ -14,11 +14,6 @@ namespace Com.Wulfram3
     public class GameManager : Photon.PunBehaviour
     {
         public Text tutorialStringsPanel;
-
-        public GameObject hullBar;
-
-        public GameObject fuelBar;
-
         public RawImage hudImage;
 
         public GameObject hitPanel;
@@ -206,20 +201,6 @@ namespace Com.Wulfram3
             }
         }
 
-        public void SetHullBar(float level)
-        {
-            hullBar.GetComponent<LevelController>().SetLevel(level);
-        }
-
-        public void FuelLevelUpdated(FuelManager fuelManager)
-        {
-            SetFuelBar((float)fuelManager.fuel / (float)fuelManager.maxFuel);
-        }
-
-        public void SetFuelBar(float level)
-        {
-            fuelBar.GetComponent<LevelController>().SetLevel(level);
-        }
 
         public void SetCurrentTarget(GameObject go)
         {
