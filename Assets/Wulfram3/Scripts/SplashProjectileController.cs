@@ -80,7 +80,7 @@ namespace Com.Wulfram3 {
             if (PhotonNetwork.isMasterClient && !Collided) // Force masterclient control of time based detonation
             {
                 if (Time.time >= lifetime)
-                    DoEffects(transform.position);
+                    Detonate(null);
             }
         }
 
@@ -90,7 +90,7 @@ namespace Com.Wulfram3 {
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 if (rb.velocity != velocity)
-                    SplashDetonation();
+                    Detonate(null);
             }
         }
 
@@ -109,36 +109,27 @@ namespace Com.Wulfram3 {
                 unit.TellServerTakeDamage(amount);
         }
 
-        void SplashDetonation()
+        void Detonate(Transform originalHit)
         {
-            /*
-             * Desired Effect When Hit Here
-             * 
-             */
-            DoEffects(transform.position);
-        }
-
-        void SplashDamage(Collider[] hitObjects, Vector3 hitPos, Transform originalHit)
-        {
-            // We should not get here unless we are masterclient (See OnCollisionEnter())
-            foreach (Collider c in hitObjects)
+            if (originalHit != null)
+                DoDamage(originalHit, directDamage);
+            Collider[] splashedObjects = Physics.OverlapSphere(transform.position, splashRadius);
+            foreach (Collider c in splashedObjects)
             {
-                if (!c.transform.Equals(originalHit)) // Ignore the object hit directly, it has already been damaged
+                if (!c.transform.Equals(originalHit))
                 {
-                    float pcnt = (splashRadius - Vector3.Distance(hitPos, c.transform.position)) / splashRadius;
-                    DoDamage(c.transform, (int)Mathf.Ceil(directDamage * pcnt));
+                    float pcnt = (splashRadius - Vector3.Distance(transform.position, c.transform.position)) / splashRadius;
+                    if (pcnt > 0)
+                        DoDamage(c.transform, (int)Mathf.Ceil(directDamage * pcnt));
                 }
             }
+            DoEffects(transform.position);
         }
 
         void OnCollisionEnter(Collision col) {
             if (PhotonNetwork.isMasterClient && !Collided) { // Force masterclient handling of damage and effects
                 Collided = true;
-                Vector3 hitPosition = col.contacts[0].point;
-                Collider[] splashedObjects = Physics.OverlapSphere(hitPosition, splashRadius);
-                DoEffects(hitPosition);
-                DoDamage(col.transform, directDamage);
-                SplashDamage(splashedObjects, hitPosition, col.transform);
+                Detonate(col.transform);
             }
         }
     }
