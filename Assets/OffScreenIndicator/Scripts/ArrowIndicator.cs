@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Experimental.UIElements;
+using UnityEngine.UI;
 
 /// <summary>
 /// Arrow indicator.
@@ -30,5 +32,7 @@ namespace Greyman{
 		protected float lerpAmount; //linear interpolation value for fades and scales
 		public abstract bool onScreen {get; set;}
 		public abstract void UpdateEffects();
-	}
+
+        public GameObject displayName { get; set; }
+    }
 }

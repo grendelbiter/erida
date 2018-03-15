@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using Com.Wulfram3;
 
 /// <summary>
 /// Offscreen indicator manager VR.
@@ -82,7 +83,11 @@ namespace Greyman{
 				newArrowIndicator.arrow.GetComponent<Image>().sprite = newArrowIndicator.indicator.offScreenSprite;
 				newArrowIndicator.arrow.GetComponent<RectTransform>().sizeDelta = new Vector2(indicatorSize, indicatorSize);
 				newArrowIndicator.arrow.GetComponent<Image>().color = newArrowIndicator.indicator.offScreenColor;
-				if(!newArrowIndicator.indicator.showOffScreen){
+                newArrowIndicator.displayName = new GameObject();
+                newArrowIndicator.displayName.AddComponent<Text>();
+                newArrowIndicator.displayName.GetComponent<Text>().text = newArrowIndicator.target.GetComponent<Unit>().unitType.ToString();
+                newArrowIndicator.displayName.GetComponent<Text>().color = newArrowIndicator.indicator.offScreenColor;
+                if (!newArrowIndicator.indicator.showOffScreen){
 					newArrowIndicator.arrow.SetActive(false);
 				}
 				newArrowIndicator.onScreen = false;
@@ -92,25 +97,10 @@ namespace Greyman{
 			}
 		}
 
-		//public override void RemoveIndicator(Transform target){
-  //          var exists = ExistsIndicator(target);
-  //          Debug.LogWarning("Target removed: does exist? " + exists);
-  //          if (exists)
-  //          {
-		//		ArrowIndicator oldArrowTarget = arrowIndicators.Find(x=>x.target == target);
-		//		int id = arrowIndicators.FindIndex(x=>x.target == target);
-		//		arrowIndicators.RemoveAt(id);
-		//		GameObject.Destroy(oldArrowTarget.arrow);
-		//		ArrowIndicator.Destroy(oldArrowTarget);
-                
-  //          } else {
-		//		Debug.LogWarning ("Target no longer exists: " + target.name);
-		//	}
-		//}
-		
 		protected override void UpdateIndicatorPosition(ArrowIndicator arrowIndicator, int id = 0){
             if (arrowIndicator.target == null)
             {
+                this.RemoveIndicator(arrowIndicator.target);
                 return;
             }
 
@@ -166,7 +156,8 @@ namespace Greyman{
 					yScaled /= screenScaleY;
 				}
 				arrowIndicator.arrow.transform.localPosition = new Vector3(xScaled, yScaled, 0);
-			}
+                arrowIndicator.displayName.transform.position = new Vector3(xScaled, yScaled, 0);
+            }
 
 			//rotatearrow
 			if((arrowIndicator.onScreen && arrowIndicator.indicator.onScreenRotates) || (!arrowIndicator.onScreen && arrowIndicator.indicator.offScreenRotates)){
