@@ -192,7 +192,7 @@ namespace Com.Wulfram3
             if (PhotonNetwork.isMasterClient)
             {
                 int newHealth = Mathf.Clamp(health - amount, 0, maxHealth);
-                if(amount < 0) // Heal
+                if(amount <= 0) // Heal
                 {
                     if(this.DamagedBy.Count >= 1)
                     {

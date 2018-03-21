@@ -12,10 +12,10 @@ namespace Com.Wulfram3 {
         public static int FlakVelocity = 75; // To intercept, flak must be faster than pulse
 
         public static int PulseDirectDamage = 300;
-        public static int FlakDirectDamage = 120;
+        public static int FlakDirectDamage = 80;
 
         public static int PulseSplashRadius = 14;
-        public static int FlakSplashRadius = 18;
+        public static int FlakSplashRadius = 12;
 
         public float lifetime; // This is used by pulse shells to control self detonation. Flak turret pass a "fuse" time when creating shells
 

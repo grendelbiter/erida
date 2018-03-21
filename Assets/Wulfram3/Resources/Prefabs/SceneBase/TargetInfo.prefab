@@ -676,7 +676,7 @@ MonoBehaviour:
   targetInfoPanel: {fileID: 1269261491248498}
   hitpoints: {fileID: 114167617479242116}
   myName: {fileID: 114033891109033860}
-  team: {fileID: 114666184169312702}
+  distance: {fileID: 0}
   user: {fileID: 114405785394529010}
   target: {fileID: 0}
 --- !u!114 &114957026401519252
