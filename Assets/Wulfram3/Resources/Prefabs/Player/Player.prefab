@@ -204,6 +204,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &1493565011782248
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4872384187322400}
+  m_Layer: 0
+  m_Name: hunterLauncher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1501123400932012
 GameObject:
   m_ObjectHideFlags: 1
@@ -524,6 +539,21 @@ GameObject:
   - component: {fileID: 114059993411295154}
   m_Layer: 0
   m_Name: End Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1959576931490512
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4995699081094086}
+  m_Layer: 0
+  m_Name: hunterLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -874,6 +904,7 @@ Transform:
   - {fileID: 4978231919232402}
   - {fileID: 4016168478828836}
   - {fileID: 4390735394097248}
+  - {fileID: 4872384187322400}
   m_Father: {fileID: 4551569798301510}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -890,6 +921,19 @@ Transform:
   m_Father: {fileID: 4775528811366586}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4872384187322400
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493565011782248}
+  m_LocalRotation: {x: -0.060990497, y: 0.043538045, z: 0.0026629036, w: 0.9971848}
+  m_LocalPosition: {x: -0.508, y: 0.535, z: 0.309}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4775528811366586}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: -7, y: 5, z: 0}
 --- !u!4 &4883840461233092
 Transform:
   m_ObjectHideFlags: 1
@@ -935,6 +979,7 @@ Transform:
   - {fileID: 4930802484706686}
   - {fileID: 4368272874599938}
   - {fileID: 4600939841154982}
+  - {fileID: 4995699081094086}
   m_Father: {fileID: 4551569798301510}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -965,6 +1010,19 @@ Transform:
   m_Father: {fileID: 4775528811366586}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4995699081094086
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1959576931490512}
+  m_LocalRotation: {x: -0.060990497, y: 0.043538045, z: 0.0026629036, w: 0.9971848}
+  m_LocalPosition: {x: -0.544, y: 0.758, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4932852334015082}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: -7, y: 5, z: 0}
 --- !u!15 &15167207091173856
 EllipsoidParticleEmitter:
   m_ObjectHideFlags: 1
@@ -1904,6 +1962,7 @@ MonoBehaviour:
   myUnitType: 0
   receiveInput: 1
   isLandedOnRepairPad: {fileID: 0}
+  currentThrustMultiplier: 0.5
   healingBoost: 1
   currentHeight: 1.2
   isGrounded: 0
@@ -2354,6 +2413,9 @@ MonoBehaviour:
   - {fileID: 4206612252912348}
   - {fileID: 4832298440499314}
   - {fileID: 4043575387645410}
+  hunterLaunchers:
+  - {fileID: 4995699081094086}
+  - {fileID: 4872384187322400}
   firstPersonCameraPositions:
   - {fileID: 4190972276642356}
   - {fileID: 4702531564502100}
@@ -2374,6 +2436,7 @@ MonoBehaviour:
   thirdPersonCamPos: {fileID: 0}
   placePosition: {fileID: 0}
   dropPosition: {fileID: 0}
+  hunterLauncher: {fileID: 0}
 --- !u!114 &114609421694380428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2584,8 +2647,7 @@ LineRenderer:
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 111300000, guid: a7e836aefad7d664aa2b8b8b63b87ee5,
-    type: 2}
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2767,8 +2829,7 @@ LineRenderer:
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 111300000, guid: a7e836aefad7d664aa2b8b8b63b87ee5,
-    type: 2}
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0

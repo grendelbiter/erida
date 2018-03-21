@@ -20,6 +20,7 @@ namespace Com.Wulfram3
         public List<Transform> cargoDropPositions;
         public List<Transform> unitPlacePositions;
         public List<Transform> gunPositions;
+        public List<Transform> hunterLaunchers;
         public List<Transform> firstPersonCameraPositions;
         public List<Transform> thirdPersonCameraPositions;
 
@@ -60,6 +61,8 @@ namespace Com.Wulfram3
         public Transform placePosition;
         [HideInInspector]
         public Transform dropPosition;
+        [HideInInspector]
+        public Transform hunterLauncher;
 
         private PlayerMotionController PMC;
 
@@ -111,11 +114,13 @@ namespace Com.Wulfram3
             {
                 cargoManager.dropPosition = cargoDropPositions[0];
                 cargoManager.placeObjectPoint = unitPlacePositions[0];
+                hunterLauncher = hunterLaunchers[0];
             }
             else if (i == 2)
             {
                 cargoManager.dropPosition = cargoDropPositions[1];
                 cargoManager.placeObjectPoint = unitPlacePositions[1];
+                hunterLauncher = hunterLaunchers[1];
             }
         }
 

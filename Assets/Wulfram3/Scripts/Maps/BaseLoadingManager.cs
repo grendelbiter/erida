@@ -14,7 +14,7 @@ namespace Assets.Wulfram3.Scripts.Maps
         // Use this for initialization
         void Start()
         {
-            MapSetup("temp");
+            //MapSetup("temp");
         }
 
         // Update is called once per frame
