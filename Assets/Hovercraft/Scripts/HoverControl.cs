@@ -29,9 +29,9 @@ public class HoverControl : MonoBehaviour
 
 	//Barrel Stuff
 	public Transform Barrel;
-	private float BarrelZRot;
-	public float BarrelZrotMin;
-	public float BarrelZrotMax;
+	private float BarrelXRot;
+	public float BarrelXrotMin;
+	public float BarrelXrotMax;
 	public float BarrelTurnRate;
 
 	//Projectile
@@ -73,9 +73,9 @@ public class HoverControl : MonoBehaviour
 				Engine.MaxHeight = Engine.MaxHeight - 1;
 		}
 
-		BarrelZRot += Input.GetAxis ("Mouse Y") * BarrelTurnRate;
-		BarrelZRot = Mathf.Clamp (BarrelZRot, BarrelZrotMin, BarrelZrotMax);
-		Barrel.eulerAngles = new Vector3 (Barrel.eulerAngles.x, Barrel.eulerAngles.y, BarrelZRot);
+		BarrelXRot += Input.GetAxis ("Mouse Y") * BarrelTurnRate;
+		BarrelXRot = Mathf.Clamp (BarrelXRot, BarrelXrotMin, BarrelXrotMax);
+		Barrel.eulerAngles = new Vector3 (BarrelXRot, Barrel.eulerAngles.y, Barrel.eulerAngles.z);
 
 		if (Input.GetButtonDown("Fire2")) {
 		Rigidbody projectileInstance;
