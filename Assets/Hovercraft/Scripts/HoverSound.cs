@@ -41,6 +41,9 @@ public class HoverSound : MonoBehaviour
     /// Maximum pitch (when engines are firing at max power)
     /// </summary>
     public float MaxPitch = 1.2f;
+    //Material and Renderer
+    public Material mat;
+
 
     void Start()
     {
@@ -58,5 +61,7 @@ public class HoverSound : MonoBehaviour
         // set pitch&volume
         SoundSource.volume = Mathf.Lerp(MinVolume, MaxVolume, power);
         SoundSource.pitch = Mathf.Lerp(MinPitch, MaxPitch, power);
+        //set Engine Glow
+        mat.SetColor ("_EmissionColor", Color.Lerp(Color.black, Color.white, power));
     }
 }

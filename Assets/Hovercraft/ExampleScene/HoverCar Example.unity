@@ -508,6 +508,11 @@ Prefab:
       propertyPath: CannonForce
       value: 200000
       objectReference: {fileID: 0}
+    - target: {fileID: 114971623530439274, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: mat
+      value: 
+      objectReference: {fileID: 2100000, guid: 87a057fc5b8b8d740956376eacaebcf7, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
   m_IsPrefabParent: 0
