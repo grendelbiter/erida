@@ -38,6 +38,7 @@ public class HoverControl : MonoBehaviour
 	public Rigidbody projectile;
 	public Transform projectileSpawn;
 	public float ProjectileForce;
+	public float CannonForce;
 
 	public GameObject FirstPersoncam;
 	public GameObject ThirdPersoncam;
@@ -81,12 +82,12 @@ public class HoverControl : MonoBehaviour
 		BarrelXRot += Input.GetAxis ("Mouse Y") * BarrelTurnRate;
 		BarrelXRot = Mathf.Clamp (BarrelXRot, BarrelXrotMin, BarrelXrotMax);
 		Barrel.localEulerAngles = new Vector3 (BarrelXRot, Barrel.localEulerAngles.y, Barrel.localEulerAngles.z);
-		//Barrel.RotateAround(transform.position, transform.up, Time.deltaTime * 90f);
 
 		if (Input.GetButtonDown ("Fire2")) {
 			Rigidbody projectileInstance;
 			projectileInstance = Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation) as Rigidbody;
 			projectileInstance.AddForce (projectileSpawn.forward * ProjectileForce);
+			rb.AddForce (-transform.forward * CannonForce);
 		}
 
 		if (Input.GetKeyDown (KeyCode.V)) {

@@ -396,7 +396,7 @@ Prefab:
     - target: {fileID: 114256897399694980, guid: 6cc47a00837d80245a32e6f897701f8f,
         type: 2}
       propertyPath: BarrelTurnRate
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 114256897399694980, guid: 6cc47a00837d80245a32e6f897701f8f,
         type: 2}
@@ -502,6 +502,11 @@ Prefab:
         type: 2}
       propertyPath: Thrust
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114256897399694980, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: CannonForce
+      value: 200000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
