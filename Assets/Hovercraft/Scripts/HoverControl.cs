@@ -79,7 +79,8 @@ public class HoverControl : MonoBehaviour
 
 		BarrelXRot += Input.GetAxis ("Mouse Y") * BarrelTurnRate;
 		BarrelXRot = Mathf.Clamp (BarrelXRot, BarrelXrotMin, BarrelXrotMax);
-		Barrel.eulerAngles = new Vector3 (BarrelXRot, Barrel.eulerAngles.y, Barrel.eulerAngles.z);
+		Barrel.localEulerAngles = new Vector3 (BarrelXRot, Barrel.localEulerAngles.y, Barrel.localEulerAngles.z);
+		//Barrel.RotateAround(transform.position, transform.up, Time.deltaTime * 90f);
 
 		if (Input.GetButtonDown ("Fire2")) {
 			Rigidbody projectileInstance;
