@@ -250,6 +250,11 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 345dd6b42f1fc8f47863b0c8e21be7f4, type: 3}
+--- !u!4 &161435255 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4990347429237102, guid: 6cc47a00837d80245a32e6f897701f8f,
+    type: 2}
+  m_PrefabInternal: {fileID: 249672774}
 --- !u!1001 &221599584
 Prefab:
   m_ObjectHideFlags: 0
@@ -345,6 +350,159 @@ Prefab:
       propertyPath: ThirdPersoncam
       value: 
       objectReference: {fileID: 1228327020}
+    - target: {fileID: 1188803866092818, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
+      propertyPath: m_Name
+      value: ProjectileSpawn
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990347429237102, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.02081
+      objectReference: {fileID: 0}
+    - target: {fileID: 114256897399694980, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: projectileSpawn
+      value: 
+      objectReference: {fileID: 161435255}
+    - target: {fileID: 4990347429237102, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990347429237102, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 9.392497e-13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990347429237102, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -8.7621886e-14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990347429237102, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990347429237102, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114256897399694980, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 54623289668846348, guid: 93779be15e9b1ed4183defe5161c5cfe,
+        type: 2}
+    - target: {fileID: 4990347429237102, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 114256897399694980, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: BarrelTurnRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114256897399694980, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: ProjectileForce
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114224375810644016, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: RollCompensationTorque
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114224375810644016, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: BrakingTorque
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114224375810644016, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: PitchCompensationTorque
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114224375810644016, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: RollOnTurnsTorque
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114622693156742248, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: Exponent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748126598472992, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: Exponent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114177642258013586, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: Exponent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114085525488093756, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: Exponent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114622693156742248, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: MaxAngleDrift
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748126598472992, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: MaxAngleDrift
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114177642258013586, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: MaxAngleDrift
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114085525488093756, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: MaxAngleDrift
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114622693156742248, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: Damping
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748126598472992, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: Damping
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114177642258013586, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: Damping
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114085525488093756, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: Damping
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114971623530439274, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: MovementEngineWeight
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114150954083650078, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: MaxSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114662720280791328, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: MaxSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114662720280791328, guid: 6cc47a00837d80245a32e6f897701f8f,
+        type: 2}
+      propertyPath: Thrust
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
   m_IsPrefabParent: 0

@@ -37,6 +37,7 @@ public class HoverControl : MonoBehaviour
 	//Projectile
 	public Rigidbody projectile;
 	public Transform projectileSpawn;
+	public float ProjectileForce;
 
 	public GameObject FirstPersoncam;
 	public GameObject ThirdPersoncam;
@@ -85,7 +86,7 @@ public class HoverControl : MonoBehaviour
 		if (Input.GetButtonDown ("Fire2")) {
 			Rigidbody projectileInstance;
 			projectileInstance = Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation) as Rigidbody;
-			projectileInstance.AddForce (projectileSpawn.forward * 5000);
+			projectileInstance.AddForce (projectileSpawn.forward * ProjectileForce);
 		}
 
 		if (Input.GetKeyDown (KeyCode.V)) {
