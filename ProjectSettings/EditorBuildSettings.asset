@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Launcher 1.unity
     guid: 24f9739038441b7409fa27971186986d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Playground.unity
     guid: 8129d7884e3e1d14789493b50ab9f494
+  - enabled: 1
+    path: Assets/Hovercraft/ExampleScene/HoverCar Example.unity
+    guid: 7d7186675a2b1a2498c73ec7826f930c

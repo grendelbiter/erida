@@ -39,6 +39,7 @@ public class HoverControl : MonoBehaviour
 	public Transform projectileSpawn;
 	public float ProjectileForce;
 	public float CannonForce;
+	public GameObject MuzzleFlash;
 
 	public GameObject FirstPersoncam;
 	public GameObject ThirdPersoncam;
@@ -88,6 +89,8 @@ public class HoverControl : MonoBehaviour
 			projectileInstance = Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation) as Rigidbody;
 			projectileInstance.AddForce (projectileSpawn.forward * ProjectileForce);
 			rb.AddForce (-transform.forward * CannonForce);
+			GameObject muzzleflashInstance;
+			muzzleflashInstance = Instantiate (MuzzleFlash, projectileSpawn.position, projectileSpawn.rotation) as GameObject;
 		}
 
 		if (Input.GetKeyDown (KeyCode.V)) {
