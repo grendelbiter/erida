@@ -41,10 +41,14 @@ public class HoverControl : MonoBehaviour
 	public float CannonForce;
 	public GameObject MuzzleFlash;
 
+	//Camera Control
 	public GameObject FirstPersoncam;
 	public GameObject ThirdPersoncam;
 	private bool ToggleCam;
 
+	//Lights
+	public bool SpotlightsToggle;
+	public GameObject Spotlights;
 
     void Start ()
 	{
@@ -55,17 +59,20 @@ public class HoverControl : MonoBehaviour
 
     void Update ()
 	{
+		//Rotate Tank with Mouse
 		float rotation;
 		rotation = Input.GetAxis ("Mouse X");
 		Movement.Thrust = Input.GetAxis ("Vertical");
 		Strafing.Thrust = Input.GetAxis ("Horizontal");
 		Orientation.Turn = rotation * 2;
 
+		//Unlock Cursor with Esc
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
 		}
 
+		//Set Hover Height with Q and Y
 		if (Input.GetKeyDown (KeyCode.Q)) {
 			foreach (HoverEngine Engine in Engines)
 				if (Engine.MaxHeight == 10) {
@@ -80,10 +87,12 @@ public class HoverControl : MonoBehaviour
 				Engine.MaxHeight = Engine.MaxHeight - 1;
 		}
 
+		//Rotate Barrel Up and Down
 		BarrelXRot += Input.GetAxis ("Mouse Y") * BarrelTurnRate;
 		BarrelXRot = Mathf.Clamp (BarrelXRot, BarrelXrotMin, BarrelXrotMax);
 		Barrel.localEulerAngles = new Vector3 (BarrelXRot, Barrel.localEulerAngles.y, Barrel.localEulerAngles.z);
 
+		//Fire Projectiles and Instantiate Muzzle Flash and Add Force
 		if (Input.GetButtonDown ("Fire2")) {
 			Rigidbody projectileInstance;
 			projectileInstance = Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation) as Rigidbody;
@@ -93,6 +102,13 @@ public class HoverControl : MonoBehaviour
 			muzzleflashInstance = Instantiate (MuzzleFlash, projectileSpawn.position, projectileSpawn.rotation) as GameObject;
 		}
 
+		//Toggle Lights
+		if (Input.GetKeyDown (KeyCode.L)) {
+			SpotlightsToggle = !SpotlightsToggle;
+			Spotlights.SetActive(SpotlightsToggle);
+		}
+
+		//Toggle First Person/Third Person Cam
 		if (Input.GetKeyDown (KeyCode.V)) {
 			ToggleCam = !ToggleCam;
 			FirstPersoncam.SetActive(ToggleCam);
@@ -113,9 +129,7 @@ public class HoverControl : MonoBehaviour
 
 		if (Input.GetButtonDown ("Jump")) {
 		rb.AddForce (up *JumpForce);
-//			{
-//			StartCoroutine(SetHeight());
-//			}
+
 		}
 		
 	}
