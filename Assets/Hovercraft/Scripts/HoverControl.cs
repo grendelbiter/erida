@@ -92,12 +92,13 @@ public class HoverControl : MonoBehaviour
 		BarrelXRot = Mathf.Clamp (BarrelXRot, BarrelXrotMin, BarrelXrotMax);
 		Barrel.localEulerAngles = new Vector3 (BarrelXRot, Barrel.localEulerAngles.y, Barrel.localEulerAngles.z);
 
-		//Fire Projectiles and Instantiate Muzzle Flash and Add Force
+		//Fire Projectiles and Instantiate Muzzle Flash and Add Force and Play Sound
 		if (Input.GetButtonDown ("Fire2")) {
 			Rigidbody projectileInstance;
 			projectileInstance = Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation) as Rigidbody;
 			projectileInstance.AddForce (projectileSpawn.forward * ProjectileForce);
 			rb.AddForce (-transform.forward * CannonForce);
+			Physics.IgnoreCollision(projectileInstance.GetComponent<Collider>(),GetComponent<Collider>());
 			GameObject muzzleflashInstance;
 			muzzleflashInstance = Instantiate (MuzzleFlash, projectileSpawn.position, projectileSpawn.rotation) as GameObject;
 		}

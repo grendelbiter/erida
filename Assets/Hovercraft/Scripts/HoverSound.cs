@@ -10,6 +10,7 @@ public class HoverSound : MonoBehaviour
     /// Source actually playing engine sound
     /// </summary>
     public AudioSource SoundSource;
+	public AudioSource SoundSource2;
     /// <summary>
     /// Hover engines to use
     /// </summary>
@@ -61,6 +62,8 @@ public class HoverSound : MonoBehaviour
         // set pitch&volume
         SoundSource.volume = Mathf.Lerp(MinVolume, MaxVolume, power);
         SoundSource.pitch = Mathf.Lerp(MinPitch, MaxPitch, power);
+		SoundSource2.volume = Mathf.Lerp(MinVolume, MaxVolume, power);
+        SoundSource2.pitch = Mathf.Lerp(MinPitch, MaxPitch, power);
         //set Engine Glow
         mat.SetColor ("_EmissionColor", Color.Lerp(Color.black, Color.white, power));
     }
