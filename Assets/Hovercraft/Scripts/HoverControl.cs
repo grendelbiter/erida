@@ -50,11 +50,15 @@ public class HoverControl : MonoBehaviour
 	public bool SpotlightsToggle;
 	public GameObject Spotlights;
 
+	//Minigun
+	public Animator gunanim;
+
     void Start ()
 	{
 		Cursor.lockState= CursorLockMode.Locked;
 		Cursor.visible = false;
-		rb = GetComponent<Rigidbody>();	
+		rb = GetComponent<Rigidbody>();
+		//gunanim = GetComponentInChildren<Animator>();	
 	}
 
     void Update ()
@@ -98,10 +102,14 @@ public class HoverControl : MonoBehaviour
 			projectileInstance = Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation) as Rigidbody;
 			projectileInstance.AddForce (projectileSpawn.forward * ProjectileForce);
 			rb.AddForce (-transform.forward * CannonForce);
-			Physics.IgnoreCollision(projectileInstance.GetComponent<Collider>(),GetComponent<Collider>());
+			Physics.IgnoreCollision (projectileInstance.GetComponent<Collider> (), GetComponent<Collider> ());
 			GameObject muzzleflashInstance;
 			muzzleflashInstance = Instantiate (MuzzleFlash, projectileSpawn.position, projectileSpawn.rotation) as GameObject;
 		}
+
+		//Fire Minigun
+		bool fire1pressed = Input.GetButton("Fire1");
+		gunanim.SetBool("Fire", fire1pressed);
 
 		//Toggle Lights
 		if (Input.GetKeyDown (KeyCode.L)) {
