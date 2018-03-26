@@ -64,7 +64,7 @@ public class GridDetectionManager : MonoBehaviour {
         {
             result.HorizontalSector = "D";
         }
-        else if (roundedX.IsWithin(0.69, 0.85))
+        else if (roundedX.IsWithin(0.68, 0.85))
         {
             result.HorizontalSector = "E";
         }
@@ -91,7 +91,7 @@ public class GridDetectionManager : MonoBehaviour {
         {
             result.VerticalSector = "4";
         }
-        else if (roundedY.IsWithin(0.69, 0.85))
+        else if (roundedY.IsWithin(0.68, 0.85))
         {
             result.VerticalSector = "5";
         }

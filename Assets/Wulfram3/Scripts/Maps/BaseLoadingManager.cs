@@ -14,7 +14,8 @@ namespace Assets.Wulfram3.Scripts.Maps
         // Use this for initialization
         void Start()
         {
-            //MapSetup("temp");
+            //GetCurrentMapConfig();
+            MapSetup("temp");
         }
 
         // Update is called once per frame
@@ -28,7 +29,79 @@ namespace Assets.Wulfram3.Scripts.Maps
         {
             if (PhotonNetwork.isMasterClient)
             {
-                var data = @"{
+                
+                var baseSetup = Newtonsoft.Json.JsonConvert.DeserializeObject<BaseSetup>(OlmecanBase);
+                foreach (var item in baseSetup.bases)
+                {
+                    CreateBase(item);
+                }
+            }
+        }
+
+        private void CreateBase(Base singleBase)
+        {
+            foreach (var unit in singleBase.units)
+            {
+                if(unit.unitType == UnitType.Cargo)
+                {
+                    object[] o = new object[2];
+                    o[0] = unit.cargoType;
+                    o[1] = singleBase.team;
+                    PhotonNetwork.InstantiateSceneObject(Unit.GetPrefabName(unit.unitType, singleBase.team), new Vector3(unit.posX, unit.posY, unit.posZ), Quaternion.identity, 0, o);
+                }
+                else
+                {
+                    PhotonNetwork.InstantiateSceneObject(Unit.GetPrefabName(unit.unitType, singleBase.team), new Vector3(unit.posX, unit.posY, unit.posZ), Quaternion.identity, 0, null);
+                }
+            }
+        }
+
+        public BaseSetup GetCurrentMapConfig()
+        {
+            //var tempTargets = new List<UnitTarget>(); // Commented to supress warning message (2/19/2018 : Cheebsta)  
+            // Get Units on the map as it loads
+            var units = ((Unit[])GameObject.FindObjectsOfType(typeof(Unit))).ToList();
+            if (units.Count > 0)
+            {
+                var baseSetup = new BaseSetup();
+                baseSetup.loadNumber = 999;
+                baseSetup.mapName = "";
+                baseSetup.bases = new List<Base>();
+                foreach (var teamUnits in units.GroupBy(u => u.unitTeam))
+                {
+                    var tempBase = new Base();
+                    tempBase.team = teamUnits.Key;
+                    tempBase.baseName = "base1";
+                    tempBase.units = new List<BaseUnit>();
+                    foreach (var unit in teamUnits)
+                    {
+                        tempBase.units.Add(
+                            new BaseUnit
+                            {
+                                unitType = unit.unitType,
+                                posX = (int)unit.gameObject.transform.position.x,
+                                posY = (int)unit.gameObject.transform.position.y,
+                                posZ = (int)unit.gameObject.transform.position.z,
+                                cargoType = unit.unitType == UnitType.Cargo ? unit.GetComponentInParent<Cargo>().content : UnitType.None
+                            });
+                    }
+
+                    baseSetup.bases.Add(tempBase);
+                }
+
+                Logger.Log(Newtonsoft.Json.JsonConvert.SerializeObject(baseSetup));
+                return baseSetup;
+            }
+            else
+            {
+                return null;
+
+            }
+        }
+
+        private string OlmecanBase = @"{""mapName"":"""",""loadNumber"":999,""bases"":[{""baseName"":""base1"",""team"":2,""units"":[{""unitType"":5,""posX"":1426,""posY"":153,""posZ"":932,""cargoType"":0},{""unitType"":4,""posX"":1420,""posY"":152,""posZ"":934,""cargoType"":0},{""unitType"":8,""posX"":1457,""posY"":150,""posZ"":957,""cargoType"":0},{""unitType"":3,""posX"":1432,""posY"":150,""posZ"":919,""cargoType"":8},{""unitType"":3,""posX"":1417,""posY"":152,""posZ"":919,""cargoType"":5},{""unitType"":3,""posX"":1413,""posY"":153,""posZ"":919,""cargoType"":4},{""unitType"":3,""posX"":1422,""posY"":151,""posZ"":919,""cargoType"":7},{""unitType"":3,""posX"":1426,""posY"":150,""posZ"":919,""cargoType"":8},{""unitType"":8,""posX"":1387,""posY"":169,""posZ"":938,""cargoType"":0},{""unitType"":3,""posX"":1408,""posY"":154,""posZ"":919,""cargoType"":4},{""unitType"":7,""posX"":1396,""posY"":168,""posZ"":902,""cargoType"":0},{""unitType"":7,""posX"":1470,""posY"":154,""posZ"":914,""cargoType"":0},{""unitType"":8,""posX"":1430,""posY"":159,""posZ"":898,""cargoType"":0},{""unitType"":7,""posX"":1420,""posY"":174,""posZ"":973,""cargoType"":0},{""unitType"":4,""posX"":1421,""posY"":152,""posZ"":934,""cargoType"":0}]},{""baseName"":""base1"",""team"":1,""units"":[{""unitType"":3,""posX"":1919,""posY"":134,""posZ"":2607,""cargoType"":5},{""unitType"":3,""posX"":1927,""posY"":135,""posZ"":2609,""cargoType"":8},{""unitType"":4,""posX"":1930,""posY"":135,""posZ"":2618,""cargoType"":0},{""unitType"":3,""posX"":1916,""posY"":134,""posZ"":2609,""cargoType"":8},{""unitType"":3,""posX"":1921,""posY"":134,""posZ"":2610,""cargoType"":4},{""unitType"":4,""posX"":1931,""posY"":136,""posZ"":2618,""cargoType"":0},{""unitType"":3,""posX"":1917,""posY"":134,""posZ"":2612,""cargoType"":4},{""unitType"":8,""posX"":1957,""posY"":142,""posZ"":2631,""cargoType"":0},{""unitType"":7,""posX"":1926,""posY"":143,""posZ"":2653,""cargoType"":0},{""unitType"":8,""posX"":1895,""posY"":142,""posZ"":2632,""cargoType"":0},{""unitType"":5,""posX"":1926,""posY"":136,""posZ"":2618,""cargoType"":0},{""unitType"":7,""posX"":1890,""posY"":136,""posZ"":2605,""cargoType"":0},{""unitType"":8,""posX"":1912,""posY"":137,""posZ"":2578,""cargoType"":0},{""unitType"":7,""posX"":1946,""posY"":142,""posZ"":2598,""cargoType"":0},{""unitType"":3,""posX"":1913,""posY"":134,""posZ"":2611,""cargoType"":7}]}]}";
+
+        private string RancorBase = @"{
     ""mapName"": ""Rancor"",
     ""loadNumber"": 999,
     ""bases"": [{
@@ -247,73 +320,5 @@ namespace Assets.Wulfram3.Scripts.Maps
         }]
     }]
 }";
-                var baseSetup = Newtonsoft.Json.JsonConvert.DeserializeObject<BaseSetup>(data);
-                foreach (var item in baseSetup.bases)
-                {
-                    CreateBase(item);
-                }
-            }
-        }
-
-        private void CreateBase(Base singleBase)
-        {
-            foreach (var unit in singleBase.units)
-            {
-                if(unit.unitType == UnitType.Cargo)
-                {
-                    object[] o = new object[2];
-                    o[0] = unit.cargoType;
-                    o[1] = singleBase.team;
-                    PhotonNetwork.InstantiateSceneObject(Unit.GetPrefabName(unit.unitType, singleBase.team), new Vector3(unit.posX, unit.posY, unit.posZ), Quaternion.identity, 0, o);
-                }
-                else
-                {
-                    PhotonNetwork.InstantiateSceneObject(Unit.GetPrefabName(unit.unitType, singleBase.team), new Vector3(unit.posX, unit.posY, unit.posZ), Quaternion.identity, 0, null);
-                }
-            }
-        }
-
-        public BaseSetup GetCurrentMapConfig()
-        {
-            //var tempTargets = new List<UnitTarget>(); // Commented to supress warning message (2/19/2018 : Cheebsta)  
-            // Get Units on the map as it loads
-            var units = ((Unit[])GameObject.FindObjectsOfType(typeof(Unit))).ToList();
-            if (units.Count > 0)
-            {
-                var baseSetup = new BaseSetup();
-                baseSetup.loadNumber = 999;
-                baseSetup.mapName = "";
-                baseSetup.bases = new List<Base>();
-                foreach (var teamUnits in units.GroupBy(u => u.unitTeam))
-                {
-                    var tempBase = new Base();
-                    tempBase.team = teamUnits.Key;
-                    tempBase.baseName = "base1";
-                    tempBase.units = new List<BaseUnit>();
-                    foreach (var unit in teamUnits)
-                    {
-                        tempBase.units.Add(
-                            new BaseUnit
-                            {
-                                unitType = unit.unitType,
-                                posX = (int)unit.gameObject.transform.position.x,
-                                posY = (int)unit.gameObject.transform.position.y,
-                                posZ = (int)unit.gameObject.transform.position.z,
-                                cargoType = unit.unitType == UnitType.Cargo ? unit.GetComponentInParent<Cargo>().content : UnitType.None
-                            });
-                    }
-
-                    baseSetup.bases.Add(tempBase);
-                }
-
-                Logger.Log(Newtonsoft.Json.JsonConvert.SerializeObject(baseSetup));
-                return baseSetup;
-            }
-            else
-            {
-                return null;
-
-            }
-        }
     }
 }

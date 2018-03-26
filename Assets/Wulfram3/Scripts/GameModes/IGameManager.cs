@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IGameManager : MonoBehaviour {
+public interface IGameManager
+{
+    
+    string MapName { get; set;}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    int GameTime { get; set; }
+
+    int SpawnTimeout { get; set; }
+
+    int PlayerCountForStats { get; set; }
+
+    bool AllowShipSpawn { get; set; }
+
 }
