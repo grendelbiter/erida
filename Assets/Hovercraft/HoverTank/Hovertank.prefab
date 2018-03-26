@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4981454071675570}
   - component: {fileID: 95184976686984172}
+  - component: {fileID: 114516188995622828}
   m_Layer: 0
   m_Name: MiniGunBarrel
   m_TagString: Untagged
@@ -196,6 +197,21 @@ GameObject:
   - component: {fileID: 23866955543839698}
   m_Layer: 0
   m_Name: Base
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1492113851435942
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4028366479575624}
+  m_Layer: 0
+  m_Name: MinigunOutput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -485,6 +501,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4028366479575624
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1492113851435942}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.00051, z: 0.00453}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4981454071675570}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4103567200939176
 Transform:
   m_ObjectHideFlags: 1
@@ -860,6 +889,7 @@ Transform:
   m_LocalScale: {x: 100.00002, y: 100.00003, z: 100.00003}
   m_Children:
   - {fileID: 4521527526637936}
+  - {fileID: 4028366479575624}
   m_Father: {fileID: 4320762819155436}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -869,13 +899,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1188803866092818}
-  m_LocalRotation: {x: -0.7071067, y: 9.392497e-13, z: -8.7621886e-14, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0.01173, z: -0}
+  m_LocalRotation: {x: -0.000000032268872, y: -0.7071067, z: -0.7071068, w: -0.000000032268872}
+  m_LocalPosition: {x: 0, y: 0.01172974, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4391800360554534}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4995855421482154
 Transform:
   m_ObjectHideFlags: 1
@@ -1380,7 +1410,7 @@ Light:
   m_Color: {r: 1, g: 0.9913793, b: 0.875, a: 1}
   m_Intensity: 2
   m_Range: 50
-  m_SpotAngle: 66.7
+  m_SpotAngle: 56.5
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -1416,7 +1446,7 @@ Light:
   m_Color: {r: 1, g: 0.9913793, b: 0.875, a: 1}
   m_Intensity: 2
   m_Range: 50
-  m_SpotAngle: 66.7
+  m_SpotAngle: 56.5
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -1666,6 +1696,23 @@ MonoBehaviour:
   SpotlightsToggle: 0
   Spotlights: {fileID: 1303879012558258}
   gunanim: {fileID: 95184976686984172}
+--- !u!114 &114516188995622828
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1051623998951796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8855ab5148387b4a94ff1f987a79549, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  muzzleflashPrefab: {fileID: 1907134417808712, guid: d3210e4ddc19a8343b4fb70ddca49b40,
+    type: 2}
+  minigunOutput: {fileID: 4028366479575624}
+  explosionPrefab: {fileID: 153318, guid: a213197df4386314384fb25ce0ce67f7, type: 2}
+  raycastOrigin: {fileID: 4990347429237102}
+  bulletSpread: 0
 --- !u!114 &114622693156742248
 MonoBehaviour:
   m_ObjectHideFlags: 1

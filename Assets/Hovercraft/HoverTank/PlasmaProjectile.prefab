@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4888080114891178}
   - component: {fileID: 82945863921680656}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PulseFlightSoundSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4554445657186390}
   - component: {fileID: 198005981692887426}
   - component: {fileID: 199753896955060934}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4896094840034074}
   - component: {fileID: 82300442044054324}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PulseShotSoundSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4975508744827234}
   - component: {fileID: 108761060226554782}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4962779742378840}
   - component: {fileID: 198685089032258902}
   - component: {fileID: 199094164837713758}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4996388538474340}
   - component: {fileID: 96079166632969186}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 135361904360619750}
   - component: {fileID: 54623289668846348}
   - component: {fileID: 114286243399325868}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlasmaProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

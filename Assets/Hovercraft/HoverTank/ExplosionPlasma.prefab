@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4804304958861470}
   - component: {fileID: 198117748140839440}
   - component: {fileID: 199486257573791606}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4533044712736392}
   - component: {fileID: 198099004002308930}
   - component: {fileID: 199794273938409792}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4981512196461256}
   - component: {fileID: 198018445145382536}
   - component: {fileID: 199139986909789414}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4690544069773432}
   - component: {fileID: 198311367488988498}
   - component: {fileID: 199685758722762366}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4707092479375786}
   - component: {fileID: 198466802300823658}
   - component: {fileID: 199242095983075402}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4548393084150360}
   - component: {fileID: 198585827352084794}
   - component: {fileID: 199343829433704716}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 114879389666810116}
   - component: {fileID: 82553639813658612}
   - component: {fileID: 114588096770318172}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ExplosionPlasma
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 4398815174053174}
   - component: {fileID: 198085632273334330}
   - component: {fileID: 199945188961464246}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 4489559929304256}
   - component: {fileID: 198583399895491784}
   - component: {fileID: 199512839404732816}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
