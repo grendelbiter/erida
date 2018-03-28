@@ -13,6 +13,11 @@ Shader "MegaSplat/WorldCreatorTerrain" {
       // terrain
       [NoScaleOffset]_SplatControl("Splat Control", 2D) = "black" {}
       [NoScaleOffset]_SplatParams("Splat Params", 2D) = "black" {}
+      // distance resampling
+      // uv scale, near, fast
+      _ResampleDistanceParams("Puddle Flow Params", Vector) = (0.25, 80, 200, 0)
+
+
       // Splats
       _Glossiness("Smoothness", Range(0.0, 1.0)) = 0.0
       [Gamma] _Metallic("Metallic", Range(0.0, 1.0)) = 0.0
@@ -33,14 +38,7 @@ Shader "MegaSplat/WorldCreatorTerrain" {
       _Cutoff("Alpha Clip", Float) = 0.5
 
 
-      // Lava
-      _LavaDiffuse("Lava Diffuse", 2D) = "white" {}
-      _LavaParams("lava blend, max, speed, interp", Vector) = (20, 1.0, 0.5, 0.5)
-      _LavaParams2("distort size, distort rate, dist uv scale", Vector) = (0.08, 0.005, 0.1, 2)
-      _LavaEdgeColor("Edge Color", Color) = (1, 0.75, 0)
-      _LavaColorLow("Color", Color) = (0.9, 0, 0)
-      _LavaColorHighlight("Highlight Color", Color) = (0.9, 0.9, 0)
-      _LavaUVScale("Lava UV Scale", Vector) = (70, 70, 0, 0)   }
+   }
    SubShader {
       Tags {"RenderType"="Opaque"}
       CGPROGRAM
@@ -50,7 +48,7 @@ Shader "MegaSplat/WorldCreatorTerrain" {
       #pragma surface surf Standard vertex:vert fullforwardshadows
       #pragma target 3.5
 
-      #define _LAVA 1
+      #define _DISTANCERESAMPLE 1
       #define _NORMALMAP 1
       #define _TERRAIN 1
       #define _TWOLAYER 1

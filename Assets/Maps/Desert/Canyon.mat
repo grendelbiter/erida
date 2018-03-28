@@ -26,6 +26,10 @@ Material:
         m_Texture: {fileID: 18700000, guid: d94a57ad870eb6f4db9446c7854d32fa, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LavaDiffuse:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Normal:
         m_Texture: {fileID: 18700000, guid: 22aade709a1817647ae6305ea3ec0064, type: 2}
         m_Scale: {x: 1, y: 1}
@@ -47,8 +51,14 @@ Material:
     - _DistanceFades: {r: 500, g: 2000, b: 1.0000118, a: 1.0000144}
     - _DistanceFadesCached: {r: 500, g: 2000, b: 1.0000118, a: 1.0000144}
     - _GlobalPorosityWetness: {r: 0.4, g: 0, b: 0, a: 0}
+    - _LavaColorHighlight: {r: 0.9, g: 0.9, b: 0, a: 1}
+    - _LavaColorLow: {r: 0.9, g: 0, b: 0, a: 1}
+    - _LavaEdgeColor: {r: 1, g: 0.75, b: 0, a: 1}
+    - _LavaParams: {r: 20, g: 1, b: 0.5, a: 0.5}
+    - _LavaParams2: {r: 0.08, g: 0.005, b: 0.1, a: 2}
+    - _LavaUVScale: {r: 70, g: 70, b: 0, a: 0}
     - _Parallax: {r: 0.08, g: 20, b: 0, a: 0}
-    - _ResampleDistanceParams: {r: 0.5, g: 80, b: 200, a: 0}
+    - _ResampleDistanceParams: {r: 0.75, g: 200, b: 300, a: 0}
     - _TessData1: {r: 4, g: 0.55, b: 5, a: 45}
     - _TessData2: {r: 21.9, g: 38.65, b: 0.17699999, a: 0.5}
     - _TexScales: {r: 200, g: 200, b: 222, a: 222}

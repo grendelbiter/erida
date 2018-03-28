@@ -574,7 +574,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1583175934443746}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000055721025}
-  m_LocalPosition: {x: 769.76685, y: 3.02, z: 613.5732}
+  m_LocalPosition: {x: 1953, y: 189.11, z: 1799.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4640036719547892}
@@ -1485,10 +1485,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   MaxHeight: 2
-  GroundForce: 15000
-  Damping: 3000
+  GroundForce: 10000
+  Damping: 1000
   Exponent: 1
-  MaxAngleDrift: 30
+  MaxAngleDrift: 45
   Rigidbody: {fileID: 54855770441511636}
 --- !u!114 &114140008208843870
 MonoBehaviour:
@@ -1532,8 +1532,8 @@ MonoBehaviour:
   Thrust: 0
   MaxForwardAcceleration: 15
   MaxReverseAcceleration: 10
-  MaxBrakingDeceleration: 30
-  AutoBrakingDeceleration: 20
+  MaxBrakingDeceleration: 500
+  AutoBrakingDeceleration: 500
   MaxSpeed: 20
   AccelerationBySpeed:
     serializedVersion: 2
@@ -1578,7 +1578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05066e93366b6fc47bb6df2c018ed3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DragCoeffs: {x: 2, y: 0.1, z: 0.2}
+  DragCoeffs: {x: 0.5, y: 0.1, z: 0.2}
 --- !u!114 &114177642258013586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1594,10 +1594,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   MaxHeight: 2
-  GroundForce: 15000
-  Damping: 3000
+  GroundForce: 10000
+  Damping: 1000
   Exponent: 1
-  MaxAngleDrift: 30
+  MaxAngleDrift: 45
   Rigidbody: {fileID: 54855770441511636}
 --- !u!114 &114201658502557050
 MonoBehaviour:
@@ -1728,10 +1728,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   MaxHeight: 2
-  GroundForce: 15000
-  Damping: 3000
+  GroundForce: 10000
+  Damping: 1000
   Exponent: 1
-  MaxAngleDrift: 30
+  MaxAngleDrift: 45
   Rigidbody: {fileID: 54855770441511636}
 --- !u!114 &114662720280791328
 MonoBehaviour:
@@ -1747,8 +1747,8 @@ MonoBehaviour:
   Thrust: 0
   MaxForwardAcceleration: 15
   MaxReverseAcceleration: 15
-  MaxBrakingDeceleration: 30
-  AutoBrakingDeceleration: 20
+  MaxBrakingDeceleration: 500
+  AutoBrakingDeceleration: 500
   MaxSpeed: 20
   AccelerationBySpeed:
     serializedVersion: 2
@@ -1811,10 +1811,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   MaxHeight: 2
-  GroundForce: 15000
-  Damping: 3000
+  GroundForce: 10000
+  Damping: 1000
   Exponent: 1
-  MaxAngleDrift: 30
+  MaxAngleDrift: 45
   Rigidbody: {fileID: 54855770441511636}
 --- !u!114 &114921916861680196
 MonoBehaviour:
@@ -1858,8 +1858,8 @@ MonoBehaviour:
   SoundSource: {fileID: 82922486547258512}
   SoundSource2: {fileID: 82699687959222610}
   MovementEngineWeight: 0.4
-  MinVolume: 0.02
-  MaxVolume: 0.2
+  MinVolume: 0.2
+  MaxVolume: 0.6
   MinPitch: 0.4
   MaxPitch: 1.2
   mat: {fileID: 2100000, guid: 87a057fc5b8b8d740956376eacaebcf7, type: 2}
