@@ -38,6 +38,9 @@ Shader "MegaSplat/WorldCreatorTerrain" {
       _Cutoff("Alpha Clip", Float) = 0.5
 
 
+      // distance noise
+      [NoScaleOffset]_DistanceNoise("Detail Noise (Lum/Normal)", 2D) = "grey" {}
+      _DistanceNoiseScaleStrengthFade("Detail Scale", Vector) = (0.1, 0.5, 100, 150)
    }
    SubShader {
       Tags {"RenderType"="Opaque"}
@@ -48,6 +51,7 @@ Shader "MegaSplat/WorldCreatorTerrain" {
       #pragma surface surf Standard vertex:vert fullforwardshadows
       #pragma target 3.5
 
+      #define _DISTANCENOISE 1
       #define _DISTANCERESAMPLE 1
       #define _NORMALMAP 1
       #define _TERRAIN 1
