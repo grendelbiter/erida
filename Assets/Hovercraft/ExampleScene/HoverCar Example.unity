@@ -246,7 +246,7 @@ Terrain:
   m_DetailObjectDistance: 100
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 2
-  m_SplatMapDistance: 8000
+  m_SplatMapDistance: 100000000
   m_HeightmapMaximumLOD: 0
   m_CastShadows: 1
   m_DrawHeightmap: 1
@@ -488,15 +488,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4320762819155436, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1953
+      value: 1892.64
       objectReference: {fileID: 0}
     - target: {fileID: 4320762819155436, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 189.11
+      value: 28.73
       objectReference: {fileID: 0}
     - target: {fileID: 4320762819155436, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1799.5
+      value: 1708.3
       objectReference: {fileID: 0}
     - target: {fileID: 4320762819155436, guid: 6cc47a00837d80245a32e6f897701f8f, type: 2}
       propertyPath: m_LocalRotation.x

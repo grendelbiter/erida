@@ -131,7 +131,7 @@ namespace Com.Wulfram3 {
             InputField userNameInputField = loginUsername.GetComponent<InputField>();
             InputField passwordInputField = loginPassword.GetComponent<InputField>();
             var user = await DepenencyInjector.Resolve<IUserController>().LoginUser(userNameInputField.text, passwordInputField.text);
-            progressLabel.text = "Provisioning assests...";
+            progressLabel.text = "Provisioning assets...";
             if (user != null)
             {
                 Connect();
